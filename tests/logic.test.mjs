@@ -83,3 +83,15 @@ test('search matches title, brand and product names', () => {
   assert.deepEqual(searchRecalls([oat, cookies, charger], 'CHARGER').map((r) => r.id), [charger.id]);
   assert.equal(searchRecalls([oat, cookies, charger], '').length, 3);
 });
+
+import { iconFor, firstBarcode } from '../src/logic.js';
+
+test('photos: fallback icon and barcode helpers', () => {
+  assert.equal(iconFor(charger), 'flash-outline');
+  assert.equal(iconFor(cookies), 'restaurant-outline', 'food icon beats the baby category');
+  assert.equal(iconFor({ categories: [] }), 'ellipsis-horizontal-circle-outline');
+  assert.equal(firstBarcode(oat), '5000169123456');
+  assert.equal(firstBarcode(cookies), null);
+  assert.equal(fromRow({ ...oatRow, image_url: 'https://x/y.jpg' }).imageUrl, 'https://x/y.jpg');
+  assert.equal(oat.imageUrl, null);
+});

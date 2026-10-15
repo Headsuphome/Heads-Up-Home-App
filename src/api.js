@@ -3,7 +3,7 @@ import { fromRow } from './logic';
 
 const FIELDS = [
   'id', 'source', 'alert_type', 'title', 'summary', 'advice', 'risk_level',
-  'categories', 'allergens', 'businesses', 'source_url', 'published_at',
+  'categories', 'allergens', 'businesses', 'source_url', 'document_url', 'image_url', 'published_at',
   'recall_products(name,barcode,pack_size,batch_codes,best_before,use_by,batch_notes)',
 ].join(',');
 
@@ -19,10 +19,35 @@ async function get(path) {
   return res.json();
 }
 
+// Same list without the photo columns, for a database that hasn't had the photos update yet.
+const BASIC_FIELDS = FIELDS.replace(',document_url,image_url', '');
+
 /** The most recent recalls, newest first. */
 export async function fetchRecalls(limit = 200) {
-  const rows = await get(`recalls?select=${encodeURIComponent(FIELDS)}&order=published_at.desc&limit=${limit}`);
-  return rows.map(fromRow);
+  const query = (fields) => `recalls?select=${encodeURIComponent(fields)}&order=published_at.desc&limit=${limit}`;
+  try {
+    return (await get(query(FIELDS))).map(fromRow);
+  } catch (e) {
+    return (await get(query(BASIC_FIELDS))).map(fromRow);
+  }
+}
+
+/**
+ * A product photo from Open Food Facts, a free shared product database.
+ * Only ever looked up by exact barcode, so it can't show the wrong product.
+ */
+export async function foodPhotoForBarcode(barcode) {
+  const code = String(barcode || '').replace(/\D/g, '');
+  if (code.length < 8) return null;
+  try {
+    const res = await fetch(`https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=image_front_url,image_url,product_name`);
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (json.status !== 1 || !json.product) return null;
+    return json.product.image_front_url || json.product.image_url || null;
+  } catch (e) {
+    return null;
+  }
 }
 
 /** Searches every recall we hold, not just the recent ones already loaded. */

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, space, tones, type } from './theme';
-import { badgeFor, friendlyDate, sourceShort } from './logic';
+import { badgeFor, friendlyDate, iconFor, sourceShort } from './logic';
 
 export function Badge({ text, tone = 'neutral' }) {
   const t = tones[tone] || tones.neutral;
@@ -27,6 +27,28 @@ export function Chip({ label, selected, onPress, accessibilityLabel }) {
   );
 }
 
+/** The product photo, or the category icon when there's no photo (or it fails to load). */
+export function Thumb({ recall, size = 64 }) {
+  const [failed, setFailed] = useState(false);
+  const box = { width: size, height: size, borderRadius: size > 80 ? radius.md : 10 };
+  if (recall.imageUrl && !failed) {
+    return (
+      <Image
+        source={{ uri: recall.imageUrl }}
+        style={[styles.thumb, box]}
+        resizeMode="contain"
+        onError={() => setFailed(true)}
+        accessibilityLabel={`Photo of ${recall.title}`}
+      />
+    );
+  }
+  return (
+    <View style={[styles.thumb, styles.thumbIcon, box]} accessibilityElementsHidden importantForAccessibility="no">
+      <Ionicons name={iconFor(recall)} size={size * 0.42} color={colors.accent} />
+    </View>
+  );
+}
+
 export function RecallCard({ recall, onPress, note }) {
   const badge = badgeFor(recall);
   return (
@@ -40,8 +62,13 @@ export function RecallCard({ recall, onPress, note }) {
         <Badge text={badge.text} tone={badge.tone} />
         <Text style={styles.meta}>{friendlyDate(recall.publishedAt)} · {sourceShort(recall.source)}</Text>
       </View>
-      <Text style={styles.cardTitle} numberOfLines={3}>{recall.title}</Text>
-      {recall.summary ? <Text style={styles.cardBody} numberOfLines={2}>{recall.summary}</Text> : null}
+      <View style={styles.cardRow}>
+        <Thumb recall={recall} />
+        <View style={{ flex: 1, gap: 4 }}>
+          <Text style={styles.cardTitle} numberOfLines={3}>{recall.title}</Text>
+          {recall.summary ? <Text style={styles.cardBody} numberOfLines={2}>{recall.summary}</Text> : null}
+        </View>
+      </View>
       {note ? (
         <View style={styles.note}>
           <Ionicons name="alert-circle" size={16} color={colors.accent} />
@@ -89,6 +116,9 @@ const styles = StyleSheet.create({
   chipText: { fontSize: 14, color: colors.ink, fontWeight: '500' },
   card: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.sm },
   cardTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: space.sm },
+  cardRow: { flexDirection: 'row', gap: space.md, alignItems: 'flex-start' },
+  thumb: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: colors.line },
+  thumbIcon: { backgroundColor: colors.accentSoft, borderColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
   meta: { fontSize: 12, color: colors.muted, flexShrink: 0 },
   cardTitle: { fontSize: 16, fontWeight: '600', lineHeight: 21, color: colors.ink },
   cardBody: { fontSize: 14, lineHeight: 20, color: colors.muted },

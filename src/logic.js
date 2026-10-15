@@ -34,6 +34,21 @@ const categoryLabels = Object.fromEntries(CATEGORIES.map((c) => [c.key, c.label]
 const allergenLabels = Object.fromEntries(ALLERGENS.map((a) => [a.key, a.label]));
 
 export const categoryLabel = (key) => categoryLabels[key] || 'Other';
+
+const categoryIcons = Object.fromEntries(CATEGORIES.map((c) => [c.key, c.icon]));
+
+/** The icon shown when a recall has no photo: its most specific category. */
+export function iconFor(recall) {
+  const cats = recall.categories || [];
+  const key = cats.find((c) => c !== 'other' && c !== 'baby-children') || cats[0] || 'other';
+  return categoryIcons[key] || categoryIcons.other;
+}
+
+/** The first barcode on a recall, if the agency published one. */
+export function firstBarcode(recall) {
+  const p = (recall.products || []).find((x) => x.barcode);
+  return p ? p.barcode : null;
+}
 export const allergenLabel = (key) => allergenLabels[key] || key;
 
 /** Turns a database row into the shape the screens use. */
@@ -50,6 +65,8 @@ export function fromRow(row) {
     allergens: row.allergens || [],
     businesses: row.businesses || [],
     sourceUrl: row.source_url,
+    documentUrl: row.document_url || null,
+    imageUrl: row.image_url || null,
     publishedAt: row.published_at,
     products: (row.recall_products || []).map((p) => ({
       name: p.name,

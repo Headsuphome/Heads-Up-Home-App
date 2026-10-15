@@ -1,9 +1,31 @@
-import React from 'react';
-import { Linking, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, Linking, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, space, type } from '../theme';
 import { Badge, Button } from '../components';
-import { badgeFor, categoryLabel, friendlyDate, sourceName } from '../logic';
+import { badgeFor, categoryLabel, firstBarcode, friendlyDate, sourceName } from '../logic';
+import { foodPhotoForBarcode } from '../api';
+
+/** The official photo if we have one; otherwise, for food with a barcode, Open Food Facts. */
+function usePhoto(recall) {
+  const [photo, setPhoto] = useState(recall.imageUrl ? { uri: recall.imageUrl, credit: 'Photo from the official notice' } : null);
+  useEffect(() => {
+    let live = true;
+    if (recall.imageUrl) {
+      setPhoto({ uri: recall.imageUrl, credit: 'Photo from the official notice' });
+      return undefined;
+    }
+    setPhoto(null);
+    const code = recall.source === 'fsa' ? firstBarcode(recall) : null;
+    if (code) {
+      foodPhotoForBarcode(code).then((uri) => {
+        if (live && uri) setPhoto({ uri, credit: 'Photo: Open Food Facts, matched by barcode. Packaging may have changed.' });
+      });
+    }
+    return () => { live = false; };
+  }, [recall.id]);
+  return [photo, setPhoto];
+}
 
 function Section({ title, children }) {
   return (
@@ -27,6 +49,7 @@ function Fact({ label, value }) {
 export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMine }) {
   const badge = badgeFor(recall);
   const products = recall.products.length ? recall.products : [{ name: recall.title, batchCodes: [] }];
+  const [photo, setPhoto] = usePhoto(recall);
 
   const share = () => {
     Share.share({ message: `${recall.title}\n\nCheck if you have this: ${recall.sourceUrl}` }).catch(() => {});
@@ -50,6 +73,27 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
         </View>
         <Text style={styles.title}>{recall.title}</Text>
         <Text style={type.small}>{friendlyDate(recall.publishedAt)} · {sourceName(recall.source)}</Text>
+
+        {photo ? (
+          <View style={styles.photoBox}>
+            <Image
+              source={{ uri: photo.uri }}
+              style={styles.photo}
+              resizeMode="contain"
+              onError={() => setPhoto(null)}
+              accessibilityLabel={`Photo of ${recall.title}`}
+            />
+            <Text style={styles.photoCredit}>{photo.credit}</Text>
+          </View>
+        ) : null}
+
+        {recall.documentUrl ? (
+          <Pressable onPress={() => Linking.openURL(recall.documentUrl)} accessibilityRole="link" style={styles.photosLink}>
+            <Ionicons name="images-outline" size={20} color={colors.ink} />
+            <Text style={styles.photosLinkText}>{photo ? 'More photos and details (PDF)' : 'View official photos (PDF)'}</Text>
+            <Ionicons name="open-outline" size={16} color={colors.muted} />
+          </Pressable>
+        ) : null}
 
         {match ? (
           <View style={styles.matchNote}>
@@ -110,6 +154,11 @@ const styles = StyleSheet.create({
   roundButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center' },
   content: { paddingHorizontal: space.xl, paddingBottom: 24, gap: 14 },
   title: { fontSize: 26, lineHeight: 31, fontWeight: '700', color: colors.ink, letterSpacing: -0.3 },
+  photoBox: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.md, gap: space.sm },
+  photo: { width: '100%', height: 220, borderRadius: radius.sm, backgroundColor: '#FFFFFF' },
+  photoCredit: { fontSize: 12, color: colors.muted },
+  photosLink: { flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 48, paddingHorizontal: 14, borderRadius: radius.md, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface },
+  photosLinkText: { flex: 1, fontSize: 15, fontWeight: '600', color: colors.ink },
   matchNote: { flexDirection: 'row', gap: 10, backgroundColor: colors.accentSoft, borderRadius: radius.md, padding: 14 },
   matchText: { flex: 1, fontSize: 14, lineHeight: 20, color: colors.accentInk },
   section: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.sm },
