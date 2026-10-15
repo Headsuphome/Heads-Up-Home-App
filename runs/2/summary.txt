@@ -1,0 +1,4 @@
+status: failure
+commit: 5722d64f6bfe3659b48ba1133bb74fa595c0dfa4
+trigger: refs/heads/android-build
+finished: 2026-10-15T20:24:34Z

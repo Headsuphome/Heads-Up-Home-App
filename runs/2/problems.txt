@@ -1,0 +1,23 @@
+7:npm error code ERESOLVE
+8:npm error ERESOLVE unable to resolve dependency tree
+9:npm error
+10:npm error While resolving: heads-up-home-app@0.1.0
+11:npm error Found: react-native@0.88.0-rc.4
+12:npm error node_modules/react-native
+13:npm error   react-native@"0.88.0-rc.4" from the root project
+14:npm error
+15:npm error Could not resolve dependency:
+16:npm error peer react-native@"^0.0.0-0 || >=0.65 <1.0" from @react-native-async-storage/async-storage@2.2.0
+17:npm error node_modules/@react-native-async-storage/async-storage
+18:npm error   @react-native-async-storage/async-storage@"2.2.0" from the root project
+19:npm error
+20:npm error Fix the upstream dependency conflict, or retry
+21:npm error this command with --force or --legacy-peer-deps
+22:npm error to accept an incorrect (and potentially broken) dependency resolution.
+23:npm error
+24:npm error
+25:npm error For a full report see:
+26:npm error /home/runner/.npm/_logs/2026-10-15T20_24_02_977Z-eresolve-report.txt
+27:npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-10-15T20_24_02_977Z-debug-0.log
+28:Error: npm install exited with non-zero code: 1
+29:Error: npm install exited with non-zero code: 1
