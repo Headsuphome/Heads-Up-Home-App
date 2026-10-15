@@ -1,0 +1,15 @@
+106:Error: Cannot find module './utils/autoAddConfigPlugins.js'
+113:Error: Cannot find module './utils/autoAddConfigPlugins.js'
+223: - Error and warning improvements
+230:> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+231:> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+232:> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+233:> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+259:FAILURE: Build failed with an exception.
+264:* What went wrong:
+273:* Exception is:
+274:org.gradle.api.GradleScriptException: A problem occurred evaluating settings 'android'.
+427:Caused by: kotlinx.serialization.MissingFieldException: Field 'version' is required for type with serial name 'expo.modules.plugin.configuration.Publication', but it was missing at path: $.modules[7].projects[0].publication
+475:Caused by: kotlinx.serialization.MissingFieldException: Field 'version' is required for type with serial name 'expo.modules.plugin.configuration.Publication', but it was missing
+476:	at kotlinx.serialization.internal.PluginExceptionsKt.throwMissingFieldException(PluginExceptions.kt:20)
+490:BUILD FAILED in 1m 15s

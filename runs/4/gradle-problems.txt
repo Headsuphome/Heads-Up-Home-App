@@ -1,0 +1,127 @@
+13-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+14-File system watching is active
+15-Starting Build
+16:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })
+17:Successfully started process 'command 'node''
+18:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('expo-modules-autolinking/package.json', { paths: [require.resolve('expo/package.json')] })
+19:Successfully started process 'command 'node''
+20-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+21-Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '1.0.0']
+22-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-autolinking/android/expo-gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+23-
+24-> Configure project :gradle-plugin
+25-Evaluating project ':gradle-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin/build.gradle.kts'.
+26-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20', apply: false]
+27-Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+28-
+29-> Configure project :gradle-plugin:react-native-gradle-plugin
+30-Evaluating project ':gradle-plugin:react-native-gradle-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin/react-native-gradle-plugin/build.gradle.kts'.
+31-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+32-Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+33-Resolved plugin [id: 'java-gradle-plugin']
+34-Build d2f9a0ee-da14-40b9-abb6-4d6c830360c0 is started
+35-Using Kotlin Gradle Plugin gradle85 variant
+36-kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+37-kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+38-
+39-> Configure project :gradle-plugin:settings-plugin
+40-Evaluating project ':gradle-plugin:settings-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin/settings-plugin/build.gradle.kts'.
+41-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+42-Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+43-Resolved plugin [id: 'java-gradle-plugin']
+44-Using Kotlin Gradle Plugin gradle85 variant
+--
+276-  Build cache is disabled
+277-  Not worth caching
+278-Skipping task ':expo-gradle-plugin:expo-autolinking-settings-plugin:jar' as it is up-to-date.
+279:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('expo-modules-autolinking/package.json', { paths: [require.resolve('expo/package.json')] })
+280:Successfully started process 'command 'node''
+281:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --no-warnings --eval require('expo/bin/autolinking') expo-modules-autolinking resolve --platform android --json
+282:Successfully started process 'command 'node''
+283-Build c5e2da1f-ba25-424d-b63b-469bd08bbb74 is closed
+284-Build d2f9a0ee-da14-40b9-abb6-4d6c830360c0 is closed
+285-
+286-[Incubating] Problems report is available at: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android/build/reports/problems/problems-report.html
+287-
+288-FAILURE: Build failed with an exception.
+289-
+290-* Where:
+291-Settings file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android/settings.gradle' line: 32
+292-
+293:* What went wrong:
+294-A problem occurred evaluating settings 'android'.
+295-> Field 'version' is required for type with serial name 'expo.modules.plugin.configuration.Publication', but it was missing at path: $.modules[7].projects[0].publication
+296-
+297-* Try:
+298-> Run with --debug option to get more log output.
+299-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+300-> Get more help at https://help.gradle.org.
+301-
+302-* Exception is:
+303-org.gradle.api.GradleScriptException: A problem occurred evaluating settings 'android'.
+304-	at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:93)
+305-	at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl.lambda$apply$1(DefaultScriptPluginFactory.java:141)
+306-	at org.gradle.configuration.DefaultScriptTarget.addConfiguration(DefaultScriptTarget.java:74)
+307-	at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl.apply(DefaultScriptPluginFactory.java:144)
+308-	at org.gradle.configuration.BuildOperationScriptPlugin$1.run(BuildOperationScriptPlugin.java:68)
+309-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+310-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+311-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+312-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+313-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+314-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+315-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+316-	at org.gradle.configuration.BuildOperationScriptPlugin.lambda$apply$0(BuildOperationScriptPlugin.java:65)
+317-	at org.gradle.internal.code.DefaultUserCodeApplicationContext.apply(DefaultUserCodeApplicationContext.java:44)
+318-	at org.gradle.configuration.BuildOperationScriptPlugin.apply(BuildOperationScriptPlugin.java:65)
+--
+453-	at org.gradle.launcher.daemon.server.DaemonStateCoordinator.lambda$runCommand$0(DaemonStateCoordinator.java:321)
+454-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+455-	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+456:Caused by: kotlinx.serialization.MissingFieldException: Field 'version' is required for type with serial name 'expo.modules.plugin.configuration.Publication', but it was missing at path: $.modules[7].projects[0].publication
+457-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:95)
+458-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableValue(AbstractDecoder.kt:43)
+459-	at kotlinx.serialization.encoding.AbstractDecoder.decodeNullableSerializableElement(AbstractDecoder.kt:78)
+460-	at expo.modules.plugin.configuration.GradleProject$$serializer.deserialize(ExpoAutolinkingConfig.kt:100)
+461-	at expo.modules.plugin.configuration.GradleProject$$serializer.deserialize(ExpoAutolinkingConfig.kt:100)
+462-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:69)
+463-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableValue(AbstractDecoder.kt:43)
+464-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableElement(AbstractDecoder.kt:70)
+465-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableElement(StreamingJsonDecoder.kt:168)
+466-	at kotlinx.serialization.encoding.CompositeDecoder$DefaultImpls.decodeSerializableElement$default(Decoding.kt:538)
+467-	at kotlinx.serialization.internal.CollectionLikeSerializer.readElement(CollectionSerializers.kt:80)
+468-	at kotlinx.serialization.internal.AbstractCollectionSerializer.readElement$default(CollectionSerializers.kt:51)
+469-	at kotlinx.serialization.internal.AbstractCollectionSerializer.merge(CollectionSerializers.kt:36)
+470-	at kotlinx.serialization.internal.AbstractCollectionSerializer.deserialize(CollectionSerializers.kt:43)
+471-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:69)
+472-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableValue(AbstractDecoder.kt:43)
+473-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableElement(AbstractDecoder.kt:70)
+474-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableElement(StreamingJsonDecoder.kt:168)
+475-	at expo.modules.plugin.configuration.ExpoModule$$serializer.deserialize(ExpoAutolinkingConfig.kt:81)
+476-	at expo.modules.plugin.configuration.ExpoModule$$serializer.deserialize(ExpoAutolinkingConfig.kt:81)
+477-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:69)
+478-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableValue(AbstractDecoder.kt:43)
+479-	at kotlinx.serialization.encoding.AbstractDecoder.decodeSerializableElement(AbstractDecoder.kt:70)
+480-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableElement(StreamingJsonDecoder.kt:168)
+481-	at kotlinx.serialization.encoding.CompositeDecoder$DefaultImpls.decodeSerializableElement$default(Decoding.kt:538)
+--
+501-	at settings_6dgbvrg4tgm5iabinxrzwigmt.run(/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android/settings.gradle:32)
+502-	at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:91)
+503-	... 151 more
+504:Caused by: kotlinx.serialization.MissingFieldException: Field 'version' is required for type with serial name 'expo.modules.plugin.configuration.Publication', but it was missing
+505-	at kotlinx.serialization.internal.PluginExceptionsKt.throwMissingFieldException(PluginExceptions.kt:20)
+506-	at expo.modules.plugin.configuration.Publication.<init>(ExpoAutolinkingConfig.kt:89)
+507-	at expo.modules.plugin.configuration.Publication$$serializer.deserialize(ExpoAutolinkingConfig.kt:89)
+508-	at expo.modules.plugin.configuration.Publication$$serializer.deserialize(ExpoAutolinkingConfig.kt:89)
+509-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:69)
+510-	... 196 more
+511-
+512-
+513-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+514-
+515-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+516-
+517-For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+518-
+519-BUILD FAILED in 10s
+520-12 actionable tasks: 12 up-to-date
