@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Heads Up Home",
+    "slug": "heads-up-home",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F3F5F7",
+    "ios": { "bundleIdentifier": "uk.co.headsuphome.app", "supportsTablet": false },
+    "android": { "package": "uk.co.headsuphome.app" }
+  }
+}
