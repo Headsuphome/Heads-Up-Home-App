@@ -119,5 +119,6 @@ test('colour and summary helpers', () => {
   const now = new Date('2026-10-15T12:00:00Z');
   const list = [{ publishedAt: '2026-10-14T00:00:00Z' }, { publishedAt: '2026-10-09T00:00:00Z' }, { publishedAt: '2026-09-01T00:00:00Z' }];
   assert.equal(recentCount(list, 7, now), 2);
-  assert.equal(recentCount(list, 1, now), 1);
+  assert.equal(recentCount(list, 2, now), 1);
+  assert.equal(recentCount(list, 1, now), 0);
 });
