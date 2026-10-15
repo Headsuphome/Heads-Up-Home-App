@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, Linking, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, space, type } from '../theme';
 import { EmptyState, RecallCard, SectionLabel } from '../components';
@@ -83,6 +83,19 @@ export default function BrowseScreen({ recalls, openRecall }) {
               </Pressable>
             ))}
           </View>
+
+          <Pressable
+            onPress={() => Linking.openURL('https://www.gov.uk/check-vehicle-recall')}
+            accessibilityRole="link"
+            style={({ pressed }) => [styles.vehicle, pressed && { opacity: 0.85 }]}
+          >
+            <Ionicons name="car-outline" size={26} color={colors.ink} />
+            <View style={{ flex: 1, gap: 2 }}>
+              <Text style={styles.tileLabel}>Cars, car seats and tyres</Text>
+              <Text style={type.small}>Check on the government's official vehicle recall service</Text>
+            </View>
+            <Ionicons name="open-outline" size={18} color={colors.muted} />
+          </Pressable>
         </View>
       ) : (
         <Text style={type.small}>{results.length} {results.length === 1 ? 'recall' : 'recalls'}</Text>
@@ -111,4 +124,5 @@ const styles = StyleSheet.create({
   tile: { width: '48%', flexGrow: 1, minHeight: 92, padding: 14, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, justifyContent: 'space-between', gap: space.sm },
   tileLabel: { fontSize: 15, fontWeight: '600', color: colors.ink },
   activeCategory: { flexDirection: 'row', alignItems: 'center', gap: 4, minHeight: 44 },
+  vehicle: { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 10, padding: 14, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line },
 });

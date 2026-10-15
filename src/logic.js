@@ -9,6 +9,7 @@ export const CATEGORIES = [
   { key: 'home-furniture', label: 'Home & furniture', icon: 'bed-outline' },
   { key: 'cosmetics', label: 'Cosmetics', icon: 'color-palette-outline' },
   { key: 'clothing', label: 'Clothing & accessories', icon: 'shirt-outline' },
+  { key: 'medicines', label: 'Medicines & health', icon: 'medkit-outline' },
   { key: 'other', label: 'Other', icon: 'ellipsis-horizontal-circle-outline' },
 ];
 
@@ -80,8 +81,15 @@ export function fromRow(row) {
   };
 }
 
-export const sourceName = (source) => (source === 'fsa' ? 'Food Standards Agency' : 'Office for Product Safety and Standards');
-export const sourceShort = (source) => (source === 'fsa' ? 'FSA' : 'OPSS');
+const SOURCES = {
+  fsa: { name: 'Food Standards Agency', short: 'FSA' },
+  fss: { name: 'Food Standards Scotland', short: 'FSS' },
+  opss: { name: 'Office for Product Safety and Standards', short: 'OPSS' },
+  mhra: { name: 'Medicines and Healthcare products Regulatory Agency', short: 'MHRA' },
+};
+export const sourceName = (source) => (SOURCES[source] || SOURCES.opss).name;
+export const sourceShort = (source) => (SOURCES[source] || SOURCES.opss).short;
+const isFood = (recall) => recall.source === 'fsa' || recall.source === 'fss';
 
 /**
  * The coloured label on each recall. `tone` picks the colour:
@@ -92,6 +100,15 @@ export function badgeFor(recall) {
     const names = recall.allergens.map(allergenLabel);
     return { text: names.length ? `Allergy · ${names.slice(0, 2).join(', ')}` : 'Allergy alert', tone: 'warning' };
   }
+  if (recall.source === 'mhra') {
+    if (recall.alertType === 'safety-alert') return { text: 'Health device alert', tone: 'warning' };
+    switch (recall.riskLevel) {
+      case 'serious': return { text: 'Urgent medicine recall', tone: 'danger' };
+      case 'high': return { text: 'Medicine recall', tone: 'danger' };
+      case 'medium': return { text: 'Medicine recall', tone: 'warning' };
+      default: return { text: 'Medicine notice', tone: 'neutral' };
+    }
+  }
   switch (recall.riskLevel) {
     case 'serious': return { text: 'Serious risk', tone: 'danger' };
     case 'high': return { text: 'High risk', tone: 'danger' };
@@ -99,7 +116,7 @@ export function badgeFor(recall) {
     case 'low': return { text: 'Low risk', tone: 'neutral' };
     default: break;
   }
-  if (recall.source === 'fsa') return { text: 'Food recall', tone: 'info' };
+  if (isFood(recall)) return { text: 'Food recall', tone: 'info' };
   if (recall.alertType === 'safety-alert') return { text: 'Safety alert', tone: 'warning' };
   return { text: 'Product recall', tone: 'info' };
 }

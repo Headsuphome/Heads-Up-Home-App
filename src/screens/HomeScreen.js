@@ -10,6 +10,7 @@ const FILTERS = [
   { key: 'all', label: 'All' },
   { key: 'food-drink', label: 'Food' },
   { key: 'baby-children', label: 'Baby' },
+  { key: 'medicines', label: 'Medicines' },
   { key: 'electrical', label: 'Electrical' },
   { key: 'toys', label: 'Toys' },
   { key: 'trades-tools', label: 'Tools' },

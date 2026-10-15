@@ -16,7 +16,7 @@ function usePhoto(recall) {
       return undefined;
     }
     setPhoto(null);
-    const code = recall.source === 'fsa' ? firstBarcode(recall) : null;
+    const code = recall.source === 'fsa' || recall.source === 'fss' ? firstBarcode(recall) : null;
     if (code) {
       foodPhotoForBarcode(code).then((uri) => {
         if (live && uri) setPhoto({ uri, credit: 'Photo: Open Food Facts, matched by barcode. Packaging may have changed.' });
@@ -117,7 +117,7 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
               <View style={styles.facts}>
                 <Fact label="Pack size" value={p.packSize} />
                 <Fact label="Batch code" value={p.batchCodes && p.batchCodes.length ? p.batchCodes.join(', ') : null} />
-                <Fact label="Best before" value={p.bestBefore} />
+                <Fact label={recall.source === 'mhra' ? 'Expiry' : 'Best before'} value={p.bestBefore ? p.bestBefore.replace(/^Expiry:\s*/, '') : null} />
                 <Fact label="Use by" value={p.useBy} />
                 <Fact label="Barcode" value={p.barcode} />
               </View>

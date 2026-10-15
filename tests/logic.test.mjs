@@ -95,3 +95,17 @@ test('photos: fallback icon and barcode helpers', () => {
   assert.equal(fromRow({ ...oatRow, image_url: 'https://x/y.jpg' }).imageUrl, 'https://x/y.jpg');
   assert.equal(oat.imageUrl, null);
 });
+
+import { sourceName, sourceShort } from '../src/logic.js';
+
+test('medicines and Scotland sources are labelled clearly', () => {
+  const med = fromRow({ ...oatRow, id: 'mhra:EL26A41', source: 'mhra', alert_type: 'recall', risk_level: 'medium', categories: ['medicines'] });
+  assert.deepEqual(badgeFor(med), { text: 'Medicine recall', tone: 'warning' });
+  assert.deepEqual(badgeFor({ ...med, riskLevel: 'serious' }), { text: 'Urgent medicine recall', tone: 'danger' });
+  assert.deepEqual(badgeFor({ ...med, alertType: 'safety-alert', riskLevel: null }), { text: 'Health device alert', tone: 'warning' });
+  assert.equal(iconFor(med), 'medkit-outline');
+  const scot = fromRow({ ...oatRow, id: 'fss:x', source: 'fss' });
+  assert.deepEqual(badgeFor(scot), { text: 'Food recall', tone: 'info' });
+  assert.equal(sourceShort('fss'), 'FSS');
+  assert.equal(sourceName('mhra'), 'Medicines and Healthcare products Regulatory Agency');
+});
