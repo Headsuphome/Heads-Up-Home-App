@@ -4,8 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, space, type } from '../theme';
 import { Button, EmptyState, SectionLabel } from '../components';
 import { newId } from '../storage';
+import { FREE_CUPBOARD_LIMIT, canAddToCupboard, isPremium } from '../plans';
 
-export default function CupboardScreen({ prefs, update, matches, recallsById, openRecall }) {
+export default function CupboardScreen({ prefs, update, matches, recallsById, openRecall, openPremium }) {
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
@@ -16,9 +17,14 @@ export default function CupboardScreen({ prefs, update, matches, recallsById, op
   const clear = prefs.cupboard.filter((i) => !matchByItem[i.id]);
   const flagged = (prefs.flagged || []).filter((f) => recallsById[f.recallId] || f.title);
 
+  const premium = isPremium(prefs);
+  const canAdd = canAddToCupboard(prefs);
+  const fullMessage = `Your free cupboard holds ${FREE_CUPBOARD_LIMIT} items. Premium gives you an unlimited cupboard, plus scanning when it arrives.`;
+
   const save = () => {
     const n = name.trim();
     if (!n) return;
+    if (!canAddToCupboard(prefs)) { setAdding(false); openPremium(fullMessage); return; }
     update((p) => ({ cupboard: [{ id: newId(), name: n, brand: brand.trim() || null, barcode: null, dismissed: [], addedAt: new Date().toISOString() }, ...p.cupboard] }));
     setName('');
     setBrand('');
@@ -34,7 +40,7 @@ export default function CupboardScreen({ prefs, update, matches, recallsById, op
 
   const doneWith = (recallId) => update((p) => ({ flagged: (p.flagged || []).filter((f) => f.recallId !== recallId) }));
 
-  const soon = (what) => Alert.alert(`${what} is coming next`, 'For now, add items by typing the product name and brand. It works the same way for matching.');
+  const soon = (what) => Alert.alert(`${what} is coming soon`, `It'll be part of Premium. For now, add items by typing the product name and brand: it works the same way for matching.`);
 
   return (
     <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
@@ -56,17 +62,31 @@ export default function CupboardScreen({ prefs, update, matches, recallsById, op
         </View>
       ) : (
         <View style={{ gap: 10 }}>
-          <Button label="Add an item" icon="add-circle-outline" onPress={() => setAdding(true)} />
+          {canAdd ? (
+            <Button label="Add an item" icon="add-circle-outline" onPress={() => setAdding(true)} />
+          ) : (
+            <Pressable onPress={() => openPremium(fullMessage)} accessibilityRole="button" style={styles.full}>
+              <Ionicons name="sparkles" size={22} color={colors.accent} />
+              <View style={{ flex: 1 }}>
+                <Text style={[type.body, { fontWeight: '700', color: colors.accentInk }]}>Your cupboard is full</Text>
+                <Text style={[type.small, { color: colors.accentInk }]}>Go Premium for an unlimited cupboard</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={18} color={colors.accentInk} />
+            </Pressable>
+          )}
+          {!premium ? (
+            <Text style={[type.small, { textAlign: 'center' }]}>{prefs.cupboard.length} of {FREE_CUPBOARD_LIMIT} free items used</Text>
+          ) : null}
           <View style={{ flexDirection: 'row', gap: 10 }}>
             <Pressable onPress={() => soon('Barcode scanning')} style={styles.soon} accessibilityRole="button">
               <Ionicons name="barcode-outline" size={22} color={colors.muted} />
               <Text style={styles.soonText}>Scan barcode</Text>
-              <Text style={styles.soonTag}>Coming soon</Text>
+              <Text style={styles.soonTag}>Premium · coming soon</Text>
             </Pressable>
             <Pressable onPress={() => soon('Receipt scanning')} style={styles.soon} accessibilityRole="button">
               <Ionicons name="receipt-outline" size={22} color={colors.muted} />
               <Text style={styles.soonText}>Snap a receipt</Text>
-              <Text style={styles.soonTag}>Coming soon</Text>
+              <Text style={styles.soonTag}>Premium · coming soon</Text>
             </Pressable>
           </View>
         </View>
@@ -152,6 +172,7 @@ const styles = StyleSheet.create({
   input: { height: 48, borderRadius: 12, borderWidth: 1, borderColor: colors.lineStrong, paddingHorizontal: 12, fontSize: 16, color: colors.ink, backgroundColor: colors.bg, marginBottom: 6 },
   soon: { flex: 1, minHeight: 88, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, borderStyle: 'dashed', alignItems: 'center', justifyContent: 'center', gap: 4, padding: 10 },
   soonText: { fontSize: 14, fontWeight: '600', color: colors.muted },
+  full: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 14, borderRadius: radius.lg, backgroundColor: colors.accentSoft },
   soonTag: { fontSize: 11, color: colors.muted },
   list: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 14, paddingVertical: 12, minHeight: 52 },

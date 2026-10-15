@@ -5,6 +5,7 @@ import { colorFor, colors, radius, space, type } from '../theme';
 import { Button, CategoryIcon, Chip, SectionLabel } from '../components';
 import { ALLERGENS, CATEGORIES } from '../logic';
 import { toggle } from '../storage';
+import { PRICES, TRIAL_DAYS, startTrial } from '../plans';
 
 const PROMISES = [
   { icon: 'albums-outline', category: 'electrical', text: 'Every UK recall in one place: food, products and medicines' },
@@ -14,8 +15,8 @@ const PROMISES = [
 
 function Dots({ step }) {
   return (
-    <View style={styles.dots} accessibilityLabel={`Step ${step + 1} of 3`}>
-      {[0, 1, 2].map((i) => <View key={i} style={[styles.dot, i === step && styles.dotOn]} />)}
+    <View style={styles.dots} accessibilityLabel={`Step ${step + 1} of 4`}>
+      {[0, 1, 2, 3].map((i) => <View key={i} style={[styles.dot, i === step && styles.dotOn]} />)}
     </View>
   );
 }
@@ -87,6 +88,32 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
     );
   }
 
+  if (step === 3) {
+    const tryIt = () => {
+      const changes = startTrial(prefs);
+      if (changes) update(changes);
+      onFinish();
+    };
+    return (
+      <ScrollView contentContainerStyle={styles.page}>
+        <Dots step={3} />
+        <View style={[styles.bell, { backgroundColor: '#FFEDD5' }]}>
+          <Ionicons name="sparkles" size={42} color={colors.accent} />
+        </View>
+        <View style={{ gap: 8 }}>
+          <Text style={styles.title}>Try Premium free for {TRIAL_DAYS} days</Text>
+          <Text style={type.body}>An unlimited cupboard for everything in your home, with barcode and receipt scanning and family sharing on the way.</Text>
+          <Text style={type.small}>No payment details needed. After the trial you keep everything in Free, or carry on with Premium from {PRICES.premiumMonthly} a month.</Text>
+        </View>
+        <View style={{ flex: 1 }} />
+        <View style={{ gap: 10 }}>
+          <Button label="Start my free trial" icon="sparkles-outline" onPress={tryIt} />
+          <Button label="Maybe later" kind="secondary" onPress={onFinish} />
+        </View>
+      </ScrollView>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.page}>
       <Dots step={2} />
@@ -117,10 +144,10 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
       {!result ? (
         <View style={{ gap: 10 }}>
           <Button label="Turn on alerts" icon="notifications-outline" onPress={turnOn} />
-          <Button label="Not now" kind="secondary" onPress={onFinish} />
+          <Button label="Not now" kind="secondary" onPress={() => setStep(3)} />
         </View>
       ) : (
-        <Button label="Start using Heads Up Home" onPress={onFinish} />
+        <Button label="Next" onPress={() => setStep(3)} />
       )}
     </ScrollView>
   );

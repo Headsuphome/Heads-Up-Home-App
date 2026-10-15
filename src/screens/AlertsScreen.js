@@ -5,13 +5,14 @@ import { colors, radius, space, type } from '../theme';
 import { Button, Chip, SectionLabel } from '../components';
 import { ALLERGENS, CATEGORIES } from '../logic';
 import { toggle } from '../storage';
+import { isPremium, planLabel } from '../plans';
 
 const TIMINGS = [
   { key: 'instant', label: 'Instantly' },
   { key: 'daily', label: 'Daily summary' },
 ];
 
-export default function AlertsScreen({ prefs, update, account = {}, onEnableAlerts, onTestAlert }) {
+export default function AlertsScreen({ prefs, update, account = {}, onEnableAlerts, onTestAlert, openPremium }) {
   const alertsOn = account.status === 'ready' && account.permission !== false;
   return (
     <ScrollView contentContainerStyle={styles.content}>
@@ -55,6 +56,15 @@ export default function AlertsScreen({ prefs, update, account = {}, onEnableAler
         </Text>
       </View>
 
+      <Pressable onPress={() => openPremium()} accessibilityRole="button" style={styles.planCard}>
+        <Ionicons name="sparkles" size={22} color="#FDBA74" />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.planTitle}>{planLabel(prefs)}</Text>
+          <Text style={styles.planSub}>{isPremium(prefs) ? 'Unlimited cupboard and Premium features' : 'See what Premium and Trade add'}</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={18} color="#CBD5E1" />
+      </Pressable>
+
       <View style={styles.account}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
           <View style={[styles.accountIcon, { backgroundColor: alertsOn ? colors.okSoft : colors.accentSoft }]}>
@@ -83,6 +93,9 @@ const styles = StyleSheet.create({
   segmentItem: { flex: 1, minHeight: 44, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   segmentOn: { backgroundColor: colors.surface },
   segmentText: { fontSize: 14, fontWeight: '600', color: '#374151' },
+  planCard: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: space.lg, borderRadius: radius.lg, backgroundColor: colors.ink },
+  planTitle: { fontSize: 16, fontWeight: '700', color: '#FFFFFF' },
+  planSub: { fontSize: 13, color: '#CBD5E1' },
   account: { gap: space.md, padding: space.lg, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
   accountIcon: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
 });

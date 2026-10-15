@@ -12,6 +12,9 @@ export const DEFAULT_PREFS = {
   timing: 'instant',
   cupboard: [],
   onboarded: false,
+  plan: 'free',        // 'free' | 'premium' | 'trade' once payments are connected
+  trialUsed: false,
+  trialEndsAt: null,
 };
 
 export function usePrefs() {

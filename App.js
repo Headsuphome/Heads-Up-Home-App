@@ -14,6 +14,7 @@ import CupboardScreen from './src/screens/CupboardScreen';
 import AlertsScreen from './src/screens/AlertsScreen';
 import DetailScreen from './src/screens/DetailScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
+import PremiumScreen from './src/screens/PremiumScreen';
 import { enableNotifications, ensureAccount, getSession, sendTestAlert, syncToAccount } from './src/account';
 
 const TABS = [
@@ -29,6 +30,7 @@ function Main() {
   const [account, setAccount] = useState({ status: 'unknown', permission: null, note: null });
   const [tab, setTab] = useState('home');
   const [open, setOpen] = useState(null); // the recall being viewed, if any
+  const [premium, setPremium] = useState(null); // { reason } while the plans screen is open
   const [recalls, setRecalls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -88,18 +90,20 @@ function Main() {
   // Android back button closes a recall before leaving the app.
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (premium) { setPremium(null); return true; }
       if (open) { setOpen(null); return true; }
       if (tab !== 'home') { setTab('home'); return true; }
       return false;
     });
     return () => sub.remove();
-  }, [open, tab]);
+  }, [open, tab, premium]);
 
   const matches = useMemo(() => cupboardMatches(prefs.cupboard, recalls), [prefs.cupboard, recalls]);
   const recallsById = useMemo(() => Object.fromEntries(recalls.map((r) => [r.id, r])), [recalls]);
 
   const openRecall = useCallback((recall) => setOpen(recall), []);
   const goTo = useCallback((key) => { setOpen(null); setTab(key); }, []);
+  const openPremium = useCallback((reason) => setPremium({ reason: typeof reason === 'string' ? reason : null }), []);
 
   const haveIt = (recall) => {
     update((p) => {
@@ -120,7 +124,7 @@ function Main() {
     setOpen(null);
   };
 
-  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert };
+  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, openPremium };
 
   if (!ready) {
     return (
@@ -140,7 +144,9 @@ function Main() {
   }
 
   let screen;
-  if (open) {
+  if (premium) {
+    screen = <PremiumScreen prefs={prefs} update={update} reason={premium.reason} onClose={() => setPremium(null)} />;
+  } else if (open) {
     const match = matches.find((m) => m.recall.id === open.id) || null;
     screen = <DetailScreen recall={open} match={match} onBack={() => setOpen(null)} onHaveIt={haveIt} onNotMine={notMine} />;
   } else if (tab === 'browse') {
@@ -157,7 +163,7 @@ function Main() {
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar style="dark" />
       <View style={{ flex: 1 }}>{screen}</View>
-      {!open ? (
+      {!open && !premium ? (
         <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 10) }]} accessibilityRole="tablist">
           {TABS.map((t) => {
             const on = tab === t.key;
