@@ -2,15 +2,15 @@
 # and puts it on the repository's Releases page, ready to download on a phone.
 #
 # Start it from the Actions tab (Android test build → Run workflow), or by pushing
-# a tag that starts with "android-build-". Each run also saves a short report to
-# the "build-logs" branch.
+# to the "android-build" branch. Each run also saves a short report to the
+# "build-logs" branch.
 
 name: Android test build
 
 on:
   workflow_dispatch:
   push:
-    tags: ['android-build-*']
+    branches: [android-build]
 
 permissions:
   contents: write
