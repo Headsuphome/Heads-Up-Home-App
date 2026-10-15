@@ -28,7 +28,7 @@ if [ -f "$LOG" ]; then
   tail -n 4000 "$LOG" > "$OUT/build-tail.log"
   grep -n -i -E "error|failed|exception|what went wrong" "$LOG" | head -400 > "$OUT/problems.txt" || true
 fi
-cp "$GITHUB_WORKSPACE/package.json" "$OUT/" 2>/dev/null || true
+cp "$GITHUB_WORKSPACE/package.json" "$GITHUB_WORKSPACE/app.json" "$OUT/" 2>/dev/null || true
 cp "$GITHUB_WORKSPACE/package-lock.json" "$OUT/" 2>/dev/null || true
 
 git -C "$DIR" config user.name "Heads Up Home build"
