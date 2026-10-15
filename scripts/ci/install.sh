@@ -37,3 +37,6 @@ mv app.config.js.hold app.config.js
 
 echo "Libraries chosen for this build:"
 node -p "JSON.stringify(require('./package.json').dependencies, null, 2)"
+
+# A health check that lists any libraries from the wrong Expo version (for the report only).
+npx expo-doctor || true
