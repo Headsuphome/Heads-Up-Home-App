@@ -1,0 +1,5 @@
+1:npm error code ETARGET
+2:npm error notarget No matching version found for @expo/cli@^58.1.9.
+3:npm error notarget In most cases you or one of your dependencies are requesting
+4:npm error notarget a package version that doesn't exist.
+5:npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-10-15T20_02_21_114Z-debug-0.log
