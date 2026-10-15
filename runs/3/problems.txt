@@ -1,0 +1,24 @@
+79:npm error code ECONNRESET
+80:npm error syscall read
+81:npm error errno -104
+82:npm error network read ECONNRESET
+83:npm error network This is a problem related to network connectivity.
+84:npm error network In most cases you are behind a proxy or have bad network settings.
+85:npm error network
+86:npm error network If you are behind a proxy, please make sure that the
+87:npm error network 'proxy' config is set properly.  See: 'npm help config'
+88:npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-10-15T20_45_18_770Z-debug-0.log
+89:Error: npm install exited with non-zero code: 152
+90:Error: npm install exited with non-zero code: 152
+192: - Error and warning improvements
+199:> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+200:> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+201:> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+202:> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+225:> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+226:> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+227:> Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+228:> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+296:FAILURE: Build failed with an exception.
+298:* What went wrong:
+313:BUILD FAILED in 2m 33s
