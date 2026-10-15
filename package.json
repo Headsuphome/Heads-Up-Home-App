@@ -16,6 +16,7 @@
     "expo-constants": "*",
     "expo-notifications": "*",
     "expo-status-bar": "*",
+    "expo-system-ui": "*",
     "react": "*",
     "react-native": "*",
     "react-native-safe-area-context": "*"

@@ -28,6 +28,10 @@ if [ -f "$LOG" ]; then
   tail -n 4000 "$LOG" > "$OUT/build-tail.log"
   grep -n -i -E "error|failed|exception|what went wrong" "$LOG" | head -400 > "$OUT/problems.txt" || true
 fi
+if [ -f "$GITHUB_WORKSPACE/gradle-detail.log" ]; then
+  tail -n 3000 "$GITHUB_WORKSPACE/gradle-detail.log" > "$OUT/gradle-detail.log"
+  grep -n -B3 -A25 -E "command 'node'|What went wrong|Caused by" "$GITHUB_WORKSPACE/gradle-detail.log" | head -600 > "$OUT/gradle-problems.txt" || true
+fi
 cp "$GITHUB_WORKSPACE/package.json" "$GITHUB_WORKSPACE/app.json" "$OUT/" 2>/dev/null || true
 cp "$GITHUB_WORKSPACE/package-lock.json" "$OUT/" 2>/dev/null || true
 

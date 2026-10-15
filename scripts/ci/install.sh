@@ -25,7 +25,14 @@ echo "Building with Expo $(node -p "require('expo/package.json').version")"
 # exists, so set that file aside for a moment.
 mv app.config.js app.config.js.hold
 trap 'mv app.config.js.hold app.config.js 2>/dev/null || true' EXIT
-npx expo install $LIBS || npx expo install $LIBS -- --legacy-peer-deps
+# Try a few times: a dropped connection to npm shouldn't fail the whole build.
+ok=""
+for attempt in 1 2 3; do
+  if npx expo install $LIBS; then ok=1; break; fi
+  echo "Install attempt $attempt didn't finish; trying again in 20 seconds."
+  sleep 20
+done
+[ -n "$ok" ]
 mv app.config.js.hold app.config.js
 
 echo "Libraries chosen for this build:"
