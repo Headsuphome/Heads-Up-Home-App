@@ -4,9 +4,16 @@
     "slug": "heads-up-home",
     "version": "0.1.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "backgroundColor": "#F3F5F7",
     "ios": { "bundleIdentifier": "uk.co.headsuphome.app", "supportsTablet": false },
-    "android": { "package": "uk.co.headsuphome.app" }
+    "android": {
+      "package": "uk.co.headsuphome.app",
+      "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#0E1A2B" }
+    },
+    "plugins": [
+      ["expo-notifications", { "icon": "./assets/notification-icon.png", "color": "#EA580C", "defaultChannel": "recalls" }]
+    ]
   }
 }

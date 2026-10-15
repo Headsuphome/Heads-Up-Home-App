@@ -3,9 +3,10 @@ import { ActivityIndicator, Alert, BackHandler, Pressable, StyleSheet, Text, Vie
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import * as Notifications from 'expo-notifications';
 
 import { colors } from './src/theme';
-import { fetchRecalls } from './src/api';
+import { fetchRecall, fetchRecalls } from './src/api';
 import { cupboardMatches } from './src/logic';
 import { usePrefs } from './src/storage';
 import HomeScreen from './src/screens/HomeScreen';
@@ -86,6 +87,18 @@ function Main() {
       Alert.alert('Couldn\'t send a test alert', e.message);
     }
   }, []);
+
+  // Tapping a recall alert opens that recall.
+  const tapped = Notifications.useLastNotificationResponse();
+  useEffect(() => {
+    const data = tapped && tapped.notification && tapped.notification.request.content.data;
+    const id = data && data.recallId;
+    if (!id) return;
+    const show = (recall) => { if (recall) { setPremium(null); setOpen(recall); } };
+    const known = recalls.find((r) => r.id === id);
+    if (known) show(known);
+    else fetchRecall(id).then(show).catch(() => {});
+  }, [tapped]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Android back button closes a recall before leaving the app.
   useEffect(() => {

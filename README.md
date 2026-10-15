@@ -17,6 +17,15 @@ Personal choices and cupboard items are stored only on the phone in this version
 
 Accounts, phone notifications, barcode scanning and receipt scanning.
 
+## Installable test version (Android)
+
+GitHub builds an installable `.apk` and puts it on the **Releases** page. To start a build, open
+**Actions → Android test build → Run workflow**. It takes about 20 minutes.
+
+Phone alerts need Firebase: add the contents of `google-services.json` as a repository secret
+called `GOOGLE_SERVICES_JSON` (Settings → Secrets and variables → Actions). The Firebase
+service-account key never goes in GitHub; it's uploaded to Expo instead.
+
 ## Project layout
 
 | Path | What it is |
@@ -28,6 +37,9 @@ Accounts, phone notifications, barcode scanning and receipt scanning.
 | `src/config.js` | Supabase address and publishable key (safe to be public) |
 | `src/theme.js` | Colours and spacing |
 | `tests/` | `npm test` runs the logic tests |
+| `assets/` | App icon and notification icon (`scripts/make-icons.py` draws them) |
+| `app.config.js` | Build-only settings, such as Firebase and the build number |
+| `.github/workflows/` | The Android test build |
 
 ## Data
 

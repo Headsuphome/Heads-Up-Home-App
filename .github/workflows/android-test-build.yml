@@ -1,0 +1,97 @@
+# Builds an installable Android test version of Heads Up Home (an .apk file)
+# and puts it on the repository's Releases page, ready to download on a phone.
+#
+# Start it from the Actions tab (Android test build → Run workflow), or by pushing
+# a tag that starts with "android-build-". Each run also saves a short report to
+# the "build-logs" branch.
+
+name: Android test build
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['android-build-*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-test-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      BUILD_NUMBER: ${{ github.run_number }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Get the app code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install the app's libraries
+        run: bash scripts/ci/install.sh 2>&1 | tee -a build.log
+
+      - name: Add the Firebase settings
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            printf '%s' "$GOOGLE_SERVICES_JSON" > google-services.json
+            node -e "JSON.parse(require('fs').readFileSync('google-services.json', 'utf8'))"
+            echo "Firebase settings added." | tee -a build.log
+          elif [ -f google-services.json ]; then
+            echo "Using google-services.json from the code." | tee -a build.log
+          else
+            echo "No Firebase settings yet: the app will build, but phone alerts won't arrive in it." | tee -a build.log
+          fi
+
+      - name: Check the app settings
+        run: npx expo config --type public 2>&1 | tee -a build.log
+
+      - name: Create the Android project
+        run: npx expo prebuild --platform android --clean --no-install 2>&1 | tee -a build.log
+
+      - name: Build the app
+        working-directory: android
+        run: |
+          echo "org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g" >> gradle.properties
+          ./gradlew assembleRelease --no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a 2>&1 | tee -a ../build.log
+
+      - name: Publish the test build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NAME="HeadsUpHome-test-${BUILD_NUMBER}.apk"
+          cp android/app/build/outputs/apk/release/app-release.apk "$NAME"
+          cat > notes.md <<EOF
+          A test version of Heads Up Home for Android phones.
+
+          **To install:** tap **${NAME}** below, open the file once it has downloaded, and allow installs from your browser if your phone asks. A newer test build installs over the old one, keeping your choices and cupboard.
+          EOF
+          gh release create "test-build-${BUILD_NUMBER}" "$NAME" \
+            --target "$GITHUB_SHA" \
+            --title "Test build ${BUILD_NUMBER}" \
+            --notes-file notes.md \
+            --latest 2>&1 | tee -a build.log
+
+      - name: Save a build report
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS: ${{ job.status }}
+        run: bash scripts/ci/report.sh

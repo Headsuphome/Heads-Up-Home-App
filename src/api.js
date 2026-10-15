@@ -32,6 +32,18 @@ export async function fetchRecalls(limit = 200) {
   }
 }
 
+/** One recall by its id, for example when someone taps an alert about it. */
+export async function fetchRecall(id) {
+  const query = (fields) => `recalls?select=${encodeURIComponent(fields)}&id=eq.${encodeURIComponent(id)}&limit=1`;
+  let rows;
+  try {
+    rows = await get(query(FIELDS));
+  } catch (e) {
+    rows = await get(query(BASIC_FIELDS));
+  }
+  return rows.length ? fromRow(rows[0]) : null;
+}
+
 /**
  * A product photo from Open Food Facts, a free shared product database.
  * Only ever looked up by exact barcode, so it can't show the wrong product.
