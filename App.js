@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { BackHandler, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, BackHandler, Pressable, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,6 +13,8 @@ import BrowseScreen from './src/screens/BrowseScreen';
 import CupboardScreen from './src/screens/CupboardScreen';
 import AlertsScreen from './src/screens/AlertsScreen';
 import DetailScreen from './src/screens/DetailScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
+import { enableNotifications, ensureAccount, getSession, sendTestAlert, syncToAccount } from './src/account';
 
 const TABS = [
   { key: 'home', label: 'Home', icon: 'home' },
@@ -23,7 +25,8 @@ const TABS = [
 
 function Main() {
   const insets = useSafeAreaInsets();
-  const [prefs, update] = usePrefs();
+  const [prefs, update, ready] = usePrefs();
+  const [account, setAccount] = useState({ status: 'unknown', permission: null, note: null });
   const [tab, setTab] = useState('home');
   const [open, setOpen] = useState(null); // the recall being viewed, if any
   const [recalls, setRecalls] = useState([]);
@@ -40,6 +43,47 @@ function Main() {
   }, []);
 
   useEffect(load, [load]);
+
+  // Is there already an account on this phone?
+  useEffect(() => {
+    getSession()
+      .then((s) => setAccount((a) => ({ ...a, status: s ? 'ready' : 'none' })))
+      .catch(() => setAccount((a) => ({ ...a, status: 'none' })));
+  }, []);
+
+  // Keep the account's copy of choices and cupboard up to date (a moment after each change).
+  useEffect(() => {
+    if (!ready || account.status !== 'ready') return undefined;
+    const timer = setTimeout(() => { syncToAccount(prefs).catch(() => {}); }, 1500);
+    return () => clearTimeout(timer);
+  }, [prefs, ready, account.status]);
+
+  /** Creates the private account and turns on notifications. Never throws. */
+  const enableAlerts = useCallback(async () => {
+    try {
+      await ensureAccount();
+      const r = await enableNotifications();
+      setAccount({ status: 'ready', permission: r.permission, note: r.note });
+      return { ok: r.permission, note: r.note };
+    } catch (e) {
+      const note = `We couldn't turn on alerts just now (${e.message}). You can try again in My alerts.`;
+      setAccount((a) => ({ ...a, note }));
+      return { ok: false, note };
+    }
+  }, []);
+
+  const testAlert = useCallback(async () => {
+    try {
+      const r = await enableNotifications().catch(() => ({ permission: false }));
+      if (r.permission === false) {
+        Alert.alert('Notifications are off', 'Allow notifications for this app in your phone settings, then try again.');
+        return;
+      }
+      await sendTestAlert();
+    } catch (e) {
+      Alert.alert('Couldn\'t send a test alert', e.message);
+    }
+  }, []);
 
   // Android back button closes a recall before leaving the app.
   useEffect(() => {
@@ -76,7 +120,24 @@ function Main() {
     setOpen(null);
   };
 
-  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo };
+  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert };
+
+  if (!ready) {
+    return (
+      <View style={[styles.root, { paddingTop: insets.top, justifyContent: 'center' }]}>
+        <ActivityIndicator color={colors.accent} />
+      </View>
+    );
+  }
+
+  if (!prefs.onboarded) {
+    return (
+      <View style={[styles.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+        <StatusBar style="dark" />
+        <OnboardingScreen prefs={prefs} update={update} onEnableAlerts={enableAlerts} onFinish={() => update({ onboarded: true })} />
+      </View>
+    );
+  }
 
   let screen;
   if (open) {

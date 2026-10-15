@@ -38,11 +38,21 @@ export const categoryLabel = (key) => categoryLabels[key] || 'Other';
 
 const categoryIcons = Object.fromEntries(CATEGORIES.map((c) => [c.key, c.icon]));
 
-/** The icon shown when a recall has no photo: its most specific category. */
-export function iconFor(recall) {
+/** A recall's most specific category, which picks its icon and colour. */
+export function primaryCategory(recall) {
   const cats = recall.categories || [];
-  const key = cats.find((c) => c !== 'other' && c !== 'baby-children') || cats[0] || 'other';
-  return categoryIcons[key] || categoryIcons.other;
+  return cats.find((c) => c !== 'other' && c !== 'baby-children') || cats[0] || 'other';
+}
+
+/** The icon shown when a recall has no photo. */
+export function iconFor(recall) {
+  return categoryIcons[primaryCategory(recall)] || categoryIcons.other;
+}
+
+/** How many recalls were published in the last `days` days. */
+export function recentCount(recalls, days = 7, now = new Date()) {
+  const since = now.getTime() - days * 86400000;
+  return recalls.filter((r) => new Date(r.publishedAt).getTime() >= since).length;
 }
 
 /** The first barcode on a recall, if the agency published one. */

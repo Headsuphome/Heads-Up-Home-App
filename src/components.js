@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, radius, space, tones, type } from './theme';
-import { badgeFor, friendlyDate, iconFor, sourceShort } from './logic';
+import { colorFor, colors, radius, space, tones, type } from './theme';
+import { badgeFor, friendlyDate, iconFor, primaryCategory, sourceShort } from './logic';
 
 export function Badge({ text, tone = 'neutral' }) {
   const t = tones[tone] || tones.neutral;
@@ -13,17 +13,34 @@ export function Badge({ text, tone = 'neutral' }) {
   );
 }
 
-export function Chip({ label, selected, onPress, accessibilityLabel }) {
+/** A tappable pill. Give it a category key to colour it in that category's colour. */
+export function Chip({ label, selected, onPress, accessibilityLabel, category, icon }) {
+  const c = category ? colorFor(category) : null;
+  const on = selected ? (c ? { backgroundColor: c.fg, borderColor: c.fg } : styles.chipOn) : styles.chipOff;
+  const iconColor = selected ? '#FFFFFF' : c ? c.fg : colors.muted;
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
       accessibilityState={{ selected: !!selected }}
       accessibilityLabel={accessibilityLabel || label}
-      style={({ pressed }) => [styles.chip, selected ? styles.chipOn : styles.chipOff, pressed && { opacity: 0.8 }]}
+      style={({ pressed }) => [styles.chip, on, pressed && { opacity: 0.8 }]}
     >
-      <Text style={[styles.chipText, selected ? { color: '#FFFFFF', fontWeight: '600' } : null]}>{label}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+        {icon ? <Ionicons name={icon} size={16} color={iconColor} /> : null}
+        <Text style={[styles.chipText, selected ? { color: '#FFFFFF', fontWeight: '600' } : null]}>{label}</Text>
+      </View>
     </Pressable>
+  );
+}
+
+/** A round, coloured category icon. */
+export function CategoryIcon({ category, icon, size = 44 }) {
+  const c = colorFor(category);
+  return (
+    <View style={{ width: size, height: size, borderRadius: size / 2, backgroundColor: c.bg, alignItems: 'center', justifyContent: 'center' }}>
+      <Ionicons name={icon} size={size * 0.5} color={c.fg} />
+    </View>
   );
 }
 
@@ -42,9 +59,10 @@ export function Thumb({ recall, size = 64 }) {
       />
     );
   }
+  const c = colorFor(primaryCategory(recall));
   return (
-    <View style={[styles.thumb, styles.thumbIcon, box]} accessibilityElementsHidden importantForAccessibility="no">
-      <Ionicons name={iconFor(recall)} size={size * 0.42} color={colors.accent} />
+    <View style={[styles.thumb, styles.thumbIcon, box, { backgroundColor: c.bg, borderColor: c.bg }]} accessibilityElementsHidden importantForAccessibility="no">
+      <Ionicons name={iconFor(recall)} size={size * 0.42} color={c.fg} />
     </View>
   );
 }

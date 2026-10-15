@@ -22,7 +22,23 @@ export const tones = {
   neutral: { bg: '#E5E7EB', fg: '#374151' },
 };
 
-export const radius = { sm: 8, md: 12, lg: 16, pill: 999 };
+/** One colour pair per category, so people learn to spot food, toys or medicines at a glance. */
+export const categoryColors = {
+  'food-drink': { bg: '#FFEDD5', fg: '#C2410C' },
+  'baby-children': { bg: '#FCE7F3', fg: '#BE185D' },
+  'toys': { bg: '#EDE9FE', fg: '#6D28D9' },
+  'electrical': { bg: '#FEF3C7', fg: '#B45309' },
+  'trades-tools': { bg: '#E0F2FE', fg: '#0369A1' },
+  'home-furniture': { bg: '#DCFCE7', fg: '#15803D' },
+  'cosmetics': { bg: '#FFE4E6', fg: '#BE123C' },
+  'clothing': { bg: '#E0E7FF', fg: '#4338CA' },
+  'medicines': { bg: '#CCFBF1', fg: '#0F766E' },
+  'other': { bg: '#F1F5F9', fg: '#475569' },
+};
+
+export const colorFor = (key) => categoryColors[key] || categoryColors.other;
+
+export const radius ={ sm: 8, md: 12, lg: 16, pill: 999 };
 export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 28 };
 
 export const type = {

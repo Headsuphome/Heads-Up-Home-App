@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { FlatList, Linking, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, radius, space, type } from '../theme';
+import { colorFor, colors, radius, space, type } from '../theme';
 import { EmptyState, RecallCard, SectionLabel } from '../components';
 import { CATEGORIES, categoryLabel, searchRecalls } from '../logic';
 import { searchAllRecalls } from '../api';
@@ -74,11 +74,13 @@ export default function BrowseScreen({ recalls, openRecall }) {
           <SectionLabel>Categories</SectionLabel>
           <View style={styles.grid}>
             {CATEGORIES.map((c) => (
-              <Pressable key={c.key} onPress={() => setCategory(c.key)} accessibilityRole="button" style={({ pressed }) => [styles.tile, pressed && { opacity: 0.85 }]}>
-                <Ionicons name={c.icon} size={24} color={colors.accent} />
+              <Pressable key={c.key} onPress={() => setCategory(c.key)} accessibilityRole="button" style={({ pressed }) => [styles.tile, { backgroundColor: colorFor(c.key).bg, borderColor: colorFor(c.key).bg }, pressed && { opacity: 0.85 }]}>
+                <View style={styles.tileIcon}>
+                  <Ionicons name={c.icon} size={22} color={colorFor(c.key).fg} />
+                </View>
                 <View>
-                  <Text style={styles.tileLabel}>{c.label}</Text>
-                  <Text style={type.small}>{counts[c.key] || 0} recent</Text>
+                  <Text style={[styles.tileLabel, { color: colorFor(c.key).fg }]}>{c.label}</Text>
+                  <Text style={[type.small, { color: colorFor(c.key).fg }]}>{counts[c.key] || 0} recent</Text>
                 </View>
               </Pressable>
             ))}
@@ -122,7 +124,8 @@ const styles = StyleSheet.create({
   searchInput: { flex: 1, fontSize: 16, color: colors.ink, paddingVertical: 0 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   tile: { width: '48%', flexGrow: 1, minHeight: 92, padding: 14, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, justifyContent: 'space-between', gap: space.sm },
-  tileLabel: { fontSize: 15, fontWeight: '600', color: colors.ink },
+  tileLabel: { fontSize: 15, fontWeight: '700', color: colors.ink },
+  tileIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#FFFFFF', alignItems: 'center', justifyContent: 'center' },
   activeCategory: { flexDirection: 'row', alignItems: 'center', gap: 4, minHeight: 44 },
   vehicle: { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 10, padding: 14, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line },
 });

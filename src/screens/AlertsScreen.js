@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, space, type } from '../theme';
-import { Chip, SectionLabel } from '../components';
+import { Button, Chip, SectionLabel } from '../components';
 import { ALLERGENS, CATEGORIES } from '../logic';
 import { toggle } from '../storage';
 
@@ -11,7 +11,8 @@ const TIMINGS = [
   { key: 'daily', label: 'Daily summary' },
 ];
 
-export default function AlertsScreen({ prefs, update }) {
+export default function AlertsScreen({ prefs, update, account = {}, onEnableAlerts, onTestAlert }) {
+  const alertsOn = account.status === 'ready' && account.permission !== false;
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <View style={{ gap: 4 }}>
@@ -23,7 +24,7 @@ export default function AlertsScreen({ prefs, update }) {
         <SectionLabel>Categories to watch</SectionLabel>
         <View style={styles.wrap}>
           {CATEGORIES.filter((c) => c.key !== 'other').map((c) => (
-            <Chip key={c.key} label={c.label} selected={prefs.categories.includes(c.key)} onPress={() => update((p) => ({ categories: toggle(p.categories, c.key) }))} />
+            <Chip key={c.key} label={c.label} category={c.key} icon={c.icon} selected={prefs.categories.includes(c.key)} onPress={() => update((p) => ({ categories: toggle(p.categories, c.key) }))} />
           ))}
         </View>
       </View>
@@ -54,10 +55,21 @@ export default function AlertsScreen({ prefs, update }) {
         </Text>
       </View>
 
-      <View style={styles.note}>
-        <Ionicons name="information-circle-outline" size={20} color={colors.muted} />
-        <Text style={[type.small, { flex: 1, lineHeight: 19 }]}>
-          Your choices already shape the "For you" feed. Phone notifications arrive in the next version, once accounts are added.
+      <View style={styles.account}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <View style={[styles.accountIcon, { backgroundColor: alertsOn ? colors.okSoft : colors.accentSoft }]}>
+            <Ionicons name={alertsOn ? 'notifications' : 'notifications-off-outline'} size={22} color={alertsOn ? colors.ok : colors.accent} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={[type.body, { fontWeight: '700' }]}>{alertsOn ? 'Alerts are on' : 'Alerts are off'}</Text>
+            <Text style={type.small}>{alertsOn ? 'Private account, no email needed' : 'Turn on to hear about recalls that matter to you'}</Text>
+          </View>
+        </View>
+        {account.note ? <Text style={[type.small, { lineHeight: 19 }]}>{account.note}</Text> : null}
+        {!alertsOn ? <Button label="Turn on alerts" icon="notifications-outline" onPress={onEnableAlerts} /> : null}
+        <Button label="Send me a test alert" kind="secondary" icon="paper-plane-outline" onPress={onTestAlert} />
+        <Text style={[type.small, { lineHeight: 19 }]}>
+          Adding your email, so you keep your cupboard on a new phone, is coming soon.
         </Text>
       </View>
     </ScrollView>
@@ -71,5 +83,6 @@ const styles = StyleSheet.create({
   segmentItem: { flex: 1, minHeight: 44, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   segmentOn: { backgroundColor: colors.surface },
   segmentText: { fontSize: 14, fontWeight: '600', color: '#374151' },
-  note: { flexDirection: 'row', gap: 10, padding: space.lg, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
+  account: { gap: space.md, padding: space.lg, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
+  accountIcon: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
 });

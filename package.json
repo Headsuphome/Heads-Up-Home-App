@@ -13,6 +13,8 @@
     "@expo/vector-icons": "*",
     "@react-native-async-storage/async-storage": "*",
     "expo": "*",
+    "expo-constants": "*",
+    "expo-notifications": "*",
     "expo-status-bar": "*",
     "react": "*",
     "react-native": "*",
