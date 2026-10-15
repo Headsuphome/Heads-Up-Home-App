@@ -1,0 +1,157 @@
+13-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+14-File system watching is active
+15-Starting Build
+16:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })
+17:Successfully started process 'command 'node''
+18:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('expo-modules-autolinking/package.json', { paths: [require.resolve('expo/package.json')] })
+19:Successfully started process 'command 'node''
+20-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+21-Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '1.0.0']
+22-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-autolinking/android/expo-gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+23-
+24-> Configure project :gradle-plugin
+25-Evaluating project ':gradle-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin/build.gradle.kts'.
+26-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20', apply: false]
+27-Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+28-
+29-> Configure project :gradle-plugin:react-native-gradle-plugin
+30-Evaluating project ':gradle-plugin:react-native-gradle-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin/react-native-gradle-plugin/build.gradle.kts'.
+31-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+32-Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+33-Resolved plugin [id: 'java-gradle-plugin']
+34-Build 64b23ef1-fffb-4c16-893e-b0e21e0893b8 is started
+35-Using Kotlin Gradle Plugin gradle85 variant
+36-kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+37-kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+38-
+39-> Configure project :gradle-plugin:settings-plugin
+40-Evaluating project ':gradle-plugin:settings-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin/settings-plugin/build.gradle.kts'.
+41-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+42-Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+43-Resolved plugin [id: 'java-gradle-plugin']
+44-Using Kotlin Gradle Plugin gradle85 variant
+--
+276-  Build cache is disabled
+277-  Not worth caching
+278-Skipping task ':expo-gradle-plugin:expo-autolinking-settings-plugin:jar' as it is up-to-date.
+279:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('expo-modules-autolinking/package.json', { paths: [require.resolve('expo/package.json')] })
+280:Successfully started process 'command 'node''
+281:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --no-warnings --eval require('expo/bin/autolinking') expo-modules-autolinking resolve --platform android --json
+282:Successfully started process 'command 'node''
+283:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('react-native/package.json')
+284:Successfully started process 'command 'node''
+285:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })
+286:Successfully started process 'command 'node''
+287-Settings evaluated using settings file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android/settings.gradle'.
+288-Now considering [/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/expo-module-gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-autolinking/android/expo-gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/@react-native/gradle-plugin, /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android] as hierarchies to watch
+289-Projects loaded. Root project using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android/build.gradle'.
+290-Included projects: [root project 'Heads Up Home', project ':app', project ':expo', project ':expo-constants', project ':expo-log-box', project ':expo-modules-core', project ':react-native-async-storage_async-storage', project ':react-native-safe-area-context']
+291-Registering project ':expo-gradle-plugin' in composite build. Will substitute for module ':expo-gradle-plugin'.
+292-Registering project ':expo-gradle-plugin:expo-autolinking-plugin' in composite build. Will substitute for module 'expo.modules:expo-autolinking-plugin'.
+293-Registering project ':expo-gradle-plugin:expo-autolinking-plugin-shared' in composite build. Will substitute for module 'expo.modules:expo-autolinking-plugin-shared'.
+294-Registering project ':expo-gradle-plugin:expo-autolinking-settings-plugin' in composite build. Will substitute for module 'expo.modules:expo-autolinking-settings-plugin'.
+295-Registering project ':expo-gradle-plugin:expo-max-sdk-override-plugin' in composite build. Will substitute for module 'expo.modules:expo-max-sdk-override-plugin'.
+296-
+297-> Configure project :expo-module-gradle-plugin
+298-Evaluating project ':expo-module-gradle-plugin' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/expo-module-gradle-plugin/build.gradle.kts'.
+299-Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+300-Resolved plugin [id: 'java-gradle-plugin']
+301-Build e7e1c72b-7aef-443a-910e-961add804008 is started
+302-Using Kotlin Gradle Plugin gradle85 variant
+303-kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+304-kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+305-Registering project ':expo-module-gradle-plugin' in composite build. Will substitute for module 'expo.modules:expo-module-gradle-plugin'.
+306-Registering project ':gradle-plugin' in composite build. Will substitute for module ':gradle-plugin-root'.
+307-Registering project ':gradle-plugin:react-native-gradle-plugin' in composite build. Will substitute for module 'com.facebook.react:react-native-gradle-plugin'.
+308-Registering project ':gradle-plugin:settings-plugin' in composite build. Will substitute for module 'com.facebook.react:settings-plugin'.
+309-Registering project ':gradle-plugin:shared' in composite build. Will substitute for module 'com.facebook.react:shared'.
+310-Registering project ':gradle-plugin:shared-testutil' in composite build. Will substitute for module 'com.facebook.react:shared-testutil'.
+311-Resolve mutations for :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker Thread 2,5,main]) started.
+--
+635-Resolved plugin [id: 'expo-module-gradle-plugin']
+636-Using default execution profile
+637-Using Kotlin Gradle Plugin gradle85 variant
+638:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-constants/android Command: node -e console.log(require('path').dirname(require.resolve('expo-constants/package.json')));
+639:Successfully started process 'command 'node''
+640-
+641-> Configure project :expo-modules-core
+642-Evaluating project ':expo-modules-core' using build file '/home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/build.gradle'.
+643-Using default execution profile
+644-Using Kotlin Gradle Plugin gradle85 variant
+645:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --print require.resolve('react-native/package.json')
+646:Successfully started process 'command 'node''
+647-C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+648-C/C++: android.ndkPath from module build.gradle is not set
+649-C/C++: ndk.dir in local.properties is not set
+650-C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+651-C/C++: sdkFolder is /usr/local/lib/android/sdk
+652-C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+653-C/C++: android.ndkPath from module build.gradle is not set
+654-C/C++: ndk.dir in local.properties is not set
+655-C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+656-C/C++: sdkFolder is /usr/local/lib/android/sdk
+657-C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+658-C/C++: android.ndkPath from module build.gradle is not set
+659-C/C++: ndk.dir in local.properties is not set
+660-C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+661-C/C++: sdkFolder is /usr/local/lib/android/sdk
+662-C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+663-C/C++: android.ndkPath from module build.gradle is not set
+664-C/C++: ndk.dir in local.properties is not set
+665-C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+666-C/C++: sdkFolder is /usr/local/lib/android/sdk
+667-C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+668-C/C++: android.ndkPath from module build.gradle is not set
+669-C/C++: ndk.dir in local.properties is not set
+670-C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+671-C/C++: sdkFolder is /usr/local/lib/android/sdk
+--
+740-Using default execution profile
+741-Using Kotlin Gradle Plugin gradle85 variant
+742-All projects evaluated.
+743:Starting process 'command 'node''. Working directory: /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android Command: node --no-warnings --eval require('expo/bin/autolinking') expo-modules-autolinking mirror-kotlin-inline-modules --kotlin-files-mirror-directory /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo/android/src/main/java/inline/modules --inline-modules-list-directory /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo/android/build/inline/modules --watched-directories-serialized []org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g
+744:Successfully started process 'command 'node''
+745-Build 88153cb7-4be0-45a7-ac07-8c478ecd2564 is closed
+746-Build e7e1c72b-7aef-443a-910e-961add804008 is closed
+747-Build 64b23ef1-fffb-4c16-893e-b0e21e0893b8 is closed
+748-Build 0f10ca4d-ffe7-4fd2-9245-49e2f754e1e9 is closed
+749-
+750-[Incubating] Problems report is available at: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/android/build/reports/problems/problems-report.html
+751-
+752-FAILURE: Build failed with an exception.
+753-
+754:* What went wrong:
+755:Process 'command 'node'' finished with non-zero exit value 1
+756-
+757-* Try:
+758-> Run with --debug option to get more log output.
+759-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+760-> Get more help at https://help.gradle.org.
+761-
+762-* Exception is:
+763:org.gradle.process.ProcessExecutionException: Process 'command 'node'' finished with non-zero exit value 1
+764-	at org.gradle.process.internal.DefaultExecHandle$ExecResultImpl.assertNormalExitValue(DefaultExecHandle.java:454)
+765-	at org.gradle.process.internal.DefaultExecAction.execute(DefaultExecAction.java:49)
+766-	at org.gradle.process.internal.DefaultExecActionFactory.exec(DefaultExecActionFactory.java:216)
+767-	at org.gradle.process.internal.DefaultExecOperations.exec(DefaultExecOperations.java:37)
+768-	at org.gradle.api.internal.provider.sources.process.ProcessOutputValueSource.obtain(ProcessOutputValueSource.java:123)
+769-	at org.gradle.api.internal.provider.sources.process.ProcessOutputValueSource.obtain(ProcessOutputValueSource.java:37)
+770-	at org.gradle.api.internal.provider.DefaultValueSourceProviderFactory$LazilyObtainedValue.lambda$new$0(DefaultValueSourceProviderFactory.java:306)
+771-	at org.gradle.internal.model.CalculatedValueContainerFactory$SupplierBackedCalculator.calculateValue(CalculatedValueContainerFactory.java:69)
+772-	at org.gradle.internal.model.CalculatedValueContainer$CalculationState.lambda$attachValue$0(CalculatedValueContainer.java:227)
+773-	at org.gradle.internal.Try.ofFailable(Try.java:46)
+774-	at org.gradle.internal.model.CalculatedValueContainer$CalculationState.attachValue(CalculatedValueContainer.java:222)
+775-	at org.gradle.internal.model.CalculatedValueContainer.finalizeIfNotAlready(CalculatedValueContainer.java:195)
+776-	at org.gradle.internal.model.CalculatedValueContainer.finalizeIfNotAlready(CalculatedValueContainer.java:186)
+777-	at org.gradle.api.internal.provider.DefaultValueSourceProviderFactory$LazilyObtainedValue.obtain(DefaultValueSourceProviderFactory.java:321)
+778-	at org.gradle.api.internal.provider.DefaultValueSourceProviderFactory$ValueSourceProvider.calculateOwnValue(DefaultValueSourceProviderFactory.java:273)
+779-	at org.gradle.api.internal.provider.AbstractMinimalProvider.calculateValue(AbstractMinimalProvider.java:115)
+780-	at org.gradle.api.internal.provider.TransformBackedProvider.calculateOwnValue(TransformBackedProvider.java:81)
+781-	at org.gradle.api.internal.provider.AbstractMinimalProvider.calculateValue(AbstractMinimalProvider.java:115)
+782-	at org.gradle.api.internal.provider.TransformBackedProvider.calculateOwnValue(TransformBackedProvider.java:81)
+783-	at org.gradle.api.internal.provider.AbstractMinimalProvider.calculateOwnPresentValue(AbstractMinimalProvider.java:80)
+784-	at org.gradle.api.internal.provider.AbstractMinimalProvider.get(AbstractMinimalProvider.java:100)
+785-	at expo.modules.plugin.ExpoAutolinkingPlugin$apply$4.execute(ExpoAutolinkingPlugin.kt:69)
+786-	at expo.modules.plugin.ExpoAutolinkingPlugin$apply$4.execute(ExpoAutolinkingPlugin.kt:47)
+787-	at org.gradle.internal.code.DefaultUserCodeApplicationContext$CurrentApplication$1.execute(DefaultUserCodeApplicationContext.java:124)
+788-	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingAction$1.run(DefaultListenerBuildOperationDecorator.java:173)
