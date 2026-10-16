@@ -110,6 +110,13 @@ export async function syncToAccount(prefs) {
   return true;
 }
 
+const PREVIEW_NOTE = 'Alerts are ready. They start arriving once the app is installed from a test build, as previews like this one can\'t receive them.';
+
+/** True when running inside Expo Go (a preview), not the installed Heads Up Home app. */
+export function isExpoGo() {
+  return Constants.executionEnvironment === 'storeClient' || Constants.appOwnership === 'expo';
+}
+
 /**
  * Asks permission for notifications and registers this phone for alerts.
  * Returns { permission, token, note } so the screen can explain what happened.
@@ -126,13 +133,17 @@ export async function enableNotifications() {
   if (status !== 'granted') status = (await Notifications.requestPermissionsAsync()).status;
   if (status !== 'granted') return { permission: false, token: null, note: 'Notifications are turned off for this app in your phone settings.' };
 
+  // Previews in Expo Go (the Snack link) can't receive real alerts on Android, and their
+  // address belongs to Expo Go rather than Heads Up Home, so only the installed app registers.
+  if (isExpoGo()) return { permission: true, token: null, note: PREVIEW_NOTE };
+
   const projectId = (Constants.expoConfig && Constants.expoConfig.extra && Constants.expoConfig.extra.eas && Constants.expoConfig.extra.eas.projectId)
     || (Constants.easConfig && Constants.easConfig.projectId);
   let token = null;
   try {
     token = (await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined)).data;
   } catch (e) {
-    return { permission: true, token: null, note: 'Alerts are ready. They start arriving once the app is installed from a test build, as previews like this one can\'t receive them.' };
+    return { permission: true, token: null, note: `We couldn't register this phone for alerts just now (${e.message}). Try again in My alerts.` };
   }
 
   const session = await ensureAccount();
