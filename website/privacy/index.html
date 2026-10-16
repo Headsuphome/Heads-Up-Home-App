@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy | Heads Up Home</title>
+<meta name="description" content="How Heads Up Home collects, uses and protects your information.">
+<meta name="theme-color" content="#0E1A2B">
+<link rel="canonical" href="https://headsuphome.co.uk/privacy/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E1A2B'/%3E%3Cpath d='M50 17 84 47H75V82H25V47H16Z' fill='%23FB923C' stroke='%23FB923C' stroke-width='7' stroke-linejoin='round'/%3E%3Crect x='45.3' y='41' width='9.4' height='24' rx='4.7' fill='%230E1A2B'/%3E%3Ccircle cx='50' cy='73.5' r='5.3' fill='%230E1A2B'/%3E%3C/svg%3E">
+<style>
+:root {
+  --ink: #0E1A2B;
+  --signal: #FB923C;
+  --rust: #C2410C;
+  --rust-ink: #7C2D12;
+  --wash: #F3F5F7;
+  --paper: #FFFFFF;
+  --line: #E2E6EB;
+  --muted: #4B5563;
+  --teal: #0F766E;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Noto Serif", "Droid Serif", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--wash); color: var(--ink); font: 400 1.0625rem/1.6 var(--serif); }
+a { color: var(--rust); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--rust-ink); }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--paper); padding: 0.5rem 1rem; z-index: 2; font-family: var(--sans); }
+.skip:focus { left: 1rem; top: 1rem; }
+mark.fill { background: #FEF08A; color: var(--ink); padding: 0 0.2em; }
+
+/* Header and footer */
+.top { background: var(--ink); color: #fff; }
+.top .bar { max-width: 72rem; margin: 0 auto; padding: 0.875rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 0.625rem; color: #fff; text-decoration: none; font: 700 1.125rem/1 var(--sans); letter-spacing: -0.01em; }
+.brand:hover { color: #fff; }
+.logo { width: 2.25rem; height: 2.25rem; flex: none; }
+.top .logo rect:first-child { fill: #16263C; }
+.nav { display: flex; gap: 1.25rem; font: 500 0.9375rem/1 var(--sans); }
+.nav a { color: #E2E8F0; text-decoration: none; padding: 0.375rem 0; border-bottom: 2px solid transparent; }
+.nav a:hover { color: #fff; }
+.nav a[aria-current="page"] { color: #fff; border-bottom-color: var(--signal); }
+.foot { border-top: 1px solid var(--line); margin-top: 4rem; }
+.foot .bar { max-width: 72rem; margin: 0 auto; padding: 2rem 1.25rem 3rem; font: 400 0.875rem/1.6 var(--sans); color: var(--muted); display: grid; gap: 0.75rem; }
+.foot p { margin: 0; max-width: 46rem; }
+.foot .links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+/* Long-form pages (privacy, support) */
+.doc { max-width: 44rem; margin: 0 auto; padding: 2.75rem 1.25rem 0; }
+.doc h1 { font: 700 clamp(2rem, 6vw, 2.75rem)/1.1 var(--serif); letter-spacing: -0.015em; margin: 0 0 0.5rem; }
+.updated { font: 400 0.9375rem/1.4 var(--sans); color: var(--muted); margin: 0 0 2rem; }
+.lead { font-size: 1.1875rem; margin: 0 0 2rem; }
+.doc h2 { font: 700 1.5rem/1.25 var(--serif); margin: 2.75rem 0 0.75rem; scroll-margin-top: 1.5rem; }
+.doc h3 { font: 700 1.125rem/1.35 var(--serif); margin: 1.75rem 0 0.375rem; scroll-margin-top: 1.5rem; }
+.doc p, .doc li { max-width: 68ch; }
+.doc p { margin: 0 0 1rem; }
+.doc ul, .doc ol { padding-left: 1.4rem; margin: 0 0 1rem; }
+.doc li { margin: 0 0 0.45rem; }
+.doc li::marker { color: var(--rust); }
+.doc strong { font-weight: 700; }
+
+/* The recall-notice motif: a paper card with an orange band, like the notices shops pin up */
+.notice { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 0 rgba(14, 26, 43, 0.04), 0 18px 40px -24px rgba(14, 26, 43, 0.35); }
+.notice > .band { background: var(--signal); color: var(--ink); font: 700 0.9375rem/1 var(--sans); padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.notice > .body { padding: 1.25rem 1.25rem 1.375rem; }
+.notice > .body > :last-child { margin-bottom: 0; }
+.summary ul { margin: 0; padding-left: 1.2rem; }
+.summary li { margin: 0 0 0.6rem; }
+.summary li:last-child { margin-bottom: 0; }
+.contents { font: 400 0.9688rem/1.5 var(--sans); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 1.25rem; margin: 1.5rem 0 0; }
+.contents p { margin: 0 0 0.5rem; font-weight: 600; }
+.contents ol, .contents ul { margin: 0; padding-left: 1.3rem; columns: 2 15rem; column-gap: 2rem; }
+.contents li { margin: 0 0 0.3rem; break-inside: avoid; }
+.callout { background: #FFF7ED; border: 1px solid #FED7AA; border-top: 4px solid var(--signal); border-radius: 6px; padding: 1.25rem 1.25rem 0.5rem; margin: 1rem 0 1.25rem; }
+.callout h2, .callout h3 { margin-top: 0; }
+.mail { display: inline-block; font: 600 1.0625rem/1.2 var(--sans); background: var(--ink); color: #fff; text-decoration: none; padding: 0.875rem 1.25rem; border-radius: 10px; margin: 0.25rem 0 0.75rem; }
+.mail:hover { color: #fff; background: #1C2E47; }
+.small { font: 400 0.9375rem/1.55 var(--sans); color: var(--muted); }
+table.data { width: 100%; border-collapse: collapse; font: 400 0.9688rem/1.5 var(--sans); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin: 0 0 1.25rem; }
+table.data th, table.data td { text-align: left; vertical-align: top; padding: 0.75rem 0.875rem; border-bottom: 1px solid var(--line); }
+table.data tr:last-child td { border-bottom: 0; }
+table.data th { background: #F8FAFC; font-weight: 600; }
+table.data td:first-child { font-weight: 600; width: 34%; }
+@media (max-width: 560px) {
+  table.data, table.data tbody, table.data tr, table.data td { display: block; width: 100%; }
+  table.data thead { display: none; }
+  table.data td { border-bottom: 0; padding: 0.25rem 0.875rem; }
+  table.data td:first-child { padding-top: 0.875rem; width: 100%; }
+  table.data tr { border-bottom: 1px solid var(--line); padding-bottom: 0.75rem; }
+  table.data tr:last-child { border-bottom: 0; }
+}
+
+/* Home page */
+.hero { max-width: 72rem; margin: 0 auto; padding: 3.5rem 1.25rem 1rem; display: grid; gap: 3rem; align-items: center; }
+@media (min-width: 860px) { .hero { grid-template-columns: 1.05fr 1fr; padding-top: 5rem; } }
+.hero h1 { font: 700 clamp(2.4rem, 6.4vw, 4rem)/1.04 var(--serif); letter-spacing: -0.02em; margin: 0 0 1.25rem; max-width: 14ch; }
+.hero .lead { font-size: 1.25rem; max-width: 34rem; margin-bottom: 1.5rem; }
+.soon { display: inline-flex; align-items: center; gap: 0.6rem; font: 600 1rem/1.3 var(--sans); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 0.6rem 1rem 0.6rem 0.75rem; }
+.soon svg { width: 1.25rem; height: 1.25rem; flex: none; }
+.example { position: relative; max-width: 30rem; width: 100%; justify-self: center; padding-bottom: 2.5rem; margin: 0; }
+.example .notice > .body { padding-bottom: 5rem; }
+.example .tag { font: 500 0.8125rem/1 var(--sans); color: var(--ink); opacity: 0.75; }
+.example h2 { font: 700 1.5rem/1.2 var(--serif); margin: 0 0 0.25rem; }
+.example .from { font: 400 0.875rem/1.4 var(--sans); color: var(--muted); margin: 0 0 1rem; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 0 0 1rem; }
+.facts div { background: var(--wash); border-radius: 8px; padding: 0.55rem 0.7rem; }
+.facts dt { font: 400 0.75rem/1.3 var(--sans); color: var(--muted); }
+.facts dd { margin: 0; font: 700 1rem/1.3 var(--sans); }
+.todo { font-size: 0.9688rem; margin: 0; }
+.ping { position: absolute; left: -1.25rem; right: 2.5rem; bottom: 0; background: var(--ink); color: #fff; border-radius: 18px; padding: 0.875rem 1rem; display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.75rem; align-items: start; box-shadow: 0 16px 36px -14px rgba(14, 26, 43, 0.55); font-family: var(--sans); }
+.ping .logo { width: 2rem; height: 2rem; grid-row: span 2; }
+.ping .logo rect:first-child { fill: #23364F; }
+.ping b { font: 600 0.9375rem/1.3 var(--sans); }
+.ping span { font: 400 0.875rem/1.4 var(--sans); color: #CBD5E1; }
+@media (max-width: 520px) { .ping { left: 0.5rem; right: 0.5rem; } .facts { grid-template-columns: 1fr 1fr; } }
+.band-section { max-width: 72rem; margin: 0 auto; padding: 3.5rem 1.25rem 0; }
+.band-section h2 { font: 700 1.75rem/1.2 var(--serif); margin: 0 0 0.75rem; letter-spacing: -0.01em; }
+.band-section > p { max-width: 40rem; margin: 0 0 1.25rem; }
+.watch { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 0; list-style: none; font: 500 0.9688rem/1 var(--sans); }
+.watch li { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 0.55rem 0.9rem; }
+.watch i { width: 0.625rem; height: 0.625rem; border-radius: 50%; display: inline-block; }
+.sources { display: grid; gap: 0; padding: 0; margin: 0 0 1rem; list-style: none; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; max-width: 46rem; }
+.sources li { padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line); }
+.sources li:last-child { border-bottom: 0; }
+.sources a { font: 600 1rem/1.4 var(--sans); }
+.sources span { display: block; font: 400 0.9063rem/1.45 var(--sans); color: var(--muted); }
+.three { display: grid; gap: 1.5rem; max-width: 72rem; }
+@media (min-width: 760px) { .three { grid-template-columns: repeat(3, 1fr); } }
+.three h3 { font: 700 1.1875rem/1.3 var(--serif); margin: 0 0 0.375rem; }
+.three p { margin: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .ping { animation: arrive 700ms cubic-bezier(.2, .8, .2, 1) 350ms both; }
+  @keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  <rect width="100" height="100" rx="22" fill="#0E1A2B"/>
+  <path d="M50 17 84 47H75V82H25V47H16Z" fill="#FB923C" stroke="#FB923C" stroke-width="7" stroke-linejoin="round"/>
+  <rect x="45.3" y="41" width="9.4" height="24" rx="4.7" fill="#0E1A2B"/>
+  <circle cx="50" cy="73.5" r="5.3" fill="#0E1A2B"/>
+</svg><span>Heads Up Home</span></a>
+    <nav class="nav" aria-label="Main"><a href="/support/">Help and support</a><a href="/privacy/" aria-current="page">Privacy</a></nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="doc">
+  <h1>Privacy policy</h1>
+  <p class="updated">Last updated 17 October 2026</p>
+
+  <section class="notice summary" aria-labelledby="short">
+    <h2 id="short" class="band" style="margin:0;font:700 0.9375rem/1 var(--sans)">The short version</h2>
+    <div class="body">
+      <ul>
+        <li>We collect as little as we can. We don't ask for your name, email or location, and there are no adverts or tracking.</li>
+        <li>If you turn on alerts, the app creates a private account for you with no email or password. Your choices and cupboard are copied to it, so we can tell you about recalls while the app is closed.</li>
+        <li>Allergies you choose are health information. We only use them to find recalls for you.</li>
+        <li>We never sell your information or use it for advertising.</li>
+        <li>You can delete everything at any time in the app: <strong>My alerts</strong>, then <strong>Delete my data</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="contents" aria-label="On this page">
+    <p>On this page</p>
+    <ol>
+      <li><a href="#who">Who we are</a></li>
+      <li><a href="#what">What we collect and why</a></li>
+      <li><a href="#allergies">Allergy information</a></li>
+      <li><a href="#legal">Our legal reasons</a></li>
+      <li><a href="#sharing">Who helps us run the app</a></li>
+      <li><a href="#abroad">Information outside the UK</a></li>
+      <li><a href="#keep">How long we keep it</a></li>
+      <li><a href="#delete-your-data">Deleting your data</a></li>
+      <li><a href="#rights">Your rights</a></li>
+      <li><a href="#security">Keeping it safe</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#website">This website</a></li>
+      <li><a href="#changes">Changes to this policy</a></li>
+      <li><a href="#contact">Contact us</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="who">1. Who we are</h2>
+  <p>Heads Up Home is an app that tells people in the UK about recalls of food, products and medicines. It's run by <mark class="fill">[Your full name or business name]</mark> ("we" or "us") in the United Kingdom.</p>
+  <p>Under UK data protection law we're the "controller" of the personal information described here, which means we decide how it's used and we're responsible for looking after it. You can contact us at <a href="mailto:support@headsuphome.co.uk">support@headsuphome.co.uk</a>.</p>
+
+  <h2 id="what">2. What we collect and why</h2>
+  <h3>On your phone</h3>
+  <p>Everything you choose in the app is saved on your phone: the categories you watch, the allergens in your household, the items in your cupboard, and whether you're on a free trial. If you never turn on alerts, this information stays on your phone and isn't sent to us.</p>
+
+  <h3>If you turn on alerts</h3>
+  <p>Alerts need to reach you while the app is closed, so when you turn them on the app creates a private account for you and copies the following to it:</p>
+  <table class="data">
+    <thead><tr><th scope="col">Information</th><th scope="col">What it's used for</th></tr></thead>
+    <tbody>
+      <tr><td>A random account number</td><td>Telling your information apart from everyone else's. It isn't linked to your name, email or phone number.</td></tr>
+      <tr><td>Your choices: the categories you watch, the allergens in your household, and whether you want alerts straight away or as a daily summary</td><td>Deciding which new recalls to tell you about, and when.</td></tr>
+      <tr><td>Your cupboard: the product names, brands and barcodes you add, and any recalls you've marked as "Not mine"</td><td>Checking each new recall against the things you own, and not alerting you again about something you've ruled out.</td></tr>
+      <tr><td>Your phone's alert address (a code that lets notifications reach this phone) and whether it's an Android phone or an iPhone</td><td>Sending alerts to your phone.</td></tr>
+      <tr><td>Your alert history: which recalls we've alerted you about, and why</td><td>Making sure you never get the same alert twice, and sending daily summaries.</td></tr>
+    </tbody>
+  </table>
+  <p>Changes you make in the app are copied to your account a moment later. If you remove an allergen or a cupboard item, it's removed from your account too.</p>
+
+  <h3>Technical information</h3>
+  <p>When the app or this website connects to our servers, our providers automatically record technical details such as your IP address, the type of device and the time. They keep these logs for a short time, to keep the service secure and fix problems.</p>
+  <p>When you search for a recall, the words you type are sent to our servers so we can search older recalls too. They aren't saved to your account, but they may appear in those short-lived logs.</p>
+
+  <h3>What we don't collect</h3>
+  <ul>
+    <li>Your name, email address, phone number or postal address.</li>
+    <li>Your location, contacts or photos.</li>
+    <li>Advertising IDs or analytics. The app has no adverts and no tracking.</li>
+    <li>Payment details. Paid plans aren't on sale yet. When they are, payments will be handled by Google Play or the App Store, and we'll never see your card details.</li>
+  </ul>
+
+  <h2 id="allergies">3. Allergy information</h2>
+  <p>The allergens you choose could say something about your health, or the health of people you live with. UK law treats this as "special category" health information, so we're especially careful with it:</p>
+  <ul>
+    <li>We only use it to find recalls that matter to your household. We don't use it for anything else and never share it for marketing.</li>
+    <li>We only hold it if you choose allergens yourself. Choosing them is how you give us your explicit consent.</li>
+    <li>You can withdraw your consent at any time by clearing your allergens in <strong>My alerts</strong>. They're removed from your account straight away.</li>
+  </ul>
+
+  <h2 id="legal">4. Our legal reasons</h2>
+  <p>Data protection law says we need a lawful reason (a "lawful basis") for each use of your information:</p>
+  <ul>
+    <li><strong>Running the app and sending the alerts you ask for:</strong> this is necessary to provide the service you've asked for (contract).</li>
+    <li><strong>Allergy information:</strong> your explicit consent, which you can withdraw at any time.</li>
+    <li><strong>Notifications:</strong> your permission, given on your phone. You can turn notifications off in your phone's settings at any time.</li>
+    <li><strong>Technical logs and security:</strong> our legitimate interest in keeping the service safe and working properly.</li>
+  </ul>
+
+  <h2 id="sharing">5. Who helps us run the app</h2>
+  <p>We use a small number of trusted companies to run Heads Up Home. They only handle your information to provide their service to us, and we never sell your information or share it for advertising.</p>
+  <table class="data">
+    <thead><tr><th scope="col">Company</th><th scope="col">What they do</th></tr></thead>
+    <tbody>
+      <tr><td>Supabase</td><td>Hosts our database and private accounts. Your account and choices are stored in London, UK.</td></tr>
+      <tr><td>Expo (650 Industries, Inc., USA)</td><td>Passes alerts from our servers to your phone. It receives your phone's alert address and the text of each alert, which may include the name of a cupboard item.</td></tr>
+      <tr><td>Google (Firebase Cloud Messaging) and, on iPhones, Apple</td><td>Deliver notifications to Android phones and iPhones.</td></tr>
+      <tr><td>Open Food Facts (France)</td><td>A free, shared database of food products. When you open a food recall that has a barcode but no official photo, the app asks Open Food Facts for a photo of that product. Only the recalled product's barcode is sent, nothing about you, though like any website they'll see your IP address.</td></tr>
+      <tr><td>IONOS</td><td>Hosts this website.</td></tr>
+    </tbody>
+  </table>
+  <p>When you download the app from Google Play or the App Store, Google's or Apple's own privacy policy also applies. We may also share information if the law requires it, for example with the police or a court.</p>
+
+  <h2 id="abroad">6. Information outside the UK</h2>
+  <p>Your account and choices are stored in the UK. Some of our providers, such as Expo and Google, may process information in other countries, including the USA, when they deliver your alerts. When this happens, your information is protected by safeguards approved under UK law, such as the UK-US data bridge or standard contractual clauses.</p>
+
+  <h2 id="keep">7. How long we keep it</h2>
+  <ul>
+    <li><strong>On your phone:</strong> until you delete the app or use <strong>Delete my data</strong>.</li>
+    <li><strong>Your account and everything linked to it:</strong> until you delete it, in the app or by emailing us.</li>
+    <li><strong>Your phone's alert address:</strong> deleted automatically if we're told it no longer works, for example after the app has been uninstalled.</li>
+    <li><strong>Technical logs:</strong> kept by our providers for a short time and then deleted automatically.</li>
+  </ul>
+  <p>Uninstalling the app doesn't delete your account by itself. To remove everything, use <strong>Delete my data</strong> before you uninstall, or email us.</p>
+
+  <section class="callout" aria-labelledby="delete-your-data">
+    <h2 id="delete-your-data">8. Deleting your data</h2>
+    <p><strong>In the app:</strong> open Heads Up Home, go to <strong>My alerts</strong>, scroll down and tap <strong>Delete my data</strong>, then <strong>Delete</strong>. This immediately deletes your account and everything linked to it from our servers (your choices, allergens, cupboard, alert history and your phone's alert address) and resets the app on your phone.</p>
+    <p><strong>By email:</strong> if you can't use the app, email <a href="mailto:support@headsuphome.co.uk?subject=Delete%20my%20Heads%20Up%20Home%20data">support@headsuphome.co.uk</a> with the subject "Delete my Heads Up Home data". Accounts don't have names or emails, so please include your account number, which you'll find in <strong>My alerts</strong>. We'll delete your data within 30 days and let you know when it's done.</p>
+  </section>
+
+  <h2 id="rights">9. Your rights</h2>
+  <p>Under UK data protection law you have the right to:</p>
+  <ul>
+    <li>ask for a copy of the information we hold about you</li>
+    <li>ask us to correct it</li>
+    <li>ask us to delete it</li>
+    <li>ask us to limit how we use it, or object to how we use it</li>
+    <li>ask for your information in a format you can take elsewhere</li>
+    <li>withdraw your consent at any time, where we rely on it</li>
+  </ul>
+  <p>To use any of these rights, email <a href="mailto:support@headsuphome.co.uk">support@headsuphome.co.uk</a> with your account number from <strong>My alerts</strong>. We'll reply within one month.</p>
+  <p>If you're unhappy with how we've handled your information, please tell us first so we can put it right. You can also complain to the Information Commissioner's Office (ICO) at <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk/make-a-complaint</a> or on 0303 123 1113.</p>
+
+  <h2 id="security">10. Keeping it safe</h2>
+  <p>Information is encrypted while it travels between the app and our servers. Our database is set up so that each account can only see its own information, and only the people who run Heads Up Home can manage it. We also keep what we collect to a minimum: the safest information is the information we never hold.</p>
+
+  <h2 id="children">11. Children</h2>
+  <p>Heads Up Home is designed for adults looking after a household. It isn't aimed at children.</p>
+
+  <h2 id="website">12. This website</h2>
+  <p>This website doesn't use cookies, analytics or adverts, and it doesn't load anything from other companies. Our web host keeps the standard technical logs described above.</p>
+
+  <h2 id="changes">13. Changes to this policy</h2>
+  <p>If we change how we use your information, we'll update this page and the date at the top. If a change is important, we'll also tell you in the app.</p>
+
+  <h2 id="contact">14. Contact us</h2>
+  <p>Questions about this policy or your information? Email <a href="mailto:support@headsuphome.co.uk">support@headsuphome.co.uk</a>.</p>
+</article>
+
+</main>
+<footer class="foot">
+  <div class="bar">
+    <div class="links"><a href="/">Home</a><a href="/support/">Help and support</a><a href="/privacy/">Privacy policy</a><a href="mailto:support@headsuphome.co.uk">support@headsuphome.co.uk</a></div>
+    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards or the MHRA. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+    <p>&copy; 2026 Heads Up Home</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -115,6 +115,9 @@ export default function AlertsScreen({ prefs, update, account = {}, onEnableAler
           </View>
         </View>
         {account.note ? <Text style={[type.small, { lineHeight: 19 }]}>{account.note}</Text> : null}
+        {account.userId ? (
+          <Text selectable style={[type.small, { lineHeight: 19 }]}>Account number: {account.userId}</Text>
+        ) : null}
         {account.preview && alertsOn && !account.note ? (
           <Text style={[type.small, { lineHeight: 19 }]}>This is a preview. Real alerts arrive in the installed app.</Text>
         ) : null}

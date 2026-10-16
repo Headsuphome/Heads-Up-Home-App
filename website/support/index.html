@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help and support | Heads Up Home</title>
+<meta name="description" content="Answers to common questions about Heads Up Home, and how to contact us or delete your data.">
+<meta name="theme-color" content="#0E1A2B">
+<link rel="canonical" href="https://headsuphome.co.uk/support/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E1A2B'/%3E%3Cpath d='M50 17 84 47H75V82H25V47H16Z' fill='%23FB923C' stroke='%23FB923C' stroke-width='7' stroke-linejoin='round'/%3E%3Crect x='45.3' y='41' width='9.4' height='24' rx='4.7' fill='%230E1A2B'/%3E%3Ccircle cx='50' cy='73.5' r='5.3' fill='%230E1A2B'/%3E%3C/svg%3E">
+<style>
+:root {
+  --ink: #0E1A2B;
+  --signal: #FB923C;
+  --rust: #C2410C;
+  --rust-ink: #7C2D12;
+  --wash: #F3F5F7;
+  --paper: #FFFFFF;
+  --line: #E2E6EB;
+  --muted: #4B5563;
+  --teal: #0F766E;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Noto Serif", "Droid Serif", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--wash); color: var(--ink); font: 400 1.0625rem/1.6 var(--serif); }
+a { color: var(--rust); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--rust-ink); }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--paper); padding: 0.5rem 1rem; z-index: 2; font-family: var(--sans); }
+.skip:focus { left: 1rem; top: 1rem; }
+mark.fill { background: #FEF08A; color: var(--ink); padding: 0 0.2em; }
+
+/* Header and footer */
+.top { background: var(--ink); color: #fff; }
+.top .bar { max-width: 72rem; margin: 0 auto; padding: 0.875rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 0.625rem; color: #fff; text-decoration: none; font: 700 1.125rem/1 var(--sans); letter-spacing: -0.01em; }
+.brand:hover { color: #fff; }
+.logo { width: 2.25rem; height: 2.25rem; flex: none; }
+.top .logo rect:first-child { fill: #16263C; }
+.nav { display: flex; gap: 1.25rem; font: 500 0.9375rem/1 var(--sans); }
+.nav a { color: #E2E8F0; text-decoration: none; padding: 0.375rem 0; border-bottom: 2px solid transparent; }
+.nav a:hover { color: #fff; }
+.nav a[aria-current="page"] { color: #fff; border-bottom-color: var(--signal); }
+.foot { border-top: 1px solid var(--line); margin-top: 4rem; }
+.foot .bar { max-width: 72rem; margin: 0 auto; padding: 2rem 1.25rem 3rem; font: 400 0.875rem/1.6 var(--sans); color: var(--muted); display: grid; gap: 0.75rem; }
+.foot p { margin: 0; max-width: 46rem; }
+.foot .links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+/* Long-form pages (privacy, support) */
+.doc { max-width: 44rem; margin: 0 auto; padding: 2.75rem 1.25rem 0; }
+.doc h1 { font: 700 clamp(2rem, 6vw, 2.75rem)/1.1 var(--serif); letter-spacing: -0.015em; margin: 0 0 0.5rem; }
+.updated { font: 400 0.9375rem/1.4 var(--sans); color: var(--muted); margin: 0 0 2rem; }
+.lead { font-size: 1.1875rem; margin: 0 0 2rem; }
+.doc h2 { font: 700 1.5rem/1.25 var(--serif); margin: 2.75rem 0 0.75rem; scroll-margin-top: 1.5rem; }
+.doc h3 { font: 700 1.125rem/1.35 var(--serif); margin: 1.75rem 0 0.375rem; scroll-margin-top: 1.5rem; }
+.doc p, .doc li { max-width: 68ch; }
+.doc p { margin: 0 0 1rem; }
+.doc ul, .doc ol { padding-left: 1.4rem; margin: 0 0 1rem; }
+.doc li { margin: 0 0 0.45rem; }
+.doc li::marker { color: var(--rust); }
+.doc strong { font-weight: 700; }
+
+/* The recall-notice motif: a paper card with an orange band, like the notices shops pin up */
+.notice { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 0 rgba(14, 26, 43, 0.04), 0 18px 40px -24px rgba(14, 26, 43, 0.35); }
+.notice > .band { background: var(--signal); color: var(--ink); font: 700 0.9375rem/1 var(--sans); padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.notice > .body { padding: 1.25rem 1.25rem 1.375rem; }
+.notice > .body > :last-child { margin-bottom: 0; }
+.summary ul { margin: 0; padding-left: 1.2rem; }
+.summary li { margin: 0 0 0.6rem; }
+.summary li:last-child { margin-bottom: 0; }
+.contents { font: 400 0.9688rem/1.5 var(--sans); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 1.25rem; margin: 1.5rem 0 0; }
+.contents p { margin: 0 0 0.5rem; font-weight: 600; }
+.contents ol, .contents ul { margin: 0; padding-left: 1.3rem; columns: 2 15rem; column-gap: 2rem; }
+.contents li { margin: 0 0 0.3rem; break-inside: avoid; }
+.callout { background: #FFF7ED; border: 1px solid #FED7AA; border-top: 4px solid var(--signal); border-radius: 6px; padding: 1.25rem 1.25rem 0.5rem; margin: 1rem 0 1.25rem; }
+.callout h2, .callout h3 { margin-top: 0; }
+.mail { display: inline-block; font: 600 1.0625rem/1.2 var(--sans); background: var(--ink); color: #fff; text-decoration: none; padding: 0.875rem 1.25rem; border-radius: 10px; margin: 0.25rem 0 0.75rem; }
+.mail:hover { color: #fff; background: #1C2E47; }
+.small { font: 400 0.9375rem/1.55 var(--sans); color: var(--muted); }
+table.data { width: 100%; border-collapse: collapse; font: 400 0.9688rem/1.5 var(--sans); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin: 0 0 1.25rem; }
+table.data th, table.data td { text-align: left; vertical-align: top; padding: 0.75rem 0.875rem; border-bottom: 1px solid var(--line); }
+table.data tr:last-child td { border-bottom: 0; }
+table.data th { background: #F8FAFC; font-weight: 600; }
+table.data td:first-child { font-weight: 600; width: 34%; }
+@media (max-width: 560px) {
+  table.data, table.data tbody, table.data tr, table.data td { display: block; width: 100%; }
+  table.data thead { display: none; }
+  table.data td { border-bottom: 0; padding: 0.25rem 0.875rem; }
+  table.data td:first-child { padding-top: 0.875rem; width: 100%; }
+  table.data tr { border-bottom: 1px solid var(--line); padding-bottom: 0.75rem; }
+  table.data tr:last-child { border-bottom: 0; }
+}
+
+/* Home page */
+.hero { max-width: 72rem; margin: 0 auto; padding: 3.5rem 1.25rem 1rem; display: grid; gap: 3rem; align-items: center; }
+@media (min-width: 860px) { .hero { grid-template-columns: 1.05fr 1fr; padding-top: 5rem; } }
+.hero h1 { font: 700 clamp(2.4rem, 6.4vw, 4rem)/1.04 var(--serif); letter-spacing: -0.02em; margin: 0 0 1.25rem; max-width: 14ch; }
+.hero .lead { font-size: 1.25rem; max-width: 34rem; margin-bottom: 1.5rem; }
+.soon { display: inline-flex; align-items: center; gap: 0.6rem; font: 600 1rem/1.3 var(--sans); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 0.6rem 1rem 0.6rem 0.75rem; }
+.soon svg { width: 1.25rem; height: 1.25rem; flex: none; }
+.example { position: relative; max-width: 30rem; width: 100%; justify-self: center; padding-bottom: 2.5rem; margin: 0; }
+.example .notice > .body { padding-bottom: 5rem; }
+.example .tag { font: 500 0.8125rem/1 var(--sans); color: var(--ink); opacity: 0.75; }
+.example h2 { font: 700 1.5rem/1.2 var(--serif); margin: 0 0 0.25rem; }
+.example .from { font: 400 0.875rem/1.4 var(--sans); color: var(--muted); margin: 0 0 1rem; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 0 0 1rem; }
+.facts div { background: var(--wash); border-radius: 8px; padding: 0.55rem 0.7rem; }
+.facts dt { font: 400 0.75rem/1.3 var(--sans); color: var(--muted); }
+.facts dd { margin: 0; font: 700 1rem/1.3 var(--sans); }
+.todo { font-size: 0.9688rem; margin: 0; }
+.ping { position: absolute; left: -1.25rem; right: 2.5rem; bottom: 0; background: var(--ink); color: #fff; border-radius: 18px; padding: 0.875rem 1rem; display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.75rem; align-items: start; box-shadow: 0 16px 36px -14px rgba(14, 26, 43, 0.55); font-family: var(--sans); }
+.ping .logo { width: 2rem; height: 2rem; grid-row: span 2; }
+.ping .logo rect:first-child { fill: #23364F; }
+.ping b { font: 600 0.9375rem/1.3 var(--sans); }
+.ping span { font: 400 0.875rem/1.4 var(--sans); color: #CBD5E1; }
+@media (max-width: 520px) { .ping { left: 0.5rem; right: 0.5rem; } .facts { grid-template-columns: 1fr 1fr; } }
+.band-section { max-width: 72rem; margin: 0 auto; padding: 3.5rem 1.25rem 0; }
+.band-section h2 { font: 700 1.75rem/1.2 var(--serif); margin: 0 0 0.75rem; letter-spacing: -0.01em; }
+.band-section > p { max-width: 40rem; margin: 0 0 1.25rem; }
+.watch { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 0; list-style: none; font: 500 0.9688rem/1 var(--sans); }
+.watch li { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 0.55rem 0.9rem; }
+.watch i { width: 0.625rem; height: 0.625rem; border-radius: 50%; display: inline-block; }
+.sources { display: grid; gap: 0; padding: 0; margin: 0 0 1rem; list-style: none; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; max-width: 46rem; }
+.sources li { padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--line); }
+.sources li:last-child { border-bottom: 0; }
+.sources a { font: 600 1rem/1.4 var(--sans); }
+.sources span { display: block; font: 400 0.9063rem/1.45 var(--sans); color: var(--muted); }
+.three { display: grid; gap: 1.5rem; max-width: 72rem; }
+@media (min-width: 760px) { .three { grid-template-columns: repeat(3, 1fr); } }
+.three h3 { font: 700 1.1875rem/1.3 var(--serif); margin: 0 0 0.375rem; }
+.three p { margin: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .ping { animation: arrive 700ms cubic-bezier(.2, .8, .2, 1) 350ms both; }
+  @keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  <rect width="100" height="100" rx="22" fill="#0E1A2B"/>
+  <path d="M50 17 84 47H75V82H25V47H16Z" fill="#FB923C" stroke="#FB923C" stroke-width="7" stroke-linejoin="round"/>
+  <rect x="45.3" y="41" width="9.4" height="24" rx="4.7" fill="#0E1A2B"/>
+  <circle cx="50" cy="73.5" r="5.3" fill="#0E1A2B"/>
+</svg><span>Heads Up Home</span></a>
+    <nav class="nav" aria-label="Main"><a href="/support/" aria-current="page">Help and support</a><a href="/privacy/">Privacy</a></nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="doc">
+  <h1>Help and support</h1>
+  <p class="updated">Last updated 17 October 2026</p>
+  <p class="lead">Questions about Heads Up Home? You'll find most answers here. If not, email us and we'll help.</p>
+  <a class="mail" href="mailto:support@headsuphome.co.uk?subject=Heads%20Up%20Home%20help">Email support@headsuphome.co.uk</a>
+  <p class="small">It helps to tell us what kind of phone you have and what happened. If your question is about your data, include your account number from <strong>My alerts</strong>.</p>
+
+  <nav class="contents" aria-label="On this page">
+    <p>On this page</p>
+    <ul>
+      <li><a href="#alerts">Alerts</a></li>
+      <li><a href="#not-getting-alerts">Not getting alerts?</a></li>
+      <li><a href="#cupboard">Your cupboard</a></li>
+      <li><a href="#recalled">If you have a recalled product</a></li>
+      <li><a href="#recalls">Where recalls come from</a></li>
+      <li><a href="#premium">Premium and the free trial</a></li>
+      <li><a href="#data">Your data and privacy</a></li>
+      <li><a href="#delete-your-data">Delete your data</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="alerts">Alerts</h2>
+  <h3>How do alerts work?</h3>
+  <p>Every hour, Heads Up Home checks for new recalls from the UK's food, product and medicine safety organisations. When a new recall matches something you've told us about, we send an alert to your phone:</p>
+  <ul>
+    <li><strong>Allergy alerts</strong> when a food is recalled because of an allergen in your household.</li>
+    <li><strong>Cupboard alerts</strong> when a recall may match something in your cupboard.</li>
+    <li><strong>Category alerts</strong> for the kinds of recall you watch, like baby products or electricals.</li>
+  </ul>
+  <p>Allergy and cupboard alerts always come straight away, because they're about safety. Category alerts can come straight away or as one daily summary. You can choose in <strong>My alerts</strong>.</p>
+  <h3>Do I need an account?</h3>
+  <p>The app creates a private account for you when you turn on alerts. It doesn't need an email address or password. You can browse every recall without turning alerts on.</p>
+
+  <h2 id="not-getting-alerts">Not getting alerts?</h2>
+  <ol>
+    <li>Open <strong>My alerts</strong> and check it says <strong>Alerts are on</strong>. If not, tap <strong>Turn on alerts</strong> and allow notifications.</li>
+    <li>Check your phone allows notifications from Heads Up Home. On Android, go to <strong>Settings</strong>, then <strong>Apps</strong>, then <strong>Heads Up Home</strong>, then <strong>Notifications</strong>, and make sure <strong>Recall alerts</strong> is switched on.</li>
+    <li>Some phones pause apps to save battery. On a Samsung phone, go to <strong>Settings</strong>, then <strong>Battery</strong>, then <strong>Background usage limits</strong>, and make sure Heads Up Home isn't listed under <strong>Sleeping apps</strong> or <strong>Deep sleeping apps</strong>.</li>
+    <li>Tap <strong>Send me a test alert</strong> in My alerts to see an alert on your phone.</li>
+  </ol>
+  <p>Still nothing? Email us and tell us what kind of phone you have.</p>
+
+  <h2 id="cupboard">Your cupboard</h2>
+  <h3>What is the cupboard?</h3>
+  <p>It's a list of things you have at home, like baby food, chargers or toys. Add each item's name and brand, and we'll check every new recall against your list. The free cupboard holds 10 items; Premium has no limit.</p>
+  <h3>What does "possible match" mean?</h3>
+  <p>Most recalls only affect certain batches, so a name match doesn't always mean your pack is affected. When you see a possible match, open the recall and compare the batch code, best before date and pack size with your product. If yours doesn't match, tap <strong>Not mine</strong> and we won't alert you about it again.</p>
+
+  <h2 id="recalled">If you have a recalled product</h2>
+  <ul>
+    <li>Stop using it, and follow the <strong>What to do</strong> advice on the recall.</li>
+    <li>Most shops give a full refund for recalled products, usually with or without a receipt.</li>
+    <li>Tap <strong>I have this</strong> to keep it on your list until it's sorted.</li>
+    <li>For medicines, don't stop taking a prescribed medicine without talking to your pharmacist, doctor or nurse first.</li>
+    <li>If someone has become ill or been hurt, get medical advice straight away. Call 999 in an emergency, or 111 for urgent advice.</li>
+  </ul>
+
+  <h2 id="recalls">Where recalls come from</h2>
+  <p>We collect the public recall notices published by:</p>
+  <ul>
+    <li><a href="https://www.food.gov.uk/about-us/recalls-and-alerts">Food Standards Agency</a>, for food recalls and allergy alerts for England, Wales and Northern Ireland</li><li><a href="https://www.foodstandards.gov.scot/alerts">Food Standards Scotland</a>, for food recalls and allergy alerts for Scotland</li><li><a href="https://www.gov.uk/product-safety-alerts-reports-recalls">Office for Product Safety and Standards</a>, for recalls and safety warnings for products, from toys and baby items to electricals and tools</li><li><a href="https://www.gov.uk/drug-device-alerts">Medicines and Healthcare products Regulatory Agency (MHRA)</a>, for medicine recalls and medical device safety alerts</li>
+  </ul>
+  <p>We check for new notices every hour, and every recall in the app links to the original notice so you can check it for yourself.</p>
+  <h3>Is Heads Up Home an official government app?</h3>
+  <p>No. Heads Up Home is an independent app. It isn't run by, or connected to, the government or any of the organisations above. Their notices contain public sector information licensed under the Open Government Licence v3.0.</p>
+  <h3>Does it include every recall?</h3>
+  <p>It includes every notice these organisations publish. Some recalls are only announced by a shop or manufacturer, and car, van and motorbike recalls are on the government's <a href="https://www.gov.uk/check-vehicle-recall">vehicle recall checker</a>. We can't promise to catch every recall, so always follow official advice.</p>
+  <h3>Something in a recall looks wrong</h3>
+  <p>Please email us with the recall's name and what looks wrong, and we'll check it against the original notice.</p>
+
+  <h2 id="premium">Premium and the free trial</h2>
+  <h3>What's free?</h3>
+  <p>Every recall, every safety alert, and a cupboard of up to 10 items. Safety alerts will always be free.</p>
+  <h3>What does Premium add?</h3>
+  <p>An unlimited cupboard now, with barcode scanning, receipt scanning and family sharing on the way.</p>
+  <h3>How does the free trial work?</h3>
+  <p>The 14-day trial doesn't need any payment details. When it ends, you go back to the free plan and keep your cupboard. Paid plans aren't on sale yet. When they are, you'll manage or cancel your subscription in Google Play (Play Store, then your profile picture, then <strong>Payments and subscriptions</strong>, then <strong>Subscriptions</strong>).</p>
+
+  <h2 id="data">Your data and privacy</h2>
+  <p>We collect as little as we can: no name, no email, no location and no tracking. Our <a href="/privacy/">privacy policy</a> explains exactly what we hold and why.</p>
+  <h3>I've got a new phone</h3>
+  <p>For now, a new phone starts fresh. Linking an email address, so you can move your cupboard to a new phone, is coming soon.</p>
+
+  <section class="callout" aria-labelledby="delete-your-data">
+    <h2 id="delete-your-data">Delete your data</h2>
+    <p>You can delete your Heads Up Home account and all the data linked to it at any time.</p>
+    <p><strong>In the app:</strong></p>
+    <ol>
+      <li>Open Heads Up Home and go to <strong>My alerts</strong>.</li>
+      <li>Scroll down and tap <strong>Delete my data</strong>.</li>
+      <li>Tap <strong>Delete</strong> to confirm.</li>
+    </ol>
+    <p>This immediately deletes your account, choices, allergens, cupboard, alert history and your phone's alert address from our servers, and resets the app on your phone.</p>
+    <p><strong>By email:</strong> if you no longer have the app, email <a href="mailto:support@headsuphome.co.uk?subject=Delete%20my%20Heads%20Up%20Home%20data">support@headsuphome.co.uk</a> with the subject "Delete my Heads Up Home data", and include your account number if you have it (it's shown in My alerts). We'll delete your data within 30 days and confirm when it's done.</p>
+    <p>We don't keep any of your data after it's deleted, apart from short-lived technical logs held by our providers, which are deleted automatically.</p>
+  </section>
+</article>
+
+</main>
+<footer class="foot">
+  <div class="bar">
+    <div class="links"><a href="/">Home</a><a href="/support/">Help and support</a><a href="/privacy/">Privacy policy</a><a href="mailto:support@headsuphome.co.uk">support@headsuphome.co.uk</a></div>
+    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards or the MHRA. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+    <p>&copy; 2026 Heads Up Home</p>
+  </div>
+</footer>
+</body>
+</html>

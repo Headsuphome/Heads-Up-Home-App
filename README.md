@@ -26,6 +26,13 @@ Phone alerts need Firebase: add the contents of `google-services.json` as a repo
 called `GOOGLE_SERVICES_JSON` (Settings → Secrets and variables → Actions). The Firebase
 service-account key never goes in GitHub; it's uploaded to Expo instead.
 
+## Website
+
+`website/` holds headsuphome.co.uk: the home page, the privacy policy (`/privacy/`) and help and support
+(`/support/`, which includes how to delete your data). Edit `scripts/build-website.py`, run
+`python3 scripts/build-website.py`, then upload everything inside `website/` to the site's root folder.
+The pages load nothing from other companies: no fonts, scripts, cookies or trackers.
+
 ## Project layout
 
 | Path | What it is |

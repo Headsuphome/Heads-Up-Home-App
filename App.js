@@ -54,7 +54,7 @@ function Main() {
       .then(async (s) => {
         if (!s) { setAccount((a) => ({ ...a, status: 'none' })); return; }
         const permission = await alertPermission();
-        setAccount((a) => ({ ...a, status: 'ready', permission }));
+        setAccount((a) => ({ ...a, status: 'ready', permission, userId: s.userId }));
         if (permission) refreshAlertRegistration().catch(() => {});
       })
       .catch(() => setAccount((a) => ({ ...a, status: 'none' })));
@@ -70,9 +70,9 @@ function Main() {
   /** Creates the private account and turns on notifications. Never throws. */
   const enableAlerts = useCallback(async () => {
     try {
-      await ensureAccount();
+      const session = await ensureAccount();
       const r = await enableNotifications();
-      setAccount({ status: 'ready', permission: r.permission, note: r.note });
+      setAccount((a) => ({ ...a, status: 'ready', permission: r.permission, note: r.note, userId: session.userId }));
       return { ok: r.permission, note: r.note };
     } catch (e) {
       const note = `We couldn't turn on alerts just now (${e.message}). You can try again in My alerts.`;
