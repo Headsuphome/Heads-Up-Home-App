@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colorFor, colors, radius, space, type } from '../theme';
 import { Button, CategoryIcon, Chip, SectionLabel } from '../components';
 import { ALLERGENS, CATEGORIES } from '../logic';
 import { toggle } from '../storage';
 import { PRICES, TRIAL_DAYS, startTrial } from '../plans';
+import { PRIVACY_URL } from '../config';
 
 const PROMISES = [
   { icon: 'albums-outline', category: 'electrical', text: 'Every UK recall in one place: food, products and medicines' },
@@ -55,6 +56,10 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
         </View>
         <View style={{ flex: 1 }} />
         <Button label="Get started" onPress={() => setStep(1)} />
+        <Text style={[type.small, { textAlign: 'center', lineHeight: 19 }]}>
+          Heads Up Home is an independent app, not a government service.{' '}
+          <Text style={styles.link} accessibilityRole="link" onPress={() => Linking.openURL(PRIVACY_URL).catch(() => {})}>Privacy policy</Text>
+        </Text>
       </ScrollView>
     );
   }
@@ -82,6 +87,9 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
               <Chip key={a.key} label={a.label} selected={prefs.allergens.includes(a.key)} onPress={() => update((p) => ({ allergens: toggle(p.allergens, a.key) }))} />
             ))}
           </View>
+          <Text style={[type.small, { lineHeight: 19, marginTop: space.md }]}>
+            Allergies count as health information. We only use your choices to find recalls for you, and you can change or clear them at any time.
+          </Text>
         </View>
         <Button label="Next" onPress={() => setStep(2)} />
       </ScrollView>
@@ -126,7 +134,7 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
           We'll let you know when something you own, or something you've asked us to watch, is recalled. Allergy and cupboard alerts always come straight away.
         </Text>
         <Text style={type.small}>
-          This sets up a private account for you automatically. No email or password needed.
+          This sets up a private account for you automatically, with no email or password. Your choices and cupboard are copied to it, so we can check new recalls for you while the app is closed.
         </Text>
       </View>
 
@@ -165,4 +173,5 @@ const styles = StyleSheet.create({
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   bell: { width: 88, height: 88, borderRadius: 44, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginTop: space.lg },
   result: { flexDirection: 'row', gap: 10, padding: 14, borderRadius: radius.md },
+  link: { color: colors.accent, fontWeight: '600', textDecorationLine: 'underline' },
 });

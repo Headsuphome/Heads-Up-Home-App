@@ -16,7 +16,7 @@ import AlertsScreen from './src/screens/AlertsScreen';
 import DetailScreen from './src/screens/DetailScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import PremiumScreen from './src/screens/PremiumScreen';
-import { enableNotifications, ensureAccount, getSession, sendTestAlert, syncToAccount } from './src/account';
+import { alertPermission, deleteAccount, enableNotifications, ensureAccount, getSession, isExpoGo, refreshAlertRegistration, sendTestAlert, syncToAccount } from './src/account';
 
 const TABS = [
   { key: 'home', label: 'Home', icon: 'home' },
@@ -27,8 +27,8 @@ const TABS = [
 
 function Main() {
   const insets = useSafeAreaInsets();
-  const [prefs, update, ready] = usePrefs();
-  const [account, setAccount] = useState({ status: 'unknown', permission: null, note: null });
+  const [prefs, update, ready, reset] = usePrefs();
+  const [account, setAccount] = useState({ status: 'unknown', permission: null, note: null, preview: isExpoGo() });
   const [tab, setTab] = useState('home');
   const [open, setOpen] = useState(null); // the recall being viewed, if any
   const [premium, setPremium] = useState(null); // { reason } while the plans screen is open
@@ -47,10 +47,16 @@ function Main() {
 
   useEffect(load, [load]);
 
-  // Is there already an account on this phone?
+  // Is there already an account on this phone? If so, check notifications are still allowed
+  // and keep this phone's alert registration fresh.
   useEffect(() => {
     getSession()
-      .then((s) => setAccount((a) => ({ ...a, status: s ? 'ready' : 'none' })))
+      .then(async (s) => {
+        if (!s) { setAccount((a) => ({ ...a, status: 'none' })); return; }
+        const permission = await alertPermission();
+        setAccount((a) => ({ ...a, status: 'ready', permission }));
+        if (permission) refreshAlertRegistration().catch(() => {});
+      })
       .catch(() => setAccount((a) => ({ ...a, status: 'none' })));
   }, []);
 
@@ -82,11 +88,21 @@ function Main() {
         Alert.alert('Notifications are off', 'Allow notifications for this app in your phone settings, then try again.');
         return;
       }
-      await sendTestAlert();
+      await sendTestAlert(recalls.length ? recalls[0].id : null);
     } catch (e) {
       Alert.alert('Couldn\'t send a test alert', e.message);
     }
-  }, []);
+  }, [recalls]);
+
+  /** Deletes the account and everything on this phone, then starts again from the welcome screens. Throws on failure. */
+  const deleteMyData = useCallback(async () => {
+    await deleteAccount();
+    setAccount({ status: 'none', permission: null, note: null, preview: isExpoGo() });
+    setOpen(null);
+    setPremium(null);
+    setTab('home');
+    reset();
+  }, [reset]);
 
   // Tapping a recall alert opens that recall.
   const tapped = Notifications.useLastNotificationResponse();
@@ -137,7 +153,7 @@ function Main() {
     setOpen(null);
   };
 
-  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, openPremium };
+  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, onDeleteData: deleteMyData, openPremium };
 
   if (!ready) {
     return (

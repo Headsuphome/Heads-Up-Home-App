@@ -117,17 +117,43 @@ export function isExpoGo() {
   return Constants.executionEnvironment === 'storeClient' || Constants.appOwnership === 'expo';
 }
 
+async function ensureChannel() {
+  if (Platform.OS !== 'android') return;
+  await Notifications.setNotificationChannelAsync('recalls', {
+    name: 'Recall alerts',
+    importance: Notifications.AndroidImportance.MAX,
+  }).catch(() => {});
+}
+
+/** Gets this phone's alert address from Expo and saves it to the person's account. */
+async function registerToken(session) {
+  const projectId = (Constants.expoConfig && Constants.expoConfig.extra && Constants.expoConfig.extra.eas && Constants.expoConfig.extra.eas.projectId)
+    || (Constants.easConfig && Constants.easConfig.projectId);
+  const token = (await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined)).data;
+  await rest(session, 'POST', 'push_tokens?on_conflict=token', {
+    token,
+    user_id: session.userId,
+    platform: Platform.OS === 'ios' ? 'ios' : 'android',
+    updated_at: new Date().toISOString(),
+  }, 'resolution=merge-duplicates,return=minimal');
+  return token;
+}
+
+/** Whether this app is currently allowed to show notifications. Never asks. */
+export async function alertPermission() {
+  try {
+    return (await Notifications.getPermissionsAsync()).status === 'granted';
+  } catch (e) {
+    return false;
+  }
+}
+
 /**
  * Asks permission for notifications and registers this phone for alerts.
  * Returns { permission, token, note } so the screen can explain what happened.
  */
 export async function enableNotifications() {
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('recalls', {
-      name: 'Recall alerts',
-      importance: Notifications.AndroidImportance.MAX,
-    }).catch(() => {});
-  }
+  await ensureChannel();
   const current = await Notifications.getPermissionsAsync();
   let status = current.status;
   if (status !== 'granted') status = (await Notifications.requestPermissionsAsync()).status;
@@ -137,31 +163,62 @@ export async function enableNotifications() {
   // address belongs to Expo Go rather than Heads Up Home, so only the installed app registers.
   if (isExpoGo()) return { permission: true, token: null, note: PREVIEW_NOTE };
 
-  const projectId = (Constants.expoConfig && Constants.expoConfig.extra && Constants.expoConfig.extra.eas && Constants.expoConfig.extra.eas.projectId)
-    || (Constants.easConfig && Constants.easConfig.projectId);
-  let token = null;
   try {
-    token = (await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined)).data;
+    const session = await ensureAccount();
+    const token = await registerToken(session);
+    return { permission: true, token, note: null };
   } catch (e) {
-    return { permission: true, token: null, note: `We couldn't register this phone for alerts just now (${e.message}). Try again in My alerts.` };
+    return { permission: true, token: null, note: `We couldn't register this phone for alerts just now (${e.message}). Try again in a moment.` };
   }
-
-  const session = await ensureAccount();
-  await rest(session, 'POST', 'push_tokens?on_conflict=token', {
-    token,
-    user_id: session.userId,
-    platform: Platform.OS === 'ios' ? 'ios' : 'android',
-    updated_at: new Date().toISOString(),
-  }, 'resolution=merge-duplicates,return=minimal');
-  return { permission: true, token, note: null };
 }
 
-/** Shows a sample alert on this phone straight away, so people can see what they'll get. */
-export async function sendTestAlert() {
+/**
+ * Keeps this phone's alert registration up to date each time the app opens, as Expo can
+ * occasionally change a phone's address. Never asks for permission; does nothing if alerts are off.
+ */
+export async function refreshAlertRegistration() {
+  if (isExpoGo() || !(await alertPermission())) return false;
+  const session = await getSession();
+  if (!session) return false;
+  await ensureChannel();
+  await registerToken(session);
+  return true;
+}
+
+/**
+ * Deletes the person's account and everything linked to it on our server (choices,
+ * cupboard, alerts and this phone's alert registration), then forgets it on this phone.
+ * Throws if the server couldn't be reached, so nothing is wiped half-way.
+ */
+export async function deleteAccount() {
+  let session = null;
+  try {
+    session = await getSession();
+  } catch (e) {
+    throw new Error(`we couldn't reach your account (${e.message})`);
+  }
+  if (session) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/delete_my_account`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${session.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: '{}',
+    });
+    if (!res.ok) throw new Error(`the server said no (${res.status})`);
+  }
+  try { await AsyncStorage.removeItem(SESSION_KEY); } catch (e) { /* nothing saved */ }
+}
+
+/** Shows a sample alert on this phone straight away. Tapping it opens the given recall. */
+export async function sendTestAlert(recallId) {
   await Notifications.scheduleNotificationAsync({
     content: {
       title: 'Possible recall in your cupboard',
       body: 'This is a test. Real alerts look like this and open the recall when tapped.',
+      data: recallId ? { recallId } : {},
     },
     trigger: null,
   });

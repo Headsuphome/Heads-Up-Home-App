@@ -52,7 +52,7 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
   const [photo, setPhoto] = usePhoto(recall);
 
   const share = () => {
-    Share.share({ message: `${recall.title}\n\nCheck if you have this: ${recall.sourceUrl}` }).catch(() => {});
+    Share.share({ message: `${recall.title}\n\nCheck if you have this: ${recall.sourceUrl}\n\nShared from Heads Up Home, UK recall alerts.` }).catch(() => {});
   };
 
   return (
@@ -132,12 +132,21 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
           </Section>
         ) : null}
 
+        {recall.source === 'mhra' ? (
+          <View style={styles.medicineNote}>
+            <Ionicons name="medkit-outline" size={20} color="#0F766E" />
+            <Text style={styles.medicineText}>
+              Don't stop taking a prescribed medicine without talking to your pharmacist, doctor or nurse first. They can check whether your pack is affected.
+            </Text>
+          </View>
+        ) : null}
+
         <Pressable onPress={() => Linking.openURL(recall.sourceUrl)} accessibilityRole="link" style={styles.sourceLink}>
           <Text style={styles.sourceText}>Read the official notice</Text>
           <Ionicons name="open-outline" size={16} color={colors.accent} />
         </Pressable>
         <Text style={[type.small, { lineHeight: 18 }]}>
-          Source: {sourceName(recall.source)}. Contains public sector information licensed under the Open Government Licence v3.0. Heads Up Home is not a government service.
+          Source: {sourceName(recall.source)}. Contains public sector information licensed under the Open Government Licence v3.0. Heads Up Home is an independent app and isn't connected to the government.
         </Text>
       </ScrollView>
 
@@ -170,6 +179,8 @@ const styles = StyleSheet.create({
   fact: { backgroundColor: colors.bg, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, minWidth: '47%', flexGrow: 1 },
   factLabel: { fontSize: 12, color: colors.muted },
   factValue: { fontSize: 15, fontWeight: '600', color: colors.ink },
+  medicineNote: { flexDirection: 'row', gap: 10, backgroundColor: '#CCFBF1', borderRadius: radius.md, padding: 14 },
+  medicineText: { flex: 1, fontSize: 14, lineHeight: 20, color: '#115E59' },
   sourceLink: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44 },
   sourceText: { fontSize: 15, fontWeight: '600', color: colors.accent },
   actions: { flexDirection: 'row', gap: 10, paddingHorizontal: space.xl, paddingTop: space.md, paddingBottom: space.md, backgroundColor: colors.bg, borderTopWidth: 1, borderTopColor: colors.line },

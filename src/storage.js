@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Everything personal stays on the phone in this first version:
-// chosen categories, allergens and cupboard items. Nothing is sent to the server.
+// Your choices, cupboard and plan, saved on the phone. Once you turn on alerts, the choices
+// and cupboard are also copied to your private account (see account.js) so the recall engine
+// can alert you while the app is closed.
 
 const KEY = 'heads-up-home:v1';
 
@@ -43,7 +44,10 @@ export function usePrefs() {
     setPrefs((p) => ({ ...p, ...(typeof changes === 'function' ? changes(p) : changes) }));
   }, []);
 
-  return [prefs, update, ready];
+  /** Puts everything back to how it was on first install (used by "Delete my data"). */
+  const reset = useCallback(() => setPrefs(DEFAULT_PREFS), []);
+
+  return [prefs, update, ready, reset];
 }
 
 export const toggle = (list, key) => (list.includes(key) ? list.filter((k) => k !== key) : [...list, key]);

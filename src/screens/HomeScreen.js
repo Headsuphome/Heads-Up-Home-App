@@ -41,7 +41,7 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
         <View style={styles.brandRow}>
           <View style={styles.brand}>
             <View style={styles.logo}>
-              <Ionicons name="shield-checkmark" size={20} color={colors.ink} />
+              <Ionicons name="home" size={19} color={colors.ink} />
             </View>
             <Text style={styles.brandText}>Heads Up Home</Text>
           </View>
@@ -118,6 +118,11 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
       renderItem={({ item }) => <RecallCard recall={item} onPress={() => openRecall(item)} note={matchedIds.has(item.id) ? 'May match something in your cupboard' : null} />}
       ListHeaderComponent={header}
       ListEmptyComponent={empty}
+      ListFooterComponent={recalls.length ? (
+        <Text style={[type.small, styles.footer]}>
+          Recalls from the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards and the MHRA. Heads Up Home is an independent app, not a government service.
+        </Text>
+      ) : null}
       ItemSeparatorComponent={() => <View style={{ height: space.md }} />}
       contentContainerStyle={styles.list}
       refreshControl={<RefreshControl refreshing={loading && recalls.length > 0} onRefresh={onRefresh} tintColor={colors.accent} />}
@@ -144,5 +149,6 @@ const styles = StyleSheet.create({
   bannerIcon: { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
   bannerTitle: { fontSize: 16, fontWeight: '600', color: colors.accentInk },
   bannerBody: { fontSize: 14, lineHeight: 20, color: colors.accentInk },
+  footer: { textAlign: 'center', lineHeight: 18, marginTop: space.xl, paddingHorizontal: space.md },
   setup: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.sm },
 });
