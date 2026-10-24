@@ -28,9 +28,10 @@ service-account key never goes in GitHub; it's uploaded to Expo instead.
 
 ## Website
 
-`website/` holds headsuphome.co.uk: the home page, the privacy policy (`/privacy/`) and help and support
-(`/support/`, which includes how to delete your data). Edit `scripts/build-website.py`, run
-`python3 scripts/build-website.py`, then upload everything inside `website/` to the site's root folder.
+`website/` holds headsuphome.co.uk: the home page, the privacy policy (`/privacy.html`) and help and support
+(`/support.html`, which includes how to delete your data at `#delete-your-data`). Edit
+`scripts/build-website.py`, run `python3 scripts/build-website.py`, then upload the three files to the
+site's web folder (on IONOS, `/public`, next to the WordPress files).
 The pages load nothing from other companies: no fonts, scripts, cookies or trackers.
 
 ## Project layout

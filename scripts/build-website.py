@@ -1,7 +1,7 @@
 """Builds the Heads Up Home website (home, privacy policy, help and support) into website/.
 
 Run: python3 scripts/build-website.py
-Then upload everything inside website/ to the root of headsuphome.co.uk.
+Then upload the three files inside website/ to the site's web folder (on IONOS: /public).
 
 Each page is a single self-contained file: the styles and logo are inside it, and nothing
 is loaded from any other company (no fonts, scripts, cookies or trackers).
@@ -163,7 +163,7 @@ table.data td:first-child { font-weight: 600; width: 34%; }
 
 
 def page(*, path, title, description, current, body):
-    nav_items = [("/support/", "Help and support", "support"), ("/privacy/", "Privacy", "privacy")]
+    nav_items = [("/support.html", "Help and support", "support"), ("/privacy.html", "Privacy", "privacy")]
     here = ' aria-current="page"'
     nav = "".join(
         f'<a href="{href}"{here if key == current else ""}>{label}</a>'
@@ -194,7 +194,7 @@ def page(*, path, title, description, current, body):
 </main>
 <footer class="foot">
   <div class="bar">
-    <div class="links"><a href="/">Home</a><a href="/support/">Help and support</a><a href="/privacy/">Privacy policy</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
+    <div class="links"><a href="/">Home</a><a href="/support.html">Help and support</a><a href="/privacy.html">Privacy policy</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
     <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards or the MHRA. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
     <p>&copy; 2026 Heads Up Home</p>
   </div>
@@ -202,7 +202,7 @@ def page(*, path, title, description, current, body):
 </body>
 </html>
 """
-    out = ROOT / path.strip("/") / "index.html" if path != "/" else ROOT / "index.html"
+    out = ROOT / (path.strip("/") or "index.html")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
     return out
@@ -519,7 +519,7 @@ SUPPORT = f"""
   <p>The 14-day trial doesn't need any payment details. When it ends, you go back to the free plan and keep your cupboard. Paid plans aren't on sale yet. When they are, you'll manage or cancel your subscription in Google Play (Play Store, then your profile picture, then <strong>Payments and subscriptions</strong>, then <strong>Subscriptions</strong>).</p>
 
   <h2 id="data">Your data and privacy</h2>
-  <p>We collect as little as we can: no name, no email, no location and no tracking. Our <a href="/privacy/">privacy policy</a> explains exactly what we hold and why.</p>
+  <p>We collect as little as we can: no name, no email, no location and no tracking. Our <a href="/privacy.html">privacy policy</a> explains exactly what we hold and why.</p>
   <h3>I've got a new phone</h3>
   <p>For now, a new phone starts fresh. Linking an email address, so you can move your cupboard to a new phone, is coming soon.</p>
 
@@ -545,10 +545,10 @@ def main():
         page(path="/", title="Heads Up Home: UK recall alerts for your home",
              description="Heads Up Home tells you when food, products or medicines in your home are recalled in the UK.",
              current="home", body=HOME),
-        page(path="/privacy/", title="Privacy policy | Heads Up Home",
+        page(path="/privacy.html", title="Privacy policy | Heads Up Home",
              description="How Heads Up Home collects, uses and protects your information.",
              current="privacy", body=PRIVACY),
-        page(path="/support/", title="Help and support | Heads Up Home",
+        page(path="/support.html", title="Help and support | Heads Up Home",
              description="Answers to common questions about Heads Up Home, and how to contact us or delete your data.",
              current="support", body=SUPPORT),
     ]
