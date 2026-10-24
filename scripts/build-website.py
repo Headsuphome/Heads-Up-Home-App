@@ -253,7 +253,7 @@ HOME = f"""
   <h2 id="how">Made for busy homes</h2>
   <div class="three">
     <div><h3>Allergy alerts</h3><p>Choose the allergens in your household and hear straight away when a food is recalled for them.</p></div>
-    <div><h3>Your cupboard</h3><p>Add the things you've bought, from baby food to chargers, and we'll check every new recall against them.</p></div>
+    <div><h3>Your cupboard</h3><p>Scan the things you've bought, from baby food to chargers, and we'll check every new recall against them.</p></div>
     <div><h3>Free safety alerts</h3><p>Recall alerts that keep you safe are free for everyone. No sign-up form: your account is private and needs no email.</p></div>
   </div>
 </section>
@@ -345,7 +345,10 @@ PRIVACY = f"""
 
   <h3>Technical information</h3>
   <p>When the app or this website connects to our servers, our providers automatically record technical details such as your IP address, the type of device and the time. They keep these logs for a short time, to keep the service secure and fix problems.</p>
-  <p>When you search for a recall, the words you type are sent to our servers so we can search older recalls too. They aren't saved to your account, but they may appear in those short-lived logs.</p>
+  <p>When you search for a recall or scan a barcode, the words or barcode are sent to our servers so we can check every recall, including older ones. They aren't saved to your account, but they may appear in those short-lived logs.</p>
+
+  <h3>Your camera</h3>
+  <p>If you choose to scan a barcode, the app uses your camera only to read it. Nothing is recorded or saved, and the camera is never used at any other time.</p>
 
   <h3>What we don't collect</h3>
   <ul>
@@ -380,7 +383,7 @@ PRIVACY = f"""
       <tr><td>Supabase</td><td>Hosts our database and private accounts. Your account and choices are stored in London, UK.</td></tr>
       <tr><td>Expo (650 Industries, Inc., USA)</td><td>Passes alerts from our servers to your phone. It receives your phone's alert address and the text of each alert, which may include the name of a cupboard item.</td></tr>
       <tr><td>Google (Firebase Cloud Messaging) and, on iPhones, Apple</td><td>Deliver notifications to Android phones and iPhones.</td></tr>
-      <tr><td>Open Food Facts (France)</td><td>A free, shared database of food products. When you open a food recall that has a barcode but no official photo, the app asks Open Food Facts for a photo of that product. Only the recalled product's barcode is sent, nothing about you, though like any website they'll see your IP address.</td></tr>
+      <tr><td>Open Food Facts (France)</td><td>A free, shared database of food products. When you scan a barcode, the app asks Open Food Facts for the product's name, and when you open a food recall that has a barcode but no official photo, it asks for a photo. Only the barcode is sent, nothing about you, though like any website they'll see your IP address.</td></tr>
       <tr><td>IONOS</td><td>Hosts this website.</td></tr>
     </tbody>
   </table>
@@ -479,7 +482,9 @@ SUPPORT = f"""
 
   <h2 id="cupboard">Your cupboard</h2>
   <h3>What is the cupboard?</h3>
-  <p>It's a list of things you have at home, like baby food, chargers or toys. Add each item's name and brand, and we'll check every new recall against your list. The free cupboard holds 10 items; Premium has no limit.</p>
+  <p>It's a list of things you have at home, like baby food, chargers or toys. Scan each item's barcode or type its name and brand, and we'll check every new recall against your list. The free cupboard holds 10 items; Premium has no limit.</p>
+  <h3>How do I scan a barcode?</h3>
+  <p>To add something to your cupboard, tap <strong>Scan a barcode</strong> in your cupboard. To check a product, for example while you're shopping, tap <strong>Check a product</strong> on the home screen. Allow the camera when your phone asks, then point it at the barcode. If the camera won't read it, you can type the numbers under the barcode instead.</p>
   <h3>What does "possible match" mean?</h3>
   <p>Most recalls only affect certain batches, so a name match doesn't always mean your pack is affected. When you see a possible match, open the recall and compare the batch code, best before date and pack size with your product. If yours doesn't match, tap <strong>Not mine</strong> and we won't alert you about it again.</p>
 
@@ -507,9 +512,9 @@ SUPPORT = f"""
 
   <h2 id="premium">Premium and the free trial</h2>
   <h3>What's free?</h3>
-  <p>Every recall, every safety alert, and a cupboard of up to 10 items. Safety alerts will always be free.</p>
+  <p>Every recall, every safety alert, barcode scanning and a cupboard of up to 10 items. Safety alerts will always be free.</p>
   <h3>What does Premium add?</h3>
-  <p>An unlimited cupboard now, with barcode scanning, receipt scanning and family sharing on the way.</p>
+  <p>An unlimited cupboard now, with receipt scanning and family sharing on the way.</p>
   <h3>How does the free trial work?</h3>
   <p>The 14-day trial doesn't need any payment details. When it ends, you go back to the free plan and keep your cupboard. Paid plans aren't on sale yet. When they are, you'll manage or cancel your subscription in Google Play (Play Store, then your profile picture, then <strong>Payments and subscriptions</strong>, then <strong>Subscriptions</strong>).</p>
 

@@ -6,7 +6,7 @@ import { Button, EmptyState, SectionLabel } from '../components';
 import { newId } from '../storage';
 import { FREE_CUPBOARD_LIMIT, canAddToCupboard, isPremium } from '../plans';
 
-export default function CupboardScreen({ prefs, update, matches, recallsById, openRecall, openPremium }) {
+export default function CupboardScreen({ prefs, update, matches, recallsById, openRecall, openPremium, openScan }) {
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
@@ -19,7 +19,7 @@ export default function CupboardScreen({ prefs, update, matches, recallsById, op
 
   const premium = isPremium(prefs);
   const canAdd = canAddToCupboard(prefs);
-  const fullMessage = `Your free cupboard holds ${FREE_CUPBOARD_LIMIT} items. Premium gives you an unlimited cupboard, plus scanning when it arrives.`;
+  const fullMessage = `Your free cupboard holds ${FREE_CUPBOARD_LIMIT} items. Premium gives you an unlimited cupboard.`;
 
   const save = () => {
     const n = name.trim();
@@ -40,7 +40,7 @@ export default function CupboardScreen({ prefs, update, matches, recallsById, op
 
   const doneWith = (recallId) => update((p) => ({ flagged: (p.flagged || []).filter((f) => f.recallId !== recallId) }));
 
-  const soon = (what) => Alert.alert(`${what} is coming soon`, `It'll be part of Premium. For now, add items by typing the product name and brand: it works the same way for matching.`);
+  const soon = (what) => Alert.alert(`${what} is coming soon`, `It'll be part of Premium. For now, scan the barcode or type the product name and brand.`);
 
   return (
     <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
@@ -78,10 +78,10 @@ export default function CupboardScreen({ prefs, update, matches, recallsById, op
             <Text style={[type.small, { textAlign: 'center' }]}>{prefs.cupboard.length} of {FREE_CUPBOARD_LIMIT} free items used</Text>
           ) : null}
           <View style={{ flexDirection: 'row', gap: 10 }}>
-            <Pressable onPress={() => soon('Barcode scanning')} style={styles.soon} accessibilityRole="button">
-              <Ionicons name="barcode-outline" size={22} color={colors.muted} />
-              <Text style={styles.soonText}>Scan barcode</Text>
-              <Text style={styles.soonTag}>Premium · coming soon</Text>
+            <Pressable onPress={() => (canAdd ? openScan('add') : openPremium(fullMessage))} style={styles.scan} accessibilityRole="button">
+              <Ionicons name="barcode-outline" size={24} color={colors.accent} />
+              <Text style={styles.scanText}>Scan a barcode</Text>
+              <Text style={styles.scanTag}>Adds it in seconds</Text>
             </Pressable>
             <Pressable onPress={() => soon('Receipt scanning')} style={styles.soon} accessibilityRole="button">
               <Ionicons name="receipt-outline" size={22} color={colors.muted} />
@@ -174,6 +174,9 @@ const styles = StyleSheet.create({
   soonText: { fontSize: 14, fontWeight: '600', color: colors.muted },
   full: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 14, borderRadius: radius.lg, backgroundColor: colors.accentSoft },
   soonTag: { fontSize: 11, color: colors.muted },
+  scan: { flex: 1, minHeight: 88, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.accent, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center', gap: 4, padding: 10 },
+  scanText: { fontSize: 14, fontWeight: '700', color: colors.accentInk },
+  scanTag: { fontSize: 11, color: colors.accentInk },
   list: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 14, paddingVertical: 12, minHeight: 52 },
   rowDivider: { borderTopWidth: 1, borderTopColor: '#EEF1F4' },

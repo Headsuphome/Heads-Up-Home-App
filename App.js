@@ -8,7 +8,8 @@ import * as Notifications from 'expo-notifications';
 import { colors } from './src/theme';
 import { fetchRecall, fetchRecalls } from './src/api';
 import { cupboardMatches } from './src/logic';
-import { usePrefs } from './src/storage';
+import { newId, usePrefs } from './src/storage';
+import { FREE_CUPBOARD_LIMIT, canAddToCupboard } from './src/plans';
 import HomeScreen from './src/screens/HomeScreen';
 import BrowseScreen from './src/screens/BrowseScreen';
 import CupboardScreen from './src/screens/CupboardScreen';
@@ -16,6 +17,7 @@ import AlertsScreen from './src/screens/AlertsScreen';
 import DetailScreen from './src/screens/DetailScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import PremiumScreen from './src/screens/PremiumScreen';
+import ScanScreen from './src/screens/ScanScreen';
 import { alertPermission, deleteAccount, enableNotifications, ensureAccount, getSession, isExpoGo, refreshAlertRegistration, sendTestAlert, syncToAccount } from './src/account';
 
 const TABS = [
@@ -32,6 +34,7 @@ function Main() {
   const [tab, setTab] = useState('home');
   const [open, setOpen] = useState(null); // the recall being viewed, if any
   const [premium, setPremium] = useState(null); // { reason } while the plans screen is open
+  const [scan, setScan] = useState(null); // { mode } while the barcode scanner is open
   const [recalls, setRecalls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -110,7 +113,7 @@ function Main() {
     const data = tapped && tapped.notification && tapped.notification.request.content.data;
     const id = data && data.recallId;
     if (!id) return;
-    const show = (recall) => { if (recall) { setPremium(null); setOpen(recall); } };
+    const show = (recall) => { if (recall) { setPremium(null); setScan(null); setOpen(recall); } };
     const known = recalls.find((r) => r.id === id);
     if (known) show(known);
     else fetchRecall(id).then(show).catch(() => {});
@@ -120,12 +123,13 @@ function Main() {
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
       if (premium) { setPremium(null); return true; }
+      if (scan) { setScan(null); return true; }
       if (open) { setOpen(null); return true; }
       if (tab !== 'home') { setTab('home'); return true; }
       return false;
     });
     return () => sub.remove();
-  }, [open, tab, premium]);
+  }, [open, tab, premium, scan]);
 
   const matches = useMemo(() => cupboardMatches(prefs.cupboard, recalls), [prefs.cupboard, recalls]);
   const recallsById = useMemo(() => Object.fromEntries(recalls.map((r) => [r.id, r])), [recalls]);
@@ -133,6 +137,10 @@ function Main() {
   const openRecall = useCallback((recall) => setOpen(recall), []);
   const goTo = useCallback((key) => { setOpen(null); setTab(key); }, []);
   const openPremium = useCallback((reason) => setPremium({ reason: typeof reason === 'string' ? reason : null }), []);
+  const openScan = useCallback((mode) => setScan({ mode: mode === 'add' ? 'add' : 'check' }), []);
+  const addScanned = useCallback((item) => {
+    update((p) => ({ cupboard: [{ id: newId(), dismissed: [], addedAt: new Date().toISOString(), ...item }, ...p.cupboard] }));
+  }, [update]);
 
   const haveIt = (recall) => {
     update((p) => {
@@ -153,7 +161,7 @@ function Main() {
     setOpen(null);
   };
 
-  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, onDeleteData: deleteMyData, openPremium };
+  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, onDeleteData: deleteMyData, openPremium, openScan };
 
   if (!ready) {
     return (
@@ -175,6 +183,18 @@ function Main() {
   let screen;
   if (premium) {
     screen = <PremiumScreen prefs={prefs} update={update} reason={premium.reason} onClose={() => setPremium(null)} />;
+  } else if (scan) {
+    screen = (
+      <ScanScreen
+        mode={scan.mode}
+        recalls={recalls}
+        canAdd={canAddToCupboard(prefs)}
+        onAdd={addScanned}
+        onFull={() => openPremium(`Your free cupboard holds ${FREE_CUPBOARD_LIMIT} items. Premium gives you an unlimited cupboard.`)}
+        openRecall={(r) => { setScan(null); setOpen(r); }}
+        onClose={() => setScan(null)}
+      />
+    );
   } else if (open) {
     const match = matches.find((m) => m.recall.id === open.id) || null;
     screen = <DetailScreen recall={open} match={match} onBack={() => setOpen(null)} onHaveIt={haveIt} onNotMine={notMine} />;
@@ -192,7 +212,7 @@ function Main() {
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar style="dark" />
       <View style={{ flex: 1 }}>{screen}</View>
-      {!open && !premium ? (
+      {!open && !premium && !scan ? (
         <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 10) }]} accessibilityRole="tablist">
           {TABS.map((t) => {
             const on = tab === t.key;

@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   fromRow, badgeFor, friendlyDate, tokens, cupboardConfidence, cupboardMatches,
-  relevance, filterRecalls, searchRecalls,
+  relevance, filterRecalls, searchRecalls, cleanBarcode, barcodeVariants, recallsWithBarcode,
 } from '../src/logic.js';
 
 const oatRow = {
@@ -121,4 +121,13 @@ test('colour and summary helpers', () => {
   assert.equal(recentCount(list, 7, now), 2);
   assert.equal(recentCount(list, 2, now), 1);
   assert.equal(recentCount(list, 1, now), 0);
+});
+
+test('scanned barcodes match recalls however the zeros are written', () => {
+  assert.equal(cleanBarcode(' 0 5000169 123456 '), '5000169123456');
+  assert.deepEqual(barcodeVariants('5000169123456'), ['5000169123456', '05000169123456']);
+  assert.deepEqual(barcodeVariants('012345678905'), ['12345678905', '012345678905', '0012345678905', '00012345678905']);
+  assert.deepEqual(barcodeVariants('123'), [], 'too short to be a product barcode');
+  assert.deepEqual(recallsWithBarcode([oat, cookies, charger], '05000169123456').map((r) => r.id), [oat.id]);
+  assert.deepEqual(recallsWithBarcode([oat, cookies, charger], '5000169999999'), []);
 });

@@ -6,7 +6,7 @@ import { EmptyState, RecallCard, SectionLabel } from '../components';
 import { CATEGORIES, categoryLabel, searchRecalls } from '../logic';
 import { searchAllRecalls } from '../api';
 
-export default function BrowseScreen({ recalls, openRecall }) {
+export default function BrowseScreen({ recalls, openRecall, openScan }) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState(null);
   const [remote, setRemote] = useState([]);
@@ -59,7 +59,11 @@ export default function BrowseScreen({ recalls, openRecall }) {
           <Pressable onPress={() => setQuery('')} accessibilityLabel="Clear search" hitSlop={12}>
             <Ionicons name="close-circle" size={20} color={colors.muted} />
           </Pressable>
-        ) : null}
+        ) : (
+          <Pressable onPress={() => openScan('check')} accessibilityRole="button" accessibilityLabel="Scan a barcode to check a product" hitSlop={12} style={styles.scanButton}>
+            <Ionicons name="barcode-outline" size={22} color={colors.accent} />
+          </Pressable>
+        )}
       </View>
 
       {category ? (
@@ -120,6 +124,7 @@ export default function BrowseScreen({ recalls, openRecall }) {
 }
 
 const styles = StyleSheet.create({
+  scanButton: { paddingLeft: 6, paddingVertical: 4 },
   search: { flexDirection: 'row', alignItems: 'center', gap: 10, height: 50, paddingHorizontal: 14, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.lineStrong },
   searchInput: { flex: 1, fontSize: 16, color: colors.ink, paddingVertical: 0 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },

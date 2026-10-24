@@ -165,10 +165,30 @@ export function tokens(text) {
     .map((w) => (w.length > 3 && w.endsWith('s') && !/(ss|us|is)$/.test(w) ? w.slice(0, -1) : w));
 }
 
+/** Just the digits of a barcode, without leading zeros, so EAN-13 and UPC-A forms of a code match. */
+export function cleanBarcode(code) {
+  return String(code || '').replace(/\D/g, '').replace(/^0+/, '');
+}
+
 function barcodesMatch(a, b) {
   if (!a || !b) return false;
-  const clean = (s) => String(s).replace(/\D/g, '').replace(/^0+/, '');
-  return clean(a).length >= 8 && clean(a) === clean(b);
+  return cleanBarcode(a).length >= 8 && cleanBarcode(a) === cleanBarcode(b);
+}
+
+/** The ways the same barcode might be written in a recall notice (with or without leading zeros). */
+export function barcodeVariants(code) {
+  const core = cleanBarcode(code);
+  if (core.length < 7 || core.length > 14) return [];
+  const out = new Set([core]);
+  for (const len of [8, 12, 13, 14]) if (len > core.length) out.add(core.padStart(len, '0'));
+  return [...out];
+}
+
+/** Recalls (from the ones already loaded) that list this barcode. */
+export function recallsWithBarcode(recalls, code) {
+  const core = cleanBarcode(code);
+  if (core.length < 7) return [];
+  return recalls.filter((r) => r.products.some((p) => p.barcode && cleanBarcode(p.barcode) === core));
 }
 
 /** 'barcode' | 'likely' | 'possible' | null */

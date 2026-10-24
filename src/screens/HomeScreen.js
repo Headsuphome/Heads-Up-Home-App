@@ -23,7 +23,7 @@ const STATS = [
   { label: 'Medicines', match: (r) => r.categories.includes('medicines'), category: 'medicines' },
 ];
 
-export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, matches, openRecall, goTo }) {
+export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, matches, openRecall, goTo, openScan }) {
   const [filter, setFilter] = useState('for-you');
   const matchedIds = useMemo(() => new Set(matches.map((m) => m.recall.id)), [matches]);
   const shown = useMemo(() => filterRecalls(recalls, filter, prefs, matchedIds), [recalls, filter, prefs, matchedIds]);
@@ -84,6 +84,17 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
           </View>
         </Pressable>
       ) : null}
+
+      <Pressable onPress={() => openScan('check')} accessibilityRole="button" style={styles.check}>
+        <View style={styles.checkIcon}>
+          <Ionicons name="barcode-outline" size={24} color={colors.accent} />
+        </View>
+        <View style={{ flex: 1, gap: 2 }}>
+          <Text style={[type.body, { fontWeight: '700' }]}>Check a product</Text>
+          <Text style={type.small}>Scan its barcode to see if it's been recalled</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={18} color={colors.muted} />
+      </Pressable>
 
       {noPrefs ? (
         <View style={styles.setup}>
@@ -149,6 +160,8 @@ const styles = StyleSheet.create({
   bannerIcon: { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
   bannerTitle: { fontSize: 16, fontWeight: '600', color: colors.accentInk },
   bannerBody: { fontSize: 14, lineHeight: 20, color: colors.accentInk },
+  check: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.md },
+  checkIcon: { width: 44, height: 44, borderRadius: 12, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
   footer: { textAlign: 'center', lineHeight: 18, marginTop: space.xl, paddingHorizontal: space.md },
   setup: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.sm },
 });

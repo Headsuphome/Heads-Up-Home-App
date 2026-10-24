@@ -1,5 +1,5 @@
 import { SUPABASE_URL, SUPABASE_KEY } from './config';
-import { fromRow } from './logic';
+import { barcodeVariants, fromRow } from './logic';
 
 const FIELDS = [
   'id', 'source', 'alert_type', 'title', 'summary', 'advice', 'risk_level',
@@ -69,4 +69,46 @@ export async function searchAllRecalls(query, limit = 50) {
   const pattern = encodeURIComponent(`*${term}*`);
   const rows = await get(`recalls?select=${encodeURIComponent(FIELDS)}&search_text=ilike.${pattern}&order=published_at.desc&limit=${limit}`);
   return rows.map(fromRow);
+}
+
+/** Every recall we hold that lists this barcode, newest first. */
+export async function recallsForBarcode(code) {
+  const variants = barcodeVariants(code);
+  if (!variants.length) return [];
+  const rows = await get(`recall_products?select=recall_id&barcode=in.(${variants.join(',')})&limit=50`);
+  const ids = [...new Set(rows.map((r) => r.recall_id))];
+  if (!ids.length) return [];
+  const idList = encodeURIComponent(ids.map((id) => `"${id}"`).join(','));
+  const query = (fields) => `recalls?select=${encodeURIComponent(fields)}&id=in.(${idList})&order=published_at.desc`;
+  try {
+    return (await get(query(FIELDS))).map(fromRow);
+  } catch (e) {
+    return (await get(query(BASIC_FIELDS))).map(fromRow);
+  }
+}
+
+/**
+ * A product's name and brand from Open Food Facts, looked up by its barcode, to fill in the
+ * cupboard form after a scan. Covers food and drink; for anything else the person types the name.
+ */
+export async function productForBarcode(barcode) {
+  const code = String(barcode || '').replace(/\D/g, '');
+  if (code.length < 8) return null;
+  try {
+    const res = await fetch(
+      `https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=product_name,product_name_en,brands,quantity`,
+      { headers: { 'User-Agent': 'HeadsUpHome/0.1 (support@headsuphome.co.uk)' } },
+    );
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (json.status !== 1 || !json.product) return null;
+    const p = json.product;
+    const name = (p.product_name_en || p.product_name || '').trim();
+    if (!name) return null;
+    const brand = String(p.brands || '').split(',')[0].trim();
+    const quantity = String(p.quantity || '').trim();
+    return { name: quantity && !name.includes(quantity) ? `${name} ${quantity}` : name, brand: brand || null };
+  } catch (e) {
+    return null;
+  }
 }

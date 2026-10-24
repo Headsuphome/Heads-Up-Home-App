@@ -110,7 +110,7 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
         </View>
         <View style={{ gap: 8 }}>
           <Text style={styles.title}>Try Premium free for {TRIAL_DAYS} days</Text>
-          <Text style={type.body}>An unlimited cupboard for everything in your home, with barcode and receipt scanning and family sharing on the way.</Text>
+          <Text style={type.body}>An unlimited cupboard for everything in your home, with receipt scanning and family sharing on the way.</Text>
           <Text style={type.small}>No payment details needed. After the trial you keep everything in Free, or carry on with Premium from {PRICES.premiumMonthly} a month.</Text>
         </View>
         <View style={{ flex: 1 }} />

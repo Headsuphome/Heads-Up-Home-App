@@ -25,6 +25,7 @@ export const PLANS = [
       { text: 'Every UK recall: food, products and medicines', ready: true },
       { text: 'Alerts for your categories and allergens', ready: true },
       { text: `Cupboard of up to ${FREE_CUPBOARD_LIMIT} items`, ready: true },
+      { text: 'Scan barcodes to check products and fill your cupboard', ready: true },
     ],
   },
   {
@@ -36,7 +37,7 @@ export const PLANS = [
     features: [
       { text: 'Everything in Free', ready: true },
       { text: 'Unlimited cupboard', ready: true },
-      { text: 'Barcode and receipt scanning', ready: false },
+      { text: 'Receipt scanning', ready: false },
       { text: 'Household sharing for the whole family', ready: false },
       { text: 'Second-hand checker for prams, car seats and toys', ready: false },
       { text: 'Refund helper and recall history', ready: false },
