@@ -13,8 +13,8 @@ UPDATED = "17 October 2026"
 EMAIL = "support@headsuphome.co.uk"
 SITE = "https://headsuphome.co.uk"
 
-# The person or business responsible for the app (the data "controller"). Fill this in.
-CONTROLLER = '<mark class="fill">[Your full name or business name]</mark>'
+# The person responsible for the app (the data "controller" in UK data protection law).
+CONTROLLER = "Connor J Cronin"
 
 LOGO = """<svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
   <rect width="100" height="100" rx="22" fill="#0E1A2B"/>
