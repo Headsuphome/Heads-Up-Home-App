@@ -1,0 +1,23 @@
+129:Error: Cannot find module './utils/autoAddConfigPlugins.js'
+136:Error: Cannot find module './utils/autoAddConfigPlugins.js'
+262: - Error and warning improvements
+269:> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+270:> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+271:> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+272:> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+295:> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+296:> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+297:> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+298:> Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+395:> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+405:> Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors SKIPPED
+449:> Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
+457:> Task :expo-log-box:checkKotlinGradlePluginConfigurationErrors SKIPPED
+600:> Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+611:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+708:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:22:8 'typealias ErrorManagerModule = JSLoggerModule' is deprecated. Use JSLoggerModule instead.
+710:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:271:21 'typealias ErrorManagerModule = JSLoggerModule' is deprecated. Use JSLoggerModule instead.
+716:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewDefinitionBuilder.kt:470:16 'val errorManager: JSLoggerModule?' is deprecated. Use AppContext.jsLogger instead.
+717:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewDefinitionBuilder.kt:470:30 'fun reportExceptionToLogBox(codedException: CodedException): Unit' is deprecated. Use appContext.jsLogger.error(...) instead.
+718:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewManagerDefinition.kt:41:16 'val errorManager: JSLoggerModule?' is deprecated. Use AppContext.jsLogger instead.
+719:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewManagerDefinition.kt:41:30 'fun reportExceptionToLogBox(codedException: CodedException): Unit' is deprecated. Use appContext.jsLogger.error(...) instead.
