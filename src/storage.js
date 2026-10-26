@@ -16,6 +16,7 @@ export const DEFAULT_PREFS = {
   plan: 'free',        // 'free' | 'premium' | 'trade' once payments are connected
   trialUsed: false,
   trialEndsAt: null,
+  joinedAt: null,      // when this person finished the welcome screens (for "Your Heads Up Home" stats)
 };
 
 export function usePrefs() {
@@ -26,7 +27,11 @@ export function usePrefs() {
   useEffect(() => {
     AsyncStorage.getItem(KEY)
       .then((raw) => {
-        if (raw) setPrefs({ ...DEFAULT_PREFS, ...JSON.parse(raw) });
+        if (!raw) return;
+        const saved = { ...DEFAULT_PREFS, ...JSON.parse(raw) };
+        // People who joined before join dates were kept start counting from today.
+        if (saved.onboarded && !saved.joinedAt) saved.joinedAt = new Date().toISOString();
+        setPrefs(saved);
       })
       .catch(() => {})
       .finally(() => {

@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   fromRow, badgeFor, friendlyDate, tokens, cupboardConfidence, cupboardMatches,
-  relevance, filterRecalls, searchRecalls, cleanBarcode, barcodeVariants, recallsWithBarcode,
+  relevance, filterRecalls, searchRecalls, cleanBarcode, barcodeVariants, recallsWithBarcode, impactStats,
 } from '../src/logic.js';
 
 const oatRow = {
@@ -130,4 +130,14 @@ test('scanned barcodes match recalls however the zeros are written', () => {
   assert.deepEqual(barcodeVariants('123'), [], 'too short to be a product barcode');
   assert.deepEqual(recallsWithBarcode([oat, cookies, charger], '05000169123456').map((r) => r.id), [oat.id]);
   assert.deepEqual(recallsWithBarcode([oat, cookies, charger], '5000169999999'), []);
+});
+
+test('impact stats count the recalls checked since someone joined', () => {
+  const p = prefs({ joinedAt: '2026-10-10T00:00:00Z', allergens: ['milk'], cupboard: [item({ name: 'Oat drink' })], categories: ['electrical'] });
+  const s = impactStats([oat, cookies, charger], p, new Set(), new Date('2026-10-20T00:00:00Z'));
+  assert.equal(s.checked, 3, 'all three were published after joining');
+  assert.equal(s.relevant, 2, 'milk cookies and the electrical charger matter to this household');
+  assert.equal(s.days, 10);
+  assert.deepEqual([s.cupboard, s.allergens, s.categories], [1, 1, 1]);
+  assert.equal(impactStats([oat], prefs({}), new Set()).checked, 0, 'nothing counted before a join date is known');
 });

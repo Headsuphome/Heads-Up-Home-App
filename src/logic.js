@@ -252,3 +252,18 @@ export function searchRecalls(recalls, query) {
     return words.every((w) => hay.includes(w));
   });
 }
+
+/** What Heads Up Home has done for this person since they started using it. */
+export function impactStats(recalls, prefs, matchedIds, now = new Date()) {
+  const since = prefs.joinedAt ? new Date(prefs.joinedAt) : null;
+  const fromStart = since ? recalls.filter((r) => new Date(r.publishedAt) >= since) : [];
+  return {
+    since: prefs.joinedAt || null,
+    days: since ? Math.max(1, Math.ceil((now - since) / 86400000)) : 0,
+    checked: fromStart.length,
+    relevant: fromStart.filter((r) => relevance(r, prefs, matchedIds)).length,
+    cupboard: (prefs.cupboard || []).length,
+    allergens: (prefs.allergens || []).length,
+    categories: (prefs.categories || []).length,
+  };
+}

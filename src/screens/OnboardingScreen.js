@@ -46,6 +46,10 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
           ))}
         </View>
         <Text style={styles.title}>Know when something in your home is recalled</Text>
+        <View style={styles.factBox}>
+          <Text style={styles.factFigure}>10–20%</Text>
+          <Text style={[type.body, { flex: 1, lineHeight: 21 }]}>Typically only 10–20% of recalled products are returned or fixed, and many people never hear about the recall. Heads Up Home makes sure you do.</Text>
+        </View>
         <View style={{ gap: space.md }}>
           {PROMISES.map((p) => (
             <View key={p.text} style={styles.promise}>
@@ -174,4 +178,6 @@ const styles = StyleSheet.create({
   bell: { width: 88, height: 88, borderRadius: 44, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginTop: space.lg },
   result: { flexDirection: 'row', gap: 10, padding: 14, borderRadius: radius.md },
   link: { color: colors.accent, fontWeight: '600', textDecorationLine: 'underline' },
+  factBox: { flexDirection: 'row', alignItems: 'center', gap: 14, backgroundColor: colors.accentSoft, borderRadius: radius.lg, padding: 14 },
+  factFigure: { fontSize: 22, fontWeight: '800', color: colors.accent, letterSpacing: -0.5 },
 });

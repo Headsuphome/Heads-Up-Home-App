@@ -18,6 +18,7 @@ import DetailScreen from './src/screens/DetailScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import PremiumScreen from './src/screens/PremiumScreen';
 import ScanScreen from './src/screens/ScanScreen';
+import WhyScreen from './src/screens/WhyScreen';
 import { alertPermission, deleteAccount, enableNotifications, ensureAccount, getSession, isExpoGo, refreshAlertRegistration, sendTestAlert, syncToAccount } from './src/account';
 
 const TABS = [
@@ -35,6 +36,7 @@ function Main() {
   const [open, setOpen] = useState(null); // the recall being viewed, if any
   const [premium, setPremium] = useState(null); // { reason } while the plans screen is open
   const [scan, setScan] = useState(null); // { mode } while the barcode scanner is open
+  const [why, setWhy] = useState(false); // the "Why it matters" screen
   const [recalls, setRecalls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -124,12 +126,13 @@ function Main() {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
       if (premium) { setPremium(null); return true; }
       if (scan) { setScan(null); return true; }
+      if (why) { setWhy(false); return true; }
       if (open) { setOpen(null); return true; }
       if (tab !== 'home') { setTab('home'); return true; }
       return false;
     });
     return () => sub.remove();
-  }, [open, tab, premium, scan]);
+  }, [open, tab, premium, scan, why]);
 
   const matches = useMemo(() => cupboardMatches(prefs.cupboard, recalls), [prefs.cupboard, recalls]);
   const recallsById = useMemo(() => Object.fromEntries(recalls.map((r) => [r.id, r])), [recalls]);
@@ -138,6 +141,7 @@ function Main() {
   const goTo = useCallback((key) => { setOpen(null); setTab(key); }, []);
   const openPremium = useCallback((reason) => setPremium({ reason: typeof reason === 'string' ? reason : null }), []);
   const openScan = useCallback((mode) => setScan({ mode: mode === 'add' ? 'add' : 'check' }), []);
+  const openWhy = useCallback(() => setWhy(true), []);
   const addScanned = useCallback((item) => {
     update((p) => ({ cupboard: [{ id: newId(), dismissed: [], addedAt: new Date().toISOString(), ...item }, ...p.cupboard] }));
   }, [update]);
@@ -161,7 +165,7 @@ function Main() {
     setOpen(null);
   };
 
-  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, onDeleteData: deleteMyData, openPremium, openScan };
+  const shared = { recalls, prefs, update, matches, recallsById, openRecall, goTo, account, onEnableAlerts: enableAlerts, onTestAlert: testAlert, onDeleteData: deleteMyData, openPremium, openScan, openWhy };
 
   if (!ready) {
     return (
@@ -175,7 +179,7 @@ function Main() {
     return (
       <View style={[styles.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
         <StatusBar style="dark" />
-        <OnboardingScreen prefs={prefs} update={update} onEnableAlerts={enableAlerts} onFinish={() => update({ onboarded: true })} />
+        <OnboardingScreen prefs={prefs} update={update} onEnableAlerts={enableAlerts} onFinish={() => update((p) => ({ onboarded: true, joinedAt: p.joinedAt || new Date().toISOString() }))} />
       </View>
     );
   }
@@ -195,6 +199,8 @@ function Main() {
         onClose={() => setScan(null)}
       />
     );
+  } else if (why) {
+    screen = <WhyScreen recalls={recalls} prefs={prefs} matches={matches} onClose={() => setWhy(false)} />;
   } else if (open) {
     const match = matches.find((m) => m.recall.id === open.id) || null;
     screen = <DetailScreen recall={open} match={match} onBack={() => setOpen(null)} onHaveIt={haveIt} onNotMine={notMine} />;
@@ -212,7 +218,7 @@ function Main() {
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar style="dark" />
       <View style={{ flex: 1 }}>{screen}</View>
-      {!open && !premium && !scan ? (
+      {!open && !premium && !scan && !why ? (
         <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 10) }]} accessibilityRole="tablist">
           {TABS.map((t) => {
             const on = tab === t.key;

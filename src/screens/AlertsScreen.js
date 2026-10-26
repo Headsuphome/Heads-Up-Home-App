@@ -9,12 +9,12 @@ import { toggle } from '../storage';
 import { isPremium, planLabel } from '../plans';
 import { DATA_SOURCES, PRIVACY_URL, SUPPORT_EMAIL, SUPPORT_URL } from '../config';
 
-function LinkRow({ icon, label, onPress, divider }) {
+function LinkRow({ icon, label, onPress, divider, inApp }) {
   return (
-    <Pressable onPress={onPress} accessibilityRole="link" style={({ pressed }) => [styles.row, divider && styles.rowDivider, pressed && { opacity: 0.7 }]}>
+    <Pressable onPress={onPress} accessibilityRole={inApp ? 'button' : 'link'} style={({ pressed }) => [styles.row, divider && styles.rowDivider, pressed && { opacity: 0.7 }]}>
       <Ionicons name={icon} size={20} color={colors.ink} />
       <Text style={styles.rowText}>{label}</Text>
-      <Ionicons name="open-outline" size={16} color={colors.muted} />
+      <Ionicons name={inApp ? 'chevron-forward' : 'open-outline'} size={16} color={colors.muted} />
     </Pressable>
   );
 }
@@ -24,7 +24,7 @@ const TIMINGS = [
   { key: 'daily', label: 'Daily summary' },
 ];
 
-export default function AlertsScreen({ prefs, update, account = {}, onEnableAlerts, onTestAlert, onDeleteData, openPremium }) {
+export default function AlertsScreen({ prefs, update, account = {}, onEnableAlerts, onTestAlert, onDeleteData, openPremium, openWhy }) {
   const alertsOn = account.status === 'ready' && account.permission !== false;
   const [deleting, setDeleting] = useState(false);
   const version = (Constants.expoConfig && Constants.expoConfig.version) || null;
@@ -131,7 +131,8 @@ export default function AlertsScreen({ prefs, update, account = {}, onEnableAler
       <View>
         <SectionLabel>About Heads Up Home</SectionLabel>
         <View style={styles.list}>
-          <LinkRow icon="help-circle-outline" label="Help and support" onPress={() => open(SUPPORT_URL)} />
+          <LinkRow icon="heart-outline" label="Why it matters, and tell a friend" onPress={openWhy} inApp />
+          <LinkRow icon="help-circle-outline" label="Help and support" onPress={() => open(SUPPORT_URL)} divider />
           <LinkRow icon="lock-closed-outline" label="Privacy policy" onPress={() => open(PRIVACY_URL)} divider />
           <LinkRow icon="mail-outline" label={`Email ${SUPPORT_EMAIL}`} onPress={() => open(`mailto:${SUPPORT_EMAIL}`)} divider />
         </View>

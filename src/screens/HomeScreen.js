@@ -23,7 +23,7 @@ const STATS = [
   { label: 'Medicines', match: (r) => r.categories.includes('medicines'), category: 'medicines' },
 ];
 
-export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, matches, openRecall, goTo, openScan }) {
+export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, matches, openRecall, goTo, openScan, openWhy }) {
   const [filter, setFilter] = useState('for-you');
   const matchedIds = useMemo(() => new Set(matches.map((m) => m.recall.id)), [matches]);
   const shown = useMemo(() => filterRecalls(recalls, filter, prefs, matchedIds), [recalls, filter, prefs, matchedIds]);
@@ -96,6 +96,15 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
         <Ionicons name="chevron-forward" size={18} color={colors.muted} />
       </Pressable>
 
+      <Pressable onPress={openWhy} accessibilityRole="button" style={styles.why}>
+        <Text style={styles.whyFigure}>10–20%</Text>
+        <View style={{ flex: 1, gap: 2 }}>
+          <Text style={[type.body, { fontWeight: '700' }]}>Why it matters</Text>
+          <Text style={type.small}>Typically only 10–20% of recalled products are returned or fixed</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={18} color={colors.muted} />
+      </Pressable>
+
       {noPrefs ? (
         <View style={styles.setup}>
           <Text style={[type.body, { fontWeight: '600' }]}>Make this feed yours</Text>
@@ -162,6 +171,8 @@ const styles = StyleSheet.create({
   bannerBody: { fontSize: 14, lineHeight: 20, color: colors.accentInk },
   check: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.md },
   checkIcon: { width: 44, height: 44, borderRadius: 12, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  why: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, borderLeftWidth: 4, borderLeftColor: '#FB923C', padding: space.md },
+  whyFigure: { fontSize: 20, fontWeight: '800', color: colors.accent, letterSpacing: -0.5, minWidth: 74 },
   footer: { textAlign: 'center', lineHeight: 18, marginTop: space.xl, paddingHorizontal: space.md },
   setup: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.sm },
 });
