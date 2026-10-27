@@ -13,6 +13,7 @@ const FILTERS = [
   { key: 'medicines', label: 'Medicines', category: 'medicines', icon: 'medkit-outline' },
   { key: 'electrical', label: 'Electrical', category: 'electrical', icon: 'flash-outline' },
   { key: 'toys', label: 'Toys', category: 'toys', icon: 'cube-outline' },
+  { key: 'pets', label: 'Pets', category: 'pets', icon: 'paw-outline' },
   { key: 'trades-tools', label: 'Tools', category: 'trades-tools', icon: 'construct-outline' },
 ];
 
@@ -140,7 +141,7 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
       ListEmptyComponent={empty}
       ListFooterComponent={recalls.length ? (
         <Text style={[type.small, styles.footer]}>
-          Recalls from the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards and the MHRA. Heads Up Home is an independent app, not a government service.
+          Recalls from the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards, the MHRA and the Veterinary Medicines Directorate. Heads Up Home is an independent app, not a government service.
         </Text>
       ) : null}
       ItemSeparatorComponent={() => <View style={{ height: space.md }} />}

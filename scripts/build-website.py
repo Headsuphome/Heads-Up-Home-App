@@ -201,7 +201,7 @@ def page(*, path, title, description, current, body):
 <footer class="foot">
   <div class="bar">
     <div class="links"><a href="/">Home</a><a href="/support.html">Help and support</a><a href="/privacy.html">Privacy policy</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
-    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards or the MHRA. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards, the MHRA or the Veterinary Medicines Directorate. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
     <p>&copy; 2026 Heads Up Home</p>
   </div>
 </footer>
@@ -233,6 +233,7 @@ SOURCES = [
     ("Food Standards Scotland", "https://www.foodstandards.gov.scot/alerts", "food recalls and allergy alerts for Scotland"),
     ("Office for Product Safety and Standards", "https://www.gov.uk/product-safety-alerts-reports-recalls", "recalls and safety warnings for products, from toys and baby items to electricals and tools"),
     ("Medicines and Healthcare products Regulatory Agency (MHRA)", "https://www.gov.uk/drug-device-alerts", "medicine recalls and medical device safety alerts"),
+    ("Veterinary Medicines Directorate (VMD)", "https://www.gov.uk/government/organisations/veterinary-medicines-directorate", "recalls of medicines for pets and other animals"),
 ]
 
 
@@ -243,7 +244,7 @@ HOME = f"""
 <section class="hero" aria-labelledby="hero-title">
   <div>
     <h1 id="hero-title">Know when something in your home is recalled</h1>
-    <p class="lead">Heads Up Home collects UK recalls for food, products and medicines from official sources every hour, and tells you when one matches the allergies in your household, the things you care about, or something in your cupboard.</p>
+    <p class="lead">Heads Up Home collects UK recalls for food, products, medicines and pet items from official sources every hour, and tells you when one matches the allergies in your household, the things you care about, or something in your cupboard.</p>
     <p class="soon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FB923C"/><path d="M12 6.5v6.2M12 16.6v.4" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round"/></svg>Coming soon to Google Play</p>
   </div>
   <figure class="example" aria-label="An example of what Heads Up Home shows you">
@@ -292,6 +293,7 @@ HOME = f"""
     <li><i style="background:#C2410C"></i>Food and drink</li>
     <li><i style="background:#BE185D"></i>Baby and children</li>
     <li><i style="background:#0F766E"></i>Medicines and health</li>
+    <li><i style="background:#8A4B1F"></i>Pets and animals</li>
     <li><i style="background:#B45309"></i>Electrical</li>
     <li><i style="background:#6D28D9"></i>Toys</li>
     <li><i style="background:#0369A1"></i>Trades and tools</li>
@@ -350,7 +352,7 @@ PRIVACY = f"""
   </nav>
 
   <h2 id="who">1. Who we are</h2>
-  <p>Heads Up Home is an app that tells people in the UK about recalls of food, products and medicines. It's run by {CONTROLLER} ("we" or "us") in the United Kingdom.</p>
+  <p>Heads Up Home is an app that tells people in the UK about recalls of food, products, medicines and pet items. It's run by {CONTROLLER} ("we" or "us") in the United Kingdom.</p>
   <p>Under UK data protection law we're the "controller" of the personal information described here, which means we decide how it's used and we're responsible for looking after it. You can contact us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 
   <h2 id="what">2. What we collect and why</h2>
@@ -522,6 +524,7 @@ SUPPORT = f"""
     <li>Most shops give a full refund for recalled products, usually with or without a receipt.</li>
     <li>Tap <strong>I have this</strong> to keep it on your list until it's sorted.</li>
     <li>For medicines, don't stop taking a prescribed medicine without talking to your pharmacist, doctor or nurse first.</li>
+    <li>For pet medicines, talk to your vet before stopping or changing your pet's treatment.</li>
     <li>If someone has become ill or been hurt, get medical advice straight away. Call 999 in an emergency, or 111 for urgent advice.</li>
   </ul>
 
@@ -571,7 +574,7 @@ SUPPORT = f"""
 def main():
     written = [
         page(path="/", title="Heads Up Home: UK recall alerts for your home",
-             description="Heads Up Home tells you when food, products or medicines in your home are recalled in the UK.",
+             description="Heads Up Home tells you when food, products, medicines or pet items in your home are recalled in the UK.",
              current="home", body=HOME),
         page(path="/privacy.html", title="Privacy policy | Heads Up Home",
              description="How Heads Up Home collects, uses and protects your information.",

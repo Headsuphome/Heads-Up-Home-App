@@ -117,7 +117,7 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
               <View style={styles.facts}>
                 <Fact label="Pack size" value={p.packSize} />
                 <Fact label="Batch code" value={p.batchCodes && p.batchCodes.length ? p.batchCodes.join(', ') : null} />
-                <Fact label={recall.source === 'mhra' ? 'Expiry' : 'Best before'} value={p.bestBefore ? p.bestBefore.replace(/^Expiry:\s*/, '') : null} />
+                <Fact label={recall.source === 'mhra' || recall.source === 'vmd' ? 'Expiry' : 'Best before'} value={p.bestBefore ? p.bestBefore.replace(/^Expiry:\s*/, '') : null} />
                 <Fact label="Use by" value={p.useBy} />
                 <Fact label="Barcode" value={p.barcode} />
               </View>
@@ -130,6 +130,15 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
           <Section title="What to do">
             <Text style={styles.body}>{recall.advice}</Text>
           </Section>
+        ) : null}
+
+        {recall.source === 'vmd' ? (
+          <View style={[styles.medicineNote, { backgroundColor: '#F3E8DF' }]}>
+            <Ionicons name="paw-outline" size={20} color="#8A4B1F" />
+            <Text style={[styles.medicineText, { color: '#6B3A17' }]}>
+              Don't stop or change your pet's medicine without talking to your vet first. They can check whether your pack is affected.
+            </Text>
+          </View>
         ) : null}
 
         {recall.source === 'mhra' ? (

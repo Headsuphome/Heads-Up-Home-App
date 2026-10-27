@@ -141,3 +141,10 @@ test('impact stats count the recalls checked since someone joined', () => {
   assert.deepEqual([s.cupboard, s.allergens, s.categories], [1, 1, 1]);
   assert.equal(impactStats([oat], prefs({}), new Set()).checked, 0, 'nothing counted before a join date is known');
 });
+
+test('pet medicine recalls get their own badge and pets have a category', async () => {
+  const { CATEGORIES } = await import('../src/logic.js');
+  assert.ok(CATEGORIES.some((c) => c.key === 'pets'));
+  const vet = fromRow({ ...oatRow, id: 'vmd:clavudale', source: 'vmd', alert_type: 'recall', categories: ['pets'] });
+  assert.deepEqual(badgeFor(vet), { text: 'Pet medicine recall', tone: 'warning' });
+});

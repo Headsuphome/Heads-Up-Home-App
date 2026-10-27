@@ -18,4 +18,5 @@ export const DATA_SOURCES = [
   { name: 'Food Standards Scotland', url: 'https://www.foodstandards.gov.scot/alerts' },
   { name: 'Office for Product Safety and Standards', url: 'https://www.gov.uk/product-safety-alerts-reports-recalls' },
   { name: 'Medicines and Healthcare products Regulatory Agency', url: 'https://www.gov.uk/drug-device-alerts' },
+  { name: 'Veterinary Medicines Directorate', url: 'https://www.gov.uk/government/organisations/veterinary-medicines-directorate' },
 ];

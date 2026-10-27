@@ -22,7 +22,7 @@ export const PLANS = [
     price: '£0',
     tagline: 'Everything you need to stay safe',
     features: [
-      { text: 'Every UK recall: food, products and medicines', ready: true },
+      { text: 'Every UK recall: food, products, medicines and pets', ready: true },
       { text: 'Alerts for your categories and allergens', ready: true },
       { text: `Cupboard of up to ${FREE_CUPBOARD_LIMIT} items`, ready: true },
       { text: 'Scan barcodes to check products and fill your cupboard', ready: true },

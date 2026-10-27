@@ -9,7 +9,7 @@ import { PRICES, TRIAL_DAYS, startTrial } from '../plans';
 import { PRIVACY_URL } from '../config';
 
 const PROMISES = [
-  { icon: 'albums-outline', category: 'electrical', text: 'Every UK recall in one place: food, products and medicines' },
+  { icon: 'albums-outline', category: 'electrical', text: 'Every UK recall in one place: food, products, medicines and pets' },
   { icon: 'notifications-outline', category: 'food-drink', text: 'Alerts for the things you own and the allergens you avoid' },
   { icon: 'lock-closed-outline', category: 'medicines', text: 'No sign-up form. Your choices stay private.' },
 ];

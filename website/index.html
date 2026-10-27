@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Heads Up Home: UK recall alerts for your home</title>
-<meta name="description" content="Heads Up Home tells you when food, products or medicines in your home are recalled in the UK.">
+<meta name="description" content="Heads Up Home tells you when food, products, medicines or pet items in your home are recalled in the UK.">
 <meta name="theme-color" content="#0E1A2B">
 <link rel="canonical" href="https://headsuphome.co.uk/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E1A2B'/%3E%3Cpath d='M50 17 84 47H75V82H25V47H16Z' fill='%23FB923C' stroke='%23FB923C' stroke-width='7' stroke-linejoin='round'/%3E%3Crect x='45.3' y='41' width='9.4' height='24' rx='4.7' fill='%230E1A2B'/%3E%3Ccircle cx='50' cy='73.5' r='5.3' fill='%230E1A2B'/%3E%3C/svg%3E">
@@ -161,7 +161,7 @@ table.data td:first-child { font-weight: 600; width: 34%; }
 <section class="hero" aria-labelledby="hero-title">
   <div>
     <h1 id="hero-title">Know when something in your home is recalled</h1>
-    <p class="lead">Heads Up Home collects UK recalls for food, products and medicines from official sources every hour, and tells you when one matches the allergies in your household, the things you care about, or something in your cupboard.</p>
+    <p class="lead">Heads Up Home collects UK recalls for food, products, medicines and pet items from official sources every hour, and tells you when one matches the allergies in your household, the things you care about, or something in your cupboard.</p>
     <p class="soon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FB923C"/><path d="M12 6.5v6.2M12 16.6v.4" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round"/></svg>Coming soon to Google Play</p>
   </div>
   <figure class="example" aria-label="An example of what Heads Up Home shows you">
@@ -215,6 +215,7 @@ table.data td:first-child { font-weight: 600; width: 34%; }
     <li><i style="background:#C2410C"></i>Food and drink</li>
     <li><i style="background:#BE185D"></i>Baby and children</li>
     <li><i style="background:#0F766E"></i>Medicines and health</li>
+    <li><i style="background:#8A4B1F"></i>Pets and animals</li>
     <li><i style="background:#B45309"></i>Electrical</li>
     <li><i style="background:#6D28D9"></i>Toys</li>
     <li><i style="background:#0369A1"></i>Trades and tools</li>
@@ -228,7 +229,7 @@ table.data td:first-child { font-weight: 600; width: 34%; }
   <h2 id="sources">Where recalls come from</h2>
   <p>We check these public sources every hour and always link to the original notice, so you can see it for yourself.</p>
   <ul class="sources">
-    <li><a href="https://www.food.gov.uk/about-us/recalls-and-alerts">Food Standards Agency</a><span>Food recalls and allergy alerts for England, Wales and Northern Ireland</span></li><li><a href="https://www.foodstandards.gov.scot/alerts">Food Standards Scotland</a><span>Food recalls and allergy alerts for Scotland</span></li><li><a href="https://www.gov.uk/product-safety-alerts-reports-recalls">Office for Product Safety and Standards</a><span>Recalls and safety warnings for products, from toys and baby items to electricals and tools</span></li><li><a href="https://www.gov.uk/drug-device-alerts">Medicines and Healthcare products Regulatory Agency (MHRA)</a><span>Medicine recalls and medical device safety alerts</span></li>
+    <li><a href="https://www.food.gov.uk/about-us/recalls-and-alerts">Food Standards Agency</a><span>Food recalls and allergy alerts for England, Wales and Northern Ireland</span></li><li><a href="https://www.foodstandards.gov.scot/alerts">Food Standards Scotland</a><span>Food recalls and allergy alerts for Scotland</span></li><li><a href="https://www.gov.uk/product-safety-alerts-reports-recalls">Office for Product Safety and Standards</a><span>Recalls and safety warnings for products, from toys and baby items to electricals and tools</span></li><li><a href="https://www.gov.uk/drug-device-alerts">Medicines and Healthcare products Regulatory Agency (MHRA)</a><span>Medicine recalls and medical device safety alerts</span></li><li><a href="https://www.gov.uk/government/organisations/veterinary-medicines-directorate">Veterinary Medicines Directorate (VMD)</a><span>Recalls of medicines for pets and other animals</span></li>
   </ul>
   <p class="small">Heads Up Home is independent and isn't connected to any of these organisations. For car, van and motorbike recalls, use the government's <a href="https://www.gov.uk/check-vehicle-recall">vehicle recall checker</a>.</p>
 </section>
@@ -237,7 +238,7 @@ table.data td:first-child { font-weight: 600; width: 34%; }
 <footer class="foot">
   <div class="bar">
     <div class="links"><a href="/">Home</a><a href="/support.html">Help and support</a><a href="/privacy.html">Privacy policy</a><a href="mailto:support@headsuphome.co.uk">support@headsuphome.co.uk</a></div>
-    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards or the MHRA. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards, the MHRA or the Veterinary Medicines Directorate. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
     <p>&copy; 2026 Heads Up Home</p>
   </div>
 </footer>

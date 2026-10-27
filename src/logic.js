@@ -10,6 +10,7 @@ export const CATEGORIES = [
   { key: 'cosmetics', label: 'Cosmetics', icon: 'color-palette-outline' },
   { key: 'clothing', label: 'Clothing & accessories', icon: 'shirt-outline' },
   { key: 'medicines', label: 'Medicines & health', icon: 'medkit-outline' },
+  { key: 'pets', label: 'Pets & animals', icon: 'paw-outline' },
   { key: 'other', label: 'Other', icon: 'ellipsis-horizontal-circle-outline' },
 ];
 
@@ -96,6 +97,7 @@ const SOURCES = {
   fss: { name: 'Food Standards Scotland', short: 'FSS' },
   opss: { name: 'Office for Product Safety and Standards', short: 'OPSS' },
   mhra: { name: 'Medicines and Healthcare products Regulatory Agency', short: 'MHRA' },
+  vmd: { name: 'Veterinary Medicines Directorate', short: 'VMD' },
 };
 export const sourceName = (source) => (SOURCES[source] || SOURCES.opss).name;
 export const sourceShort = (source) => (SOURCES[source] || SOURCES.opss).short;
@@ -119,6 +121,7 @@ export function badgeFor(recall) {
       default: return { text: 'Medicine notice', tone: 'neutral' };
     }
   }
+  if (recall.source === 'vmd') return { text: 'Pet medicine recall', tone: 'warning' };
   switch (recall.riskLevel) {
     case 'serious': return { text: 'Serious risk', tone: 'danger' };
     case 'high': return { text: 'High risk', tone: 'danger' };

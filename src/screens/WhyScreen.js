@@ -37,7 +37,7 @@ const HELPS = [
   { icon: 'heart-outline', text: 'Safety alerts are free, with no sign-up form and no adverts' },
 ];
 
-const SHARE_MESSAGE = `I use Heads Up Home to get alerts when food, products or medicines are recalled in the UK, including for allergies. Most recalled products never get returned because people don't hear about them. Have a look: ${WEBSITE_URL}`;
+const SHARE_MESSAGE = `I use Heads Up Home to get alerts when food, products, medicines or pet items are recalled in the UK, including for allergies. Most recalled products never get returned because people don't hear about them. Have a look: ${WEBSITE_URL}`;
 
 const MONTH = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const shortDate = (iso) => { const d = new Date(iso); return `${d.getDate()} ${MONTH[d.getMonth()]} ${d.getFullYear()}`; };

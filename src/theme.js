@@ -33,6 +33,7 @@ export const categoryColors = {
   'cosmetics': { bg: '#FFE4E6', fg: '#BE123C' },
   'clothing': { bg: '#E0E7FF', fg: '#4338CA' },
   'medicines': { bg: '#CCFBF1', fg: '#0F766E' },
+  'pets': { bg: '#F3E8DF', fg: '#8A4B1F' },
   'other': { bg: '#F1F5F9', fg: '#475569' },
 };
 
