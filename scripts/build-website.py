@@ -471,7 +471,7 @@ SUPPORT = f"""
   <p class="updated">Last updated {UPDATED}</p>
   <p class="lead">Questions about Heads Up Home? You'll find most answers here. If not, email us and we'll help.</p>
   <a class="mail" href="mailto:{EMAIL}?subject=Heads%20Up%20Home%20help">Email {EMAIL}</a>
-  <p class="small">It helps to tell us what kind of phone you have and what happened. If your question is about your data, include your account number from <strong>My alerts</strong>.</p>
+  <p class="small">It helps to tell us what happened. If your question is about your data, include your account number from <strong>My alerts</strong>.</p>
 
   <nav class="contents" aria-label="On this page">
     <p>On this page</p>
@@ -506,7 +506,7 @@ SUPPORT = f"""
     <li>Some phones pause apps to save battery. On a Samsung phone, go to <strong>Settings</strong>, then <strong>Battery</strong>, then <strong>Background usage limits</strong>, and make sure Heads Up Home isn't listed under <strong>Sleeping apps</strong> or <strong>Deep sleeping apps</strong>.</li>
     <li>Tap <strong>Send me a test alert</strong> in My alerts to see an alert on your phone.</li>
   </ol>
-  <p>Still nothing? Email us and tell us what kind of phone you have.</p>
+  <p>Still nothing? Email us and we'll help.</p>
 
   <h2 id="cupboard">Your cupboard</h2>
   <h3>What is the cupboard?</h3>
