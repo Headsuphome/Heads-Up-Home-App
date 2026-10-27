@@ -580,6 +580,11 @@ def main():
              description="Answers to common questions about Heads Up Home, and how to contact us or delete your data.",
              current="support", body=SUPPORT),
     ]
+    # On IONOS the site sits beside a sample WordPress install, whose index.php would answer
+    # first. A copy of the home page named index.php takes its place.
+    php = ROOT / "index.php"
+    php.write_text((ROOT / "index.html").read_text(encoding="utf-8"), encoding="utf-8")
+    written.append(php)
     for p in written:
         print(p.relative_to(ROOT.parent), p.stat().st_size, "bytes")
 
