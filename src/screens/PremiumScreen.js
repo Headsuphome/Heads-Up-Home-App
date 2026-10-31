@@ -52,7 +52,7 @@ export default function PremiumScreen({ prefs, update, onClose, reason }) {
     setMessage(`Premium is on for ${TRIAL_DAYS} days. Enjoy the unlimited cupboard.`);
   };
 
-  const notYet = () => setMessage('Payments open when Heads Up Home launches in the app stores. Until then, everything is free to try.');
+  const notYet = () => setMessage('Premium can\'t be bought yet. Until it can, you can try it free, and we\'ll tell you in the app before anything changes.');
 
   return (
     <View style={{ flex: 1 }}>
