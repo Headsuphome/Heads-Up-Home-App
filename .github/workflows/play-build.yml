@@ -1,0 +1,160 @@
+# Builds the Google Play version of Heads Up Home (an .aab file), signed with the upload key,
+# and puts it on the repository's Releases page as "Play build N".
+#
+# Start it by pushing to the "play-build" branch (or Actions tab → Play build → Run workflow).
+# It needs two private GitHub secrets:
+#   ANDROID_UPLOAD_KEYSTORE  – the upload key file, as base64 text
+#   ANDROID_UPLOAD_PASSWORD  – its password
+# Without them it does a practice run with a throwaway key and publishes nothing.
+
+name: Play build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [play-build]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: play-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      NPM_CONFIG_FETCH_RETRIES: 5
+      NPM_CONFIG_FETCH_RETRY_MINTIMEOUT: 20000
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Get the app code
+        uses: actions/checkout@v4
+
+      - name: Number this build
+        # Play versions start at 1001, well clear of the test builds.
+        run: echo "BUILD_NUMBER=$((1000 + ${{ github.run_number }}))" >> "$GITHUB_ENV"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Get the upload key
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_PASSWORD }}
+        run: |
+          KS="$RUNNER_TEMP/upload.jks"
+          if [ -n "$KEYSTORE_B64" ] && [ -n "$KEY_PASSWORD" ]; then
+            printf '%s' "$KEYSTORE_B64" | tr -d ' \r\n' | base64 -d > "$KS"
+            PW="$KEY_PASSWORD"
+            # Fingerprint of the Heads Up Home upload key. The finished file must be signed with it.
+            echo "UPLOAD_CERT_SHA256=07:A2:EE:C9:24:E8:B6:8A:AF:C9:8D:7B:2C:95:FE:41:88:D9:E6:56:31:88:AE:88:F3:D0:D2:9A:B4:69:78:D3" >> "$GITHUB_ENV"
+            echo "PRACTICE=0" >> "$GITHUB_ENV"
+            echo "Upload key found." | tee -a build.log
+          else
+            PW="practice-$RANDOM-$RANDOM"
+            keytool -genkeypair -keystore "$KS" -storetype JKS -alias upload -keyalg RSA -keysize 2048 -validity 1 \
+              -dname "CN=Practice" -storepass "$PW" -keypass "$PW" >/dev/null 2>&1
+            echo "UPLOAD_CERT_SHA256=$(keytool -list -v -keystore "$KS" -storepass "$PW" | sed -n 's/.*SHA256: //p' | head -1)" >> "$GITHUB_ENV"
+            echo "PRACTICE=1" >> "$GITHUB_ENV"
+            echo "No upload key secrets yet: practice run with a throwaway key. Nothing will be published." | tee -a build.log
+          fi
+          if ! keytool -list -keystore "$KS" -storepass "$PW" -alias upload >/dev/null 2>&1; then
+            echo "The upload key or its password isn't right. Check the two GitHub secrets." | tee -a build.log
+            exit 1
+          fi
+          # Signing settings go in Gradle's own settings file, outside the code, so they never appear in logs.
+          mkdir -p "$HOME/.gradle"
+          {
+            echo "android.injected.signing.store.file=$KS"
+            echo "android.injected.signing.store.password=$PW"
+            echo "android.injected.signing.key.alias=upload"
+            echo "android.injected.signing.key.password=$PW"
+          } >> "$HOME/.gradle/gradle.properties"
+
+      - name: Install the app's libraries
+        run: bash scripts/ci/install.sh 2>&1 | tee -a build.log
+
+      - name: Add the Firebase settings
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "The GOOGLE_SERVICES_JSON secret is missing: phone alerts wouldn't work, so stopping." | tee -a build.log
+            exit 1
+          fi
+          printf '%s' "$GOOGLE_SERVICES_JSON" > google-services.json
+          node -e "JSON.parse(require('fs').readFileSync('google-services.json', 'utf8'))"
+          echo "Firebase settings added." | tee -a build.log
+
+      - name: Check the app settings
+        run: npx expo config --type public 2>&1 | tee -a build.log
+
+      - name: Create the Android project
+        run: npx expo prebuild --platform android --clean --no-install 2>&1 | tee -a build.log
+
+      - name: Build the app bundle
+        working-directory: android
+        run: |
+          printf '\norg.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g\n' >> gradle.properties
+          if ! ./gradlew bundleRelease --no-daemon --console=plain --stacktrace \
+              -PreactNativeArchitectures=armeabi-v7a,arm64-v8a,x86_64 2>&1 | tee -a ../build.log; then
+            echo "The build stopped. Collecting more detail for the report." | tee -a ../build.log
+            ./gradlew help --no-daemon --console=plain --info --stacktrace > ../gradle-detail.log 2>&1 || true
+            exit 1
+          fi
+
+      - name: Check the signature
+        run: |
+          AAB=android/app/build/outputs/bundle/release/app-release.aab
+          GOT=$(keytool -printcert -jarfile "$AAB" | sed -n 's/.*SHA256: //p' | head -1)
+          echo "Signed with: $GOT" | tee -a build.log
+          if [ "$GOT" != "$UPLOAD_CERT_SHA256" ]; then
+            echo "The app bundle isn't signed with the expected key, so it won't be published." | tee -a build.log
+            exit 1
+          fi
+          echo "Signature matches the upload key. versionCode $BUILD_NUMBER, size $(du -h "$AAB" | cut -f1)." | tee -a build.log
+
+      - name: Publish the Play build
+        if: env.PRACTICE == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./app.json').expo.version")
+          NAME="HeadsUpHome-play-${VERSION}-${BUILD_NUMBER}.aab"
+          cp android/app/build/outputs/bundle/release/app-release.aab "$NAME"
+          cat > notes.md <<NOTES
+          The Google Play version of Heads Up Home ${VERSION} (version code ${BUILD_NUMBER}).
+
+          **This file is for uploading to Google Play Console, not for installing on a phone.** Download **${NAME}** below, then upload it in Play Console when you create a release.
+          NOTES
+          gh release create "play-build-${BUILD_NUMBER}" "$NAME" \
+            --target "$GITHUB_SHA" \
+            --title "Play build ${VERSION} (${BUILD_NUMBER})" \
+            --notes-file notes.md \
+            --prerelease --latest=false 2>&1 | tee -a build.log
+
+      - name: Practice run finished
+        if: env.PRACTICE == '1'
+        run: echo "Practice run passed. Add the two upload key secrets to make a real Play build." | tee -a build.log
+
+      - name: Save a build report
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS: ${{ job.status }}
+        run: |
+          rm -f "$HOME/.gradle/gradle.properties" "$RUNNER_TEMP/upload.jks"
+          bash scripts/ci/report.sh
