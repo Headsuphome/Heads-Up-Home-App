@@ -214,11 +214,15 @@ function Main() {
     screen = <HomeScreen {...shared} loading={loading} error={error} onRefresh={load} />;
   }
 
+  const showTabs = !open && !premium && !scan && !why;
+
   return (
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar style="dark" />
-      <View style={{ flex: 1 }}>{screen}</View>
-      {!open && !premium && !scan && !why ? (
+      {/* Full-screen views (a recall, scanning, Premium, Why it matters) have no tab bar, so they keep
+          clear of the phone's navigation bar themselves. */}
+      <View style={{ flex: 1, paddingBottom: showTabs ? 0 : insets.bottom }}>{screen}</View>
+      {showTabs ? (
         <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 10) }]} accessibilityRole="tablist">
           {TABS.map((t) => {
             const on = tab === t.key;

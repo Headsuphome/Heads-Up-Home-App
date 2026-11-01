@@ -78,6 +78,8 @@ if __name__ == "__main__":
     for i in range(0, len(args), 3):
         n = i // 3 + 1
         # "photo.jpg@120" trims the top 120px (at 1080px wide) instead of the usual 72.
-        src, _, top = args[i].partition("@")
-        make(src, args[i + 1], args[i + 2], out_dir / f"screenshot-{n}.png", top=int(top or 72))
+        # "photo.jpg@120:2180" also cuts everything below 2180px.
+        src, _, crop = args[i].partition("@")
+        top, _, bottom = crop.partition(":")
+        make(src, args[i + 1], args[i + 2], out_dir / f"screenshot-{n}.png", top=int(top or 72), bottom=int(bottom) if bottom else None)
         print(out_dir / f"screenshot-{n}.png")
