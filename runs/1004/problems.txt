@@ -1,0 +1,45 @@
+2:npm error code EUSAGE
+3:npm error
+4:npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+5:npm error
+6:npm error Missing: expo-navigation-bar@57.0.3 from lock file
+7:npm error
+8:npm error Clean install a project
+9:npm error
+10:npm error Usage:
+11:npm error npm ci
+12:npm error
+13:npm error Options:
+14:npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+15:npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+16:npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+17:npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+18:npm error [--no-bin-links] [--no-fund] [--dry-run]
+19:npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+20:npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+21:npm error
+22:npm error aliases: clean-install, ic, install-clean, isntall-clean
+23:npm error
+24:npm error Run "npm help ci" for more info
+25:npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-11-01T17_12_54_652Z-debug-0.log
+107: - Error and warning improvements
+114:> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+115:> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+116:> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+117:> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+140:> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+141:> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+142:> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+143:> Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+302:> Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors SKIPPED
+305:> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+309:> Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
+311:> Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+343:> Task :expo-log-box:checkKotlinGradlePluginConfigurationErrors SKIPPED
+440:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:22:8 'typealias ErrorManagerModule = JSLoggerModule' is deprecated. Use JSLoggerModule instead.
+442:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:271:21 'typealias ErrorManagerModule = JSLoggerModule' is deprecated. Use JSLoggerModule instead.
+448:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewDefinitionBuilder.kt:470:16 'val errorManager: JSLoggerModule?' is deprecated. Use AppContext.jsLogger instead.
+449:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewDefinitionBuilder.kt:470:30 'fun reportExceptionToLogBox(codedException: CodedException): Unit' is deprecated. Use appContext.jsLogger.error(...) instead.
+450:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewManagerDefinition.kt:41:16 'val errorManager: JSLoggerModule?' is deprecated. Use AppContext.jsLogger instead.
+451:w: file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewManagerDefinition.kt:41:30 'fun reportExceptionToLogBox(codedException: CodedException): Unit' is deprecated. Use appContext.jsLogger.error(...) instead.
+520:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
