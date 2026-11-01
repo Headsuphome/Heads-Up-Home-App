@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, BackHandler, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, AppState, BackHandler, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
+import * as NavigationBar from 'expo-navigation-bar';
 
 import { colors } from './src/theme';
 import { fetchRecall, fetchRecalls } from './src/api';
@@ -214,11 +215,15 @@ function Main() {
     screen = <HomeScreen {...shared} loading={loading} error={error} onRefresh={load} />;
   }
 
+  // Full-screen pages (a recall, plans, scanner, "Why it matters") hide the tab bar, so keep
+  // their bottom buttons clear of the phone's own navigation bar.
+  const showTabs = !open && !premium && !scan && !why;
+
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]}>
+    <View style={[styles.root, { paddingTop: insets.top, paddingBottom: showTabs ? 0 : insets.bottom }]}>
       <StatusBar style="dark" />
       <View style={{ flex: 1 }}>{screen}</View>
-      {!open && !premium && !scan && !why ? (
+      {showTabs ? (
         <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 10) }]} accessibilityRole="tablist">
           {TABS.map((t) => {
             const on = tab === t.key;
@@ -239,7 +244,27 @@ function Main() {
   );
 }
 
+/**
+ * Hides Android's navigation bar so the app fills the whole screen. Swiping up from the
+ * bottom edge slides it back over the app for a moment, then it hides again.
+ * Android can bring the bar back when the app returns from the background, so hide it again then.
+ */
+function useFullScreen() {
+  useEffect(() => {
+    if (Platform.OS !== 'android') return undefined;
+    const hide = () => {
+      Promise.resolve().then(() => NavigationBar.setVisibilityAsync('hidden')).catch(() => {});
+      // Older Android versions need telling that a swipe should only show the bar briefly.
+      Promise.resolve().then(() => NavigationBar.setBehaviorAsync('overlay-swipe')).catch(() => {});
+    };
+    hide();
+    const sub = AppState.addEventListener('change', (state) => { if (state === 'active') hide(); });
+    return () => sub.remove();
+  }, []);
+}
+
 export default function App() {
+  useFullScreen();
   return (
     <SafeAreaProvider>
       <Main />

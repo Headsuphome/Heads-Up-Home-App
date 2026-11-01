@@ -7,7 +7,9 @@ set -eo pipefail
 EXPO_SDK=57
 
 if [ -f package-lock.json ]; then
-  npm ci --no-audit --no-fund
+  # If a library was added to package.json since the lock file was last updated,
+  # fall back to a normal install, which adds just the new one.
+  npm ci --no-audit --no-fund || npm install --no-audit --no-fund
   exit 0
 fi
 
