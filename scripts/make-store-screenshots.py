@@ -30,7 +30,7 @@ def wrap(d, text, f, width):
     return lines
 
 
-def make(src, title, sub, out, top=72, bottom=None):
+def make(src, title, sub, out, top=72, bottom=None, overflow=60):
     shot = Image.open(src).convert("RGB")
     sw, sh = shot.size
     scale = sw / 1080
@@ -50,7 +50,7 @@ def make(src, title, sub, out, top=72, bottom=None):
         y += 52
 
     top_y = max(y + 40, 380)
-    avail_h = H - top_y + 60  # let the phone run off the bottom edge a little
+    avail_h = H - top_y + overflow  # by default the phone runs off the bottom edge a little
     ph = avail_h
     pw = int(shot.width * ph / shot.height)
     if pw > 820:
@@ -80,6 +80,9 @@ if __name__ == "__main__":
         # "photo.jpg@120" trims the top 120px (at 1080px wide) instead of the usual 72.
         # "photo.jpg@120:2180" also cuts everything below 2180px.
         src, _, crop = args[i].partition("@")
-        top, _, bottom = crop.partition(":")
-        make(src, args[i + 1], args[i + 2], out_dir / f"screenshot-{n}.png", top=int(top or 72), bottom=int(bottom) if bottom else None)
+        # "photo.jpg@72:2400:-40" keeps the whole phone on the image, 40px above the bottom edge.
+        top, _, rest = crop.partition(":")
+        bottom, _, overflow = rest.partition(":")
+        make(src, args[i + 1], args[i + 2], out_dir / f"screenshot-{n}.png", top=int(top or 72),
+             bottom=int(bottom) if bottom else None, overflow=int(overflow) if overflow else 60)
         print(out_dir / f"screenshot-{n}.png")
