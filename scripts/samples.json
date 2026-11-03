@@ -1,15 +1,11 @@
 [
-  { "name": "hse-recent", "url": "https://www.hse.gov.uk/safetybulletins/recent-bulletins.htm",
-    "follow": "href=\"((?:https://www\\.hse\\.gov\\.uk)?/safetybulletins/[a-z0-9-]+\\.htm)\"", "max": 4 },
   { "name": "eu-weekly-list", "url": "https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en",
     "follow": "(https?://[^<\"\\s]+)", "max": 3 },
-  { "name": "mhra-search", "url": "https://www.gov.uk/api/search.json?filter_format=medical_safety_alert&order=-public_timestamp&count=30&fields=title,link,public_timestamp,alert_type" },
-  { "name": "mhra-fsn-content", "url": "https://www.gov.uk/api/content/drug-device-alerts/field-safety-notices-29-september-to-3-october-2025" },
-  { "name": "fsa-asc", "url": "https://data.food.gov.uk/food-alerts/id?since=2024-11-01T00:00:00Z&_limit=5&_sort=created" },
-  { "name": "fsa-desc", "url": "https://data.food.gov.uk/food-alerts/id?since=2024-11-01T00:00:00Z&_limit=3&_sort=-created" },
-  { "name": "opss-asc", "url": "https://www.gov.uk/api/search.json?filter_format=product_safety_alert_report_recall&filter_public_timestamp=from:2024-11-01&order=public_timestamp&count=5&fields=link,public_timestamp,title" },
-  { "name": "opss-total", "url": "https://www.gov.uk/api/search.json?filter_format=product_safety_alert_report_recall&filter_public_timestamp=from:2024-11-01&count=0" },
-  { "name": "mhra-total", "url": "https://www.gov.uk/api/search.json?filter_format=medical_safety_alert&filter_public_timestamp=from:2024-11-01&count=0&facet_alert_type=20" },
-  { "name": "fss-alerts", "url": "https://www.foodstandards.gov.scot/alerts" },
-  { "name": "fss-alerts-page2", "url": "https://www.foodstandards.gov.scot/alerts?page=2" }
+  { "name": "eu-dataset", "url": "https://data.europa.eu/api/hub/search/datasets/rapex-rapid-alert-system-non-food" },
+  { "name": "eu-webreport", "url": "https://ec.europa.eu/safety-gate-alerts/screen/webReport" },
+  { "name": "hse-alert-1", "url": "https://www.hse.gov.uk/safetybulletins/ear-loop-respirators.htm" },
+  { "name": "hse-alert-2", "url": "https://www.hse.gov.uk/safetybulletins/bendpak-vehicle-lifts2.htm" },
+  { "name": "mhra-fsn-latest", "url": "https://www.gov.uk/api/content/drug-device-alerts/field-safety-notices-19-to-23-october-2026" },
+  { "name": "mhra-fsn-search", "url": "https://www.gov.uk/api/search.json?filter_format=medical_safety_alert&filter_alert_type=field-safety-notices&filter_public_timestamp=from:2024-11-01&order=public_timestamp&count=5&fields=title,link,public_timestamp" },
+  { "name": "fss-p3", "url": "https://www.foodstandards.gov.scot/alerts?&page=3" }
 ]

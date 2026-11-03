@@ -30,6 +30,12 @@ jobs:
         run: node --test tests/backend.test.ts > out-tests.log 2>&1 || echo "TESTS FAILED" >> out-tests.log
       - name: Fetch raw samples
         run: node scripts/fetch-samples.mjs scripts/samples.json out/samples > out-samples.log 2>&1 || true
+      - name: Network check for EU Safety Gate
+        run: |
+          for u in https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en https://ec.europa.eu/safety-gate-alerts/screen/webReport; do
+            echo "== $u"; curl -sS -m 30 -o /dev/null -w "%{http_code} %{content_type} %{size_download}\n" -A "HeadsUpHome/1.0 (+https://headsuphome.co.uk)" "$u" || true
+            curl -sS -m 30 -v "$u" -o /dev/null 2>&1 | grep -E "^\* (Trying|Connected|SSL|ALPN)|^< HTTP|curl:" | head -12 || true
+          done > out-network.log 2>&1
       - name: Live check of the collectors
         run: |
           if [ -f scripts/live-check.ts ]; then
