@@ -1,0 +1,11 @@
+{
+  "name": "heads-up-home-backend",
+  "private": true,
+  "description": "Heads Up Home: UK recall collector and alert engine (Supabase)",
+  "scripts": {
+    "test": "node --test tests/backend.test.ts"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}
