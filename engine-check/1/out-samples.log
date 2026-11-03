@@ -1,0 +1,11 @@
+200 hse-recent.txt https://www.hse.gov.uk/safetybulletins/recent-bulletins.htm 50053 chars text/html
+ERR eu-weekly-list.txt https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en TypeError: fetch failed
+200 mhra-search.txt https://www.gov.uk/api/search.json?filter_format=medical_safety_alert&order=-public_timestamp&count=30&fields=title,link,public_timestamp,alert_type 16042 chars application/json
+200 mhra-fsn-content.txt https://www.gov.uk/api/content/drug-device-alerts/field-safety-notices-29-september-to-3-october-2025 15858 chars application/json; charset=utf-8
+200 fsa-asc.txt https://data.food.gov.uk/food-alerts/id?since=2024-11-01T00:00:00Z&_limit=5&_sort=created 69608 chars application/json
+200 fsa-desc.txt https://data.food.gov.uk/food-alerts/id?since=2024-11-01T00:00:00Z&_limit=3&_sort=-created 5226 chars application/json
+200 opss-asc.txt https://www.gov.uk/api/search.json?filter_format=product_safety_alert_report_recall&filter_public_timestamp=from:2024-11-01&order=public_timestamp&count=5&fields=link,public_timestamp,title 2564 chars application/json
+200 opss-total.txt https://www.gov.uk/api/search.json?filter_format=product_safety_alert_report_recall&filter_public_timestamp=from:2024-11-01&count=0 121 chars application/json
+422 mhra-total.txt https://www.gov.uk/api/search.json?filter_format=medical_safety_alert&filter_public_timestamp=from:2024-11-01&count=0&facet_alert_type=20 52342 chars text/html; charset=utf-8
+200 fss-alerts.txt https://www.foodstandards.gov.scot/alerts 310240 chars text/html; charset=UTF-8
+200 fss-alerts-page2.txt https://www.foodstandards.gov.scot/alerts?page=2 311302 chars text/html; charset=UTF-8
