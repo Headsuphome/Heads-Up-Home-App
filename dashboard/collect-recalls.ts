@@ -2022,7 +2022,7 @@ const FIRST_RUN_DAYS = 30; // history to load the very first time, so the app is
 const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
 // Older recalls are loaded separately, a batch each run (see backfill.ts). This is how long the
 // backfill may keep starting new batches, so the whole run stays well inside its time limit.
-const BACKFILL_SECONDS = 70;
+const BACKFILL_SECONDS = 55;
 
 type Db = SupabaseClient;
 
