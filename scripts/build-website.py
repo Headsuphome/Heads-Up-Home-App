@@ -201,7 +201,7 @@ def page(*, path, title, description, current, body):
 <footer class="foot">
   <div class="bar">
     <div class="links"><a href="/">Home</a><a href="/support.html">Help and support</a><a href="/privacy.html">Privacy policy</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
-    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards, the MHRA or the Veterinary Medicines Directorate. Recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+    <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards, the MHRA, the Veterinary Medicines Directorate, the Health and Safety Executive or the European Commission. UK recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>. EU warnings come from the European Commission's Safety Gate open data.</p>
     <p>&copy; 2026 Heads Up Home</p>
   </div>
 </footer>
@@ -234,6 +234,8 @@ SOURCES = [
     ("Office for Product Safety and Standards", "https://www.gov.uk/product-safety-alerts-reports-recalls", "recalls and safety warnings for products, from toys and baby items to electricals and tools"),
     ("Medicines and Healthcare products Regulatory Agency (MHRA)", "https://www.gov.uk/drug-device-alerts", "medicine recalls and medical device safety alerts"),
     ("Veterinary Medicines Directorate (VMD)", "https://www.gov.uk/government/organisations/veterinary-medicines-directorate", "recalls of medicines for pets and other animals"),
+    ("Health and Safety Executive (HSE)", "https://www.hse.gov.uk/safetybulletins/index.htm", "safety alerts about work equipment and protective gear"),
+    ("EU Safety Gate (European Commission)", "https://ec.europa.eu/safety-gate-alerts/screen/webReport", "dangerous products reported in the EU, shown in the app as EU warnings because many are also sold in the UK, especially online"),
 ]
 
 

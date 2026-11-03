@@ -19,4 +19,6 @@ export const DATA_SOURCES = [
   { name: 'Office for Product Safety and Standards', url: 'https://www.gov.uk/product-safety-alerts-reports-recalls' },
   { name: 'Medicines and Healthcare products Regulatory Agency', url: 'https://www.gov.uk/drug-device-alerts' },
   { name: 'Veterinary Medicines Directorate', url: 'https://www.gov.uk/government/organisations/veterinary-medicines-directorate' },
+  { name: 'Health and Safety Executive', url: 'https://www.hse.gov.uk/safetybulletins/index.htm' },
+  { name: 'EU Safety Gate (European Commission)', url: 'https://ec.europa.eu/safety-gate-alerts/screen/webReport' },
 ];

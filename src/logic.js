@@ -108,6 +108,8 @@ const SOURCES = {
   opss: { name: 'Office for Product Safety and Standards', short: 'OPSS' },
   mhra: { name: 'Medicines and Healthcare products Regulatory Agency', short: 'MHRA' },
   vmd: { name: 'Veterinary Medicines Directorate', short: 'VMD' },
+  hse: { name: 'Health and Safety Executive', short: 'HSE' },
+  eu: { name: 'EU Safety Gate (European Commission)', short: 'EU Safety Gate' },
 };
 export const sourceName = (source) => (SOURCES[source] || SOURCES.opss).name;
 export const sourceShort = (source) => (SOURCES[source] || SOURCES.opss).short;
@@ -122,7 +124,10 @@ export function badgeFor(recall) {
     const names = recall.allergens.map(allergenLabel);
     return { text: names.length ? `Allergy · ${names.slice(0, 2).join(', ')}` : 'Allergy alert', tone: 'warning' };
   }
+  if (recall.source === 'eu') return { text: 'EU warning', tone: 'warning' };
+  if (recall.source === 'hse') return { text: 'Work safety alert', tone: recall.riskLevel === 'serious' ? 'danger' : 'warning' };
   if (recall.source === 'mhra') {
+    if (recall.alertType === 'field-safety-notice') return { text: 'Medical device notice', tone: 'warning' };
     if (recall.alertType === 'safety-alert') return { text: 'Health device alert', tone: 'warning' };
     switch (recall.riskLevel) {
       case 'serious': return { text: 'Urgent medicine recall', tone: 'danger' };
@@ -247,14 +252,20 @@ export function relevance(recall, prefs, matchedIds) {
   return null;
 }
 
-/** Filters recalls for a feed. `filter` is 'for-you', 'all' or a category key. */
+/**
+ * Filters recalls for a feed. `filter` is 'for-you', 'all', 'eu' or a category key.
+ * EU warnings appear only under 'eu', or in 'for-you' when they match the person's cupboard.
+ */
 export function filterRecalls(recalls, filter, prefs, matchedIds) {
-  if (filter === 'all') return recalls;
+  if (filter === 'eu') return recalls.filter((r) => !isUkRecall(r));
+  if (filter === 'all') return recalls.filter(isUkRecall);
   if (filter === 'for-you') {
     const hasPrefs = prefs.categories.length || prefs.allergens.length || (matchedIds && matchedIds.size);
-    return hasPrefs ? recalls.filter((r) => relevance(r, prefs, matchedIds)) : recalls;
+    const matched = (r) => matchedIds && matchedIds.has(r.id);
+    if (!hasPrefs) return recalls.filter(isUkRecall);
+    return recalls.filter((r) => (isUkRecall(r) ? relevance(r, prefs, matchedIds) : matched(r)));
   }
-  return recalls.filter((r) => r.categories.includes(filter));
+  return recalls.filter((r) => isUkRecall(r) && r.categories.includes(filter));
 }
 
 export function searchRecalls(recalls, query) {
@@ -269,7 +280,7 @@ export function searchRecalls(recalls, query) {
 /** What Heads Up Home has done for this person since they started using it. */
 export function impactStats(recalls, prefs, matchedIds, now = new Date()) {
   const since = prefs.joinedAt ? new Date(prefs.joinedAt) : null;
-  const fromStart = since ? recalls.filter((r) => new Date(r.publishedAt) >= since) : [];
+  const fromStart = since ? recalls.filter((r) => isUkRecall(r) && new Date(r.publishedAt) >= since) : [];
   return {
     since: prefs.joinedAt || null,
     days: since ? Math.max(1, Math.ceil((now - since) / 86400000)) : 0,

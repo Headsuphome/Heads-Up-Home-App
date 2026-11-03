@@ -145,7 +145,18 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
           <View style={styles.medicineNote}>
             <Ionicons name="medkit-outline" size={20} color="#0F766E" />
             <Text style={styles.medicineText}>
-              Don't stop taking a prescribed medicine without talking to your pharmacist, doctor or nurse first. They can check whether your pack is affected.
+              {recall.alertType === 'field-safety-notice' || recall.alertType === 'safety-alert'
+                ? "Don't stop using a medical device you rely on without talking to your pharmacist, doctor, nurse or the clinic that gave it to you."
+                : "Don't stop taking a prescribed medicine without talking to your pharmacist, doctor or nurse first. They can check whether your pack is affected."}
+            </Text>
+          </View>
+        ) : null}
+
+        {recall.source === 'eu' ? (
+          <View style={[styles.medicineNote, { backgroundColor: '#E0E7FF' }]}>
+            <Ionicons name="globe-outline" size={20} color="#3730A3" />
+            <Text style={[styles.medicineText, { color: '#312E81' }]}>
+              This is an EU warning, not a UK recall. The product was reported as dangerous in the EU. Products like it are often sold in the UK too, especially online, so check the brand, model and barcode.
             </Text>
           </View>
         ) : null}
@@ -155,7 +166,9 @@ export default function DetailScreen({ recall, match, onBack, onHaveIt, onNotMin
           <Ionicons name="open-outline" size={16} color={colors.accent} />
         </Pressable>
         <Text style={[type.small, { lineHeight: 18 }]}>
-          Source: {sourceName(recall.source)}. Contains public sector information licensed under the Open Government Licence v3.0. Heads Up Home is an independent app and isn't connected to the government.
+          {recall.source === 'eu'
+            ? `Source: ${sourceName(recall.source)}. Heads Up Home is an independent app and isn't connected to the European Commission or the UK government.`
+            : `Source: ${sourceName(recall.source)}. Contains public sector information licensed under the Open Government Licence v3.0. Heads Up Home is an independent app and isn't connected to the government.`}
         </Text>
       </ScrollView>
 

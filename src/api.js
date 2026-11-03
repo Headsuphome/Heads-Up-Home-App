@@ -24,11 +24,21 @@ const BASIC_FIELDS = FIELDS.replace(',document_url,image_url', '');
 
 /** The most recent recalls, newest first. */
 export async function fetchRecalls(limit = 200) {
-  const query = (fields) => `recalls?select=${encodeURIComponent(fields)}&order=published_at.desc&limit=${limit}`;
+  const query = (fields) => `recalls?select=${encodeURIComponent(fields)}&source=neq.eu&order=published_at.desc&limit=${limit}`;
   try {
     return (await get(query(FIELDS))).map(fromRow);
   } catch (e) {
     return (await get(query(BASIC_FIELDS))).map(fromRow);
+  }
+}
+
+/** The latest EU Safety Gate warnings, kept separate so they never crowd out UK recalls. */
+export async function fetchEuWarnings(limit = 100) {
+  const query = (fields) => `recalls?select=${encodeURIComponent(fields)}&source=eq.eu&order=published_at.desc&limit=${limit}`;
+  try {
+    return (await get(query(FIELDS))).map(fromRow);
+  } catch (e) {
+    return [];
   }
 }
 

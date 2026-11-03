@@ -7,7 +7,7 @@ import * as Notifications from 'expo-notifications';
 import * as NavigationBar from 'expo-navigation-bar';
 
 import { colors } from './src/theme';
-import { fetchRecall, fetchRecalls } from './src/api';
+import { fetchEuWarnings, fetchRecall, fetchRecalls } from './src/api';
 import { cupboardMatches } from './src/logic';
 import { newId, usePrefs } from './src/storage';
 import { FREE_CUPBOARD_LIMIT, canAddToCupboard } from './src/plans';
@@ -45,8 +45,9 @@ function Main() {
   const load = useCallback(() => {
     setLoading(true);
     setError(null);
-    fetchRecalls()
-      .then(setRecalls)
+    // UK recalls first; EU warnings are loaded alongside but never replace them.
+    Promise.all([fetchRecalls(), fetchEuWarnings().catch(() => [])])
+      .then(([uk, eu]) => setRecalls([...uk, ...eu]))
       .catch((e) => setError(e.message || 'Something went wrong'))
       .finally(() => setLoading(false));
   }, []);

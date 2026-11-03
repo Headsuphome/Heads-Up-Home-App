@@ -148,3 +148,22 @@ test('pet medicine recalls get their own badge and pets have a category', async 
   const vet = fromRow({ ...oatRow, id: 'vmd:clavudale', source: 'vmd', alert_type: 'recall', categories: ['pets'] });
   assert.deepEqual(badgeFor(vet), { text: 'Pet medicine recall', tone: 'warning' });
 });
+
+test('EU warnings stay out of UK lists and counts, but show when they match the cupboard', async () => {
+  const { filterRecalls, recentCount, isUkRecall } = await import('../src/logic.js');
+  const now = new Date();
+  const uk = fromRow({ ...oatRow, id: 'opss:1', source: 'opss', categories: ['electrical'], published_at: now.toISOString() });
+  const eu = fromRow({ ...oatRow, id: 'eu:SR-1', source: 'eu', alert_type: 'eu-warning', categories: ['electrical'], published_at: now.toISOString() });
+  const euMatched = fromRow({ ...oatRow, id: 'eu:SR-2', source: 'eu', alert_type: 'eu-warning', categories: ['toys'], published_at: now.toISOString() });
+  const all = [uk, eu, euMatched];
+  const prefs = { categories: ['electrical'], allergens: [], cupboard: [] };
+  assert.equal(isUkRecall(eu), false);
+  assert.deepEqual(filterRecalls(all, 'all', prefs, new Set()).map((r) => r.id), ['opss:1']);
+  assert.deepEqual(filterRecalls(all, 'electrical', prefs, new Set()).map((r) => r.id), ['opss:1']);
+  assert.deepEqual(filterRecalls(all, 'eu', prefs, new Set()).map((r) => r.id), ['eu:SR-1', 'eu:SR-2']);
+  assert.deepEqual(filterRecalls(all, 'for-you', prefs, new Set(['eu:SR-2'])).map((r) => r.id), ['opss:1', 'eu:SR-2']);
+  assert.equal(recentCount(all, 7), 1);
+  assert.deepEqual(badgeFor(eu), { text: 'EU warning', tone: 'warning' });
+  assert.equal(badgeFor(fromRow({ ...oatRow, source: 'mhra', alert_type: 'field-safety-notice' })).text, 'Medical device notice');
+  assert.equal(badgeFor(fromRow({ ...oatRow, source: 'hse', alert_type: 'safety-alert', risk_level: 'serious' })).text, 'Work safety alert');
+});

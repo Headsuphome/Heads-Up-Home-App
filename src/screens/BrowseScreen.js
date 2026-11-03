@@ -3,7 +3,7 @@ import { FlatList, Linking, Pressable, StyleSheet, Text, TextInput, View } from 
 import { Ionicons } from '@expo/vector-icons';
 import { colorFor, colors, radius, space, type } from '../theme';
 import { EmptyState, RecallCard, SectionLabel } from '../components';
-import { CATEGORIES, categoryLabel, searchRecalls } from '../logic';
+import { CATEGORIES, categoryLabel, isUkRecall, searchRecalls } from '../logic';
 import { searchAllRecalls } from '../api';
 
 export default function BrowseScreen({ recalls, openRecall, openScan }) {
@@ -28,13 +28,13 @@ export default function BrowseScreen({ recalls, openRecall, openScan }) {
       const seen = new Set(local.map((r) => r.id));
       list = [...local, ...remote.filter((r) => !seen.has(r.id))];
     }
-    if (category) list = list.filter((r) => r.categories.includes(category));
+    if (category) list = list.filter((r) => isUkRecall(r) && r.categories.includes(category));
     return list;
   }, [recalls, query, remote, category]);
 
   const counts = useMemo(() => {
     const c = {};
-    for (const r of recalls) for (const k of r.categories) c[k] = (c[k] || 0) + 1;
+    for (const r of recalls.filter(isUkRecall)) for (const k of r.categories) c[k] = (c[k] || 0) + 1;
     return c;
   }, [recalls]);
 
