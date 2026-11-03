@@ -1262,12 +1262,12 @@ function isHomeDevice(entry: Pick<FsnEntry, 'heading' | 'deviceType' | 'model'>)
   return !HOSPITAL_ONLY.test(text);
 }
 
-const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const FSN_MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 /** "14 October 2026" or "October 2026" → midday UTC on that day (the 1st when there's no day). */
 function fsnDate(value: string | null, fallback: string): string {
   const m = value?.match(/^(?:(\d{1,2})\s+)?([A-Za-z]+)\s+(\d{4})$/);
-  const month = m ? MONTHS.indexOf(m[2].toLowerCase()) : -1;
+  const month = m ? FSN_MONTHS.indexOf(m[2].toLowerCase()) : -1;
   if (!m || month < 0) return fallback;
   return new Date(Date.UTC(Number(m[3]), month, Number(m[1] ?? 1), 12)).toISOString();
 }
