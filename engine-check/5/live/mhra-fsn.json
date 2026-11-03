@@ -1,0 +1,87 @@
+[
+ {
+  "id": "mhra-fsn:41192352",
+  "title": "FreeStyle Libre 3 App (Abbott)",
+  "publishedAt": "2026-10-28T13:23:46.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": null,
+  "summary": "The manufacturer has issued a field safety notice for this device (Invasive interstitial-fluid glucose monitoring sys). The notice explains the problem and what",
+  "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+  "products": [
+   {
+    "name": "FreeStyle Libre 3 App",
+    "barcode": null,
+    "batches": [],
+    "notes": "Ref ADC FA 1002-2026"
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-19-to-23-october-2026#abbott-freestyle-libre-3-app",
+  "documentUrl": "https://mhra-gov.filecamp.com/s/d/WfzD3DO9CeDCKR6G",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra-fsn:41019200",
+  "title": "t:slim X2 Insulin Pump (Tandem Diabetes Care)",
+  "publishedAt": "2026-09-01T12:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": null,
+  "summary": "The manufacturer has issued a field safety notice for this device (Ambulatory Insulin Infusion pump, electronic). The notice explains the problem and what to do",
+  "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+  "products": [
+   {
+    "name": "t:slim X2 Insulin Pump",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-5-to-9-october-2026#tandem-diabetes-care-tslim-x2-insulin-pump",
+  "documentUrl": "https://mhra-gov.filecamp.com/s/d/DcrXOsc0clOVDawk",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra-fsn:41124632",
+  "title": "ESENTA Stomahesive Paste (Convatec Ltd)",
+  "publishedAt": "2026-10-01T12:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": null,
+  "summary": "The manufacturer has issued a field safety notice for this device (Peristomal/peri wound dressing). The notice explains the problem and what to do.",
+  "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+  "products": [
+   {
+    "name": "ESENTA Stomahesive Paste",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-12-october-2026-to-16-october-2026#convatec-ltd--esenta-stomahesive-paste",
+  "documentUrl": "https://mhra-gov.filecamp.com/s/d/7m03N2ie3oJX4ZKv",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra-fsn:41092838",
+  "title": "Nova StatStrip® Ketone Test Strips (Nova Biomedical)",
+  "publishedAt": "2026-10-01T12:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": null,
+  "summary": "The manufacturer has issued a field safety notice for this device. The notice explains the problem and what to do.",
+  "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+  "products": [
+   {
+    "name": "Nova StatStrip® Ketone Test Strips",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-for-october-2026#nova-biomedical--nova-statstrip-ketone-test-strips",
+  "documentUrl": "https://mhra-gov.filecamp.com/s/d/xX17blXeGYNbg46y",
+  "imageUrl": null
+ }
+]
