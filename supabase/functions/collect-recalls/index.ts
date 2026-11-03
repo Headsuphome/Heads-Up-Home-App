@@ -86,11 +86,15 @@ async function saveRecalls(db: Db, recalls: Recall[]): Promise<Recall[]> {
   if (readErr) throw readErr;
   const known = new Set((existing ?? []).map((e: { id: string }) => e.id));
 
-  // image_url is left out here so a photo we've already extracted is never wiped.
-  const { error: upsertErr } = await db.from('recalls').upsert(recalls.map(recallRow));
-  if (upsertErr) throw upsertErr;
-  for (const r of recalls.filter((x) => x.imageUrl)) {
-    await db.from('recalls').update({ image_url: r.imageUrl, image_checked_at: new Date().toISOString() }).eq('id', r.id);
+  // image_url is only written when the source gives a photo, so one we've already extracted from a
+  // PDF is never wiped. The two groups go separately because an upsert writes the same columns for every row.
+  const checkedAt = new Date().toISOString();
+  const withPhoto = recalls.filter((r) => r.imageUrl).map((r) => ({ ...recallRow(r), image_url: r.imageUrl, image_checked_at: checkedAt }));
+  const withoutPhoto = recalls.filter((r) => !r.imageUrl).map(recallRow);
+  for (const rows of [withPhoto, withoutPhoto]) {
+    if (!rows.length) continue;
+    const { error: upsertErr } = await db.from('recalls').upsert(rows);
+    if (upsertErr) throw upsertErr;
   }
 
   // Products are replaced wholesale: agencies sometimes add batches to an existing notice.

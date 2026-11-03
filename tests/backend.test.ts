@@ -572,15 +572,19 @@ const fsnBody = '<h2 id="overview">Overview</h2><p>If you receive a field safety
   '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/abc">40512345</a> 2026/010/014/601/001</p>' +
   '<h3 id="philips-zenition">Philips Medical Systems Nederland BV: Philips Zenition 50</h3><p>29 September 2026</p><p>Interventional Fluoroscopic X-Ray System</p>' +
   '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/def">37220338</a></p>' +
+  '<h3 id="tandem">Tandem Diabetes Care: t:slim X2 Insulin Pump</h3><p>September 2026</p><p>Ambulatory insulin infusion pump</p>' +
+  '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/jkl">40411111</a></p>' +
   '<h3 id="b-braun-space">B Braun: Space Infusion Pumps</h3><p>October 2026</p><p>Bedside syringe pump/infusion pump, single-channel</p>' +
   '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/ghi">40400000</a></p>';
 
 test('MHRA Field Safety Notices keep only devices people use at home', () => {
   const all = parseFsnList(fsnBody);
-  assert.equal(all.length, 3);
-  assert.deepEqual(all.map(isHomeDevice), [true, false, false]);
+  assert.equal(all.length, 4);
+  assert.deepEqual(all.map(isHomeDevice), [true, false, true, false]);
+  assert.equal(all[2].device, 't:slim X2 Insulin Pump');
+  assert.equal(all[2].manufacturer, 'Tandem Diabetes Care');
   const recalls = homeFsnsFrom({ base_path: '/drug-device-alerts/field-safety-notices-12-to-16-october-2026', first_published_at: '2026-10-19T10:00:00Z', details: { body: fsnBody } });
-  assert.equal(recalls.length, 1);
+  assert.equal(recalls.length, 2);
   const r = recalls[0];
   assert.equal(r.id, 'mhra-fsn:40512345');
   assert.equal(r.source, 'mhra');

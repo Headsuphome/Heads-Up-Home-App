@@ -1231,14 +1231,16 @@ function parseFsnList(html: string): FsnEntry[] {
     const body = rest.join(' ');
     const lines = [...body.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => ({ html: m[1], text: cleanText(m[1]) ?? '' }))
       .filter((l) => l.text);
-    const [manufacturer, ...deviceParts] = heading.split(/\s*:\s*/);
-    const device = deviceParts.length ? deviceParts.join(': ') : heading;
+    // "Manufacturer: Device" — split at the first colon only ("Tandem: t:slim X2 Insulin Pump").
+    const split = heading.match(/^([^:]+?)\s*:\s*(.+)$/);
+    const manufacturer = split ? split[1] : null;
+    const device = split ? split[2] : heading;
     const dateLine = lines.find((l) => /^(\d{1,2}\s+)?(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}$/i.test(l.text));
     const refLine = lines.find((l) => /MHRA reference/i.test(l.text));
-    const modelLines = lines.filter((l) => /^(model|models|lot|lots|batch|serial)/i.test(l.text)).map((l) => l.text);
+    const modelLines = lines.filter((l) => /^(model|models|lot|lots|batch|serial|ref\b|reference\b|fmi\b|fsca\b)/i.test(l.text)).map((l) => l.text);
     const typeLine = lines.find((l) => l !== dateLine && l !== refLine && !modelLines.includes(l.text) && !/MHRA reference/i.test(l.text));
     out.push({
-      manufacturer: deviceParts.length ? manufacturer : null,
+      manufacturer,
       device,
       heading,
       anchor,
@@ -1260,10 +1262,14 @@ function isHomeDevice(entry: Pick<FsnEntry, 'heading' | 'deviceType' | 'model'>)
   return !HOSPITAL_ONLY.test(text);
 }
 
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+
+/** "14 October 2026" or "October 2026" → midday UTC on that day (the 1st when there's no day). */
 function fsnDate(value: string | null, fallback: string): string {
-  if (!value) return fallback;
-  const d = new Date(/^\d/.test(value) ? value : `1 ${value}`);
-  return Number.isNaN(d.getTime()) ? fallback : d.toISOString();
+  const m = value?.match(/^(?:(\d{1,2})\s+)?([A-Za-z]+)\s+(\d{4})$/);
+  const month = m ? MONTHS.indexOf(m[2].toLowerCase()) : -1;
+  if (!m || month < 0) return fallback;
+  return new Date(Date.UTC(Number(m[3]), month, Number(m[1] ?? 1), 12)).toISOString();
 }
 
 /** Converts one notice from a weekly list into our Recall format. */
@@ -2036,11 +2042,15 @@ async function saveRecalls(db: Db, recalls: Recall[]): Promise<Recall[]> {
   if (readErr) throw readErr;
   const known = new Set((existing ?? []).map((e: { id: string }) => e.id));
 
-  // image_url is left out here so a photo we've already extracted is never wiped.
-  const { error: upsertErr } = await db.from('recalls').upsert(recalls.map(recallRow));
-  if (upsertErr) throw upsertErr;
-  for (const r of recalls.filter((x) => x.imageUrl)) {
-    await db.from('recalls').update({ image_url: r.imageUrl, image_checked_at: new Date().toISOString() }).eq('id', r.id);
+  // image_url is only written when the source gives a photo, so one we've already extracted from a
+  // PDF is never wiped. The two groups go separately because an upsert writes the same columns for every row.
+  const checkedAt = new Date().toISOString();
+  const withPhoto = recalls.filter((r) => r.imageUrl).map((r) => ({ ...recallRow(r), image_url: r.imageUrl, image_checked_at: checkedAt }));
+  const withoutPhoto = recalls.filter((r) => !r.imageUrl).map(recallRow);
+  for (const rows of [withPhoto, withoutPhoto]) {
+    if (!rows.length) continue;
+    const { error: upsertErr } = await db.from('recalls').upsert(rows);
+    if (upsertErr) throw upsertErr;
   }
 
   // Products are replaced wholesale: agencies sometimes add batches to an existing notice.

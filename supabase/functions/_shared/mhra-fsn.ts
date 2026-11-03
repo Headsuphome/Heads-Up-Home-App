@@ -52,14 +52,16 @@ export function parseFsnList(html: string): FsnEntry[] {
     const body = rest.join(' ');
     const lines = [...body.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => ({ html: m[1], text: cleanText(m[1]) ?? '' }))
       .filter((l) => l.text);
-    const [manufacturer, ...deviceParts] = heading.split(/\s*:\s*/);
-    const device = deviceParts.length ? deviceParts.join(': ') : heading;
+    // "Manufacturer: Device" — split at the first colon only ("Tandem: t:slim X2 Insulin Pump").
+    const split = heading.match(/^([^:]+?)\s*:\s*(.+)$/);
+    const manufacturer = split ? split[1] : null;
+    const device = split ? split[2] : heading;
     const dateLine = lines.find((l) => /^(\d{1,2}\s+)?(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}$/i.test(l.text));
     const refLine = lines.find((l) => /MHRA reference/i.test(l.text));
-    const modelLines = lines.filter((l) => /^(model|models|lot|lots|batch|serial)/i.test(l.text)).map((l) => l.text);
+    const modelLines = lines.filter((l) => /^(model|models|lot|lots|batch|serial|ref\b|reference\b|fmi\b|fsca\b)/i.test(l.text)).map((l) => l.text);
     const typeLine = lines.find((l) => l !== dateLine && l !== refLine && !modelLines.includes(l.text) && !/MHRA reference/i.test(l.text));
     out.push({
-      manufacturer: deviceParts.length ? manufacturer : null,
+      manufacturer,
       device,
       heading,
       anchor,
