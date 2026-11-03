@@ -1,0 +1,16 @@
+== https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en
+200 application/xml;charset=UTF-8 472687
+* ALPN: curl offers h2,http/1.1
+* SSL Trust Anchors:
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / x25519 / RSASSA-PSS
+* ALPN: server did not agree on a protocol. Uses default.
+* SSL certificate verified via OpenSSL.
+< HTTP/1.1 200 
+== https://ec.europa.eu/safety-gate-alerts/screen/webReport
+200 text/html;charset=UTF-8 2277
+* ALPN: curl offers h2,http/1.1
+* SSL Trust Anchors:
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / x25519 / RSASSA-PSS
+* ALPN: server did not agree on a protocol. Uses default.
+* SSL certificate verified via OpenSSL.
+< HTTP/1.1 200 
