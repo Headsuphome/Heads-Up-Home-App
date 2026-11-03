@@ -1,0 +1,24 @@
+[
+ {
+  "id": "fss:waitrose-recalls-waitrose-tuna-pate-because-of-an-incorrect-use-by-date",
+  "title": "Food alert\n22 October 2026\nWaitrose recalls Waitrose Tuna Pate because of an incorrect use by date\nWaitrose is recalling Waitrose Tuna Pate because of a labelling error, the use by date is incorrect.",
+  "publishedAt": "2026-10-22T12:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "The product is labelled with an incorrect use by date of 17 December 2026 which makes it unsafe to eat after the correct use by date of 17 October 2026.",
+  "advice": "If you have bought the above product, please do not consume it. Instead, return it to your local Waitrose store for a full refund. For further information, plea",
+  "products": [
+   {
+    "name": "22 October 2026\nWaitrose recalls Waitrose Tuna Pate because of an incorrect use by date\nWaitrose is recalling Waitrose Tuna Pate because of a labelling error, the use by date is incorrect.",
+    "barcode": null,
+    "batches": [],
+    "notes": "Product name Pack size Best before - \"Use By\" date Waitrose Tuna Pate 115g 17 De"
+   }
+  ],
+  "sourceUrl": "https://www.foodstandards.gov.scot/alerts/waitrose-recalls-waitrose-tuna-pate-because-of-an-incorrect-use-by-date",
+  "documentUrl": null,
+  "imageUrl": null
+ }
+]

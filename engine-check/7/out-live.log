@@ -1,0 +1,19 @@
+(node:2440) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/scripts/live-check.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+fsa: 13 in 1.736s
+opss: 67 in 6.222s
+mhra: 7 in 1.873s
+mhra-fsn: 4 in 1.624s
+vmd: 4 in 1.189s
+fss: 1 in 0.854s
+hse: 2 in 0.729s
+eu: 315 in 4.221s
+backfill-fsa: 40 in 3.128s
+backfill-opss: 40 in 4.443s
+backfill-mhra-recalls: 40 in 5.331s
+backfill-mhra-devices: 21 in 2.191s
+backfill-mhra-fsn: 1 in 1.684s
+backfill-vmd: 10 in 1.059s
+backfill-eu: 99 in 1.958s
