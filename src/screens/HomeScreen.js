@@ -3,7 +3,7 @@ import { ActivityIndicator, FlatList, Pressable, RefreshControl, ScrollView, Sty
 import { Ionicons } from '@expo/vector-icons';
 import { colorFor, colors, radius, space, type } from '../theme';
 import { Button, Chip, EmptyState, RecallCard } from '../components';
-import { filterRecalls, recentCount } from '../logic';
+import { filterRecalls, recentCount, recentRecalls } from '../logic';
 
 const FILTERS = [
   { key: 'for-you', label: 'For you', icon: 'star' },
@@ -31,10 +31,8 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
   const top = matches[0];
   const noPrefs = !prefs.categories.length && !prefs.allergens.length && !prefs.cupboard.length;
   const weekCount = useMemo(() => recentCount(recalls, 7), [recalls]);
-  const monthRecalls = useMemo(() => {
-    const since = Date.now() - 30 * 86400000;
-    return recalls.filter((r) => new Date(r.publishedAt).getTime() >= since);
-  }, [recalls]);
+  // The headline is the last 30 days: recalls come in batches, so a single week can look quiet.
+  const monthRecalls = useMemo(() => recentRecalls(recalls, 30), [recalls]);
 
   const header = (
     <View style={{ gap: space.lg, paddingBottom: space.md }}>
@@ -51,11 +49,11 @@ export default function HomeScreen({ recalls, loading, error, onRefresh, prefs, 
           </Pressable>
         </View>
         <View style={{ gap: 2 }}>
-          <Text style={styles.heroNumber}>{weekCount}</Text>
-          <Text style={styles.heroLabel}>{weekCount === 1 ? 'new UK recall in the last 7 days' : 'new UK recalls in the last 7 days'}</Text>
+          <Text style={styles.heroNumber}>{monthRecalls.length}</Text>
+          <Text style={styles.heroLabel}>{monthRecalls.length === 1 ? 'UK recall in the last 30 days' : 'UK recalls in the last 30 days'}</Text>
+          <Text style={styles.heroWeek}>{weekCount} in the last 7 days</Text>
         </View>
-        <Text style={styles.statCaption}>Last 30 days</Text>
-        <View style={[styles.statRow, { marginTop: -8 }]}>
+        <View style={styles.statRow}>
           {STATS.map((st) => {
             const c = colorFor(st.category);
             const n = monthRecalls.filter(st.match).length;
@@ -161,6 +159,7 @@ const styles = StyleSheet.create({
   heroButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: 'rgba(255,255,255,0.12)', alignItems: 'center', justifyContent: 'center' },
   heroNumber: { fontSize: 44, fontWeight: '800', color: '#FFFFFF', letterSpacing: -1, fontVariant: ['tabular-nums'] },
   heroLabel: { fontSize: 15, color: '#CBD5E1' },
+  heroWeek: { fontSize: 13, color: '#94A3B8', marginTop: 4 },
   statRow: { flexDirection: 'row', gap: space.sm },
   statCaption: { fontSize: 12, fontWeight: '600', letterSpacing: 0.6, textTransform: 'uppercase', color: '#94A3B8' },
   stat: { flex: 1, borderRadius: 14, paddingVertical: 10, paddingHorizontal: 12 },

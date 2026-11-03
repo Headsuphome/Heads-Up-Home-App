@@ -3,7 +3,7 @@ import { Linking, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'r
 import { Ionicons } from '@expo/vector-icons';
 import { colorFor, colors, radius, space, type } from '../theme';
 import { Button } from '../components';
-import { impactStats, recentCount } from '../logic';
+import { impactStats, recentCount, recentRecalls } from '../logic';
 import { WEBSITE_URL } from '../config';
 
 // Research on why recalls so often fail to reach people. Each figure links to its source,
@@ -56,8 +56,7 @@ export default function WhyScreen({ recalls, prefs, matches, onClose }) {
   const matchedIds = useMemo(() => new Set(matches.map((m) => m.recall.id)), [matches]);
   const mine = useMemo(() => impactStats(recalls, prefs, matchedIds), [recalls, prefs, matchedIds]);
   const month = useMemo(() => {
-    const since = Date.now() - 30 * 86400000;
-    const list = recalls.filter((r) => new Date(r.publishedAt).getTime() >= since);
+    const list = recentRecalls(recalls, 30);
     return {
       all: list.length,
       food: list.filter((r) => r.categories.includes('food-drink')).length,

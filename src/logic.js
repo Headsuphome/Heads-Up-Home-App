@@ -51,9 +51,19 @@ export function iconFor(recall) {
 }
 
 /** How many recalls were published in the last `days` days. */
-export function recentCount(recalls, days = 7, now = new Date()) {
+/** EU Safety Gate warnings are shown, but kept out of the UK recall counts. */
+export function isUkRecall(recall) {
+  return recall.source !== 'eu';
+}
+
+/** UK recalls published in the last `days` days. */
+export function recentRecalls(recalls, days, now = new Date()) {
   const since = now.getTime() - days * 86400000;
-  return recalls.filter((r) => new Date(r.publishedAt).getTime() >= since).length;
+  return recalls.filter((r) => isUkRecall(r) && new Date(r.publishedAt).getTime() >= since);
+}
+
+export function recentCount(recalls, days = 7, now = new Date()) {
+  return recentRecalls(recalls, days, now).length;
 }
 
 /** The first barcode on a recall, if the agency published one. */
