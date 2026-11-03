@@ -13,7 +13,7 @@ const outDir = join(root, 'dashboard');
 mkdirSync(outDir, { recursive: true });
 
 // Shared modules in dependency order.
-const ORDER = ['types', 'util', 'categories', 'fsa', 'opss', 'mhra', 'vmd', 'fss', 'matching', 'push', 'images'];
+const ORDER = ['types', 'util', 'categories', 'fsa', 'opss', 'mhra', 'vmd', 'fss', 'mhra-fsn', 'hse', 'eu', 'backfill', 'matching', 'push', 'images'];
 
 function strip(source) {
   return source

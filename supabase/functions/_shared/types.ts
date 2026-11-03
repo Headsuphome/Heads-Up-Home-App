@@ -1,9 +1,9 @@
 // Shared shapes used across the backend. Kept dependency-free so they run in
 // Supabase Edge Functions (Deno) and in local tests (Node).
 
-export type Source = 'fsa' | 'opss' | 'mhra' | 'fss' | 'vmd';
+export type Source = 'fsa' | 'opss' | 'mhra' | 'fss' | 'vmd' | 'hse' | 'eu';
 
-export type AlertType = 'recall' | 'allergy' | 'safety-report' | 'safety-alert' | 'action';
+export type AlertType = 'recall' | 'allergy' | 'safety-report' | 'safety-alert' | 'action' | 'field-safety-notice' | 'eu-warning';
 
 export type RiskLevel = 'serious' | 'high' | 'medium' | 'low' | null;
 

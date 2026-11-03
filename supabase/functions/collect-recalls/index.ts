@@ -1,6 +1,6 @@
 // collect-recalls: the engine. Runs every hour (see migrations/0002_schedule.sql).
 //
-// 1. Asks the FSA and OPSS for anything new or changed since last run
+// 1. Asks every source (FSA, FSS, OPSS, MHRA, VMD, HSE, EU Safety Gate) for anything new since last run
 // 2. Saves it in our own format
 // 3. Works out who should be told (cupboard, allergens, categories)
 // 4. Sends phone notifications (category alerts wait for the daily digest if the person chose that)
@@ -11,9 +11,13 @@ import { fetchOpssSince } from '../_shared/opss.ts';
 import { fetchMhraSince } from '../_shared/mhra.ts';
 import { fetchFssSince } from '../_shared/fss.ts';
 import { fetchVmdSince } from '../_shared/vmd.ts';
+import { fetchFsnSince } from '../_shared/mhra-fsn.ts';
+import { fetchHseSince } from '../_shared/hse.ts';
+import { fetchEuSince } from '../_shared/eu.ts';
+import { runBackfill, type BackfillState } from '../_shared/backfill.ts';
 import { matchRecall, notificationText } from '../_shared/matching.ts';
 import { sendPush, type PushMessage } from '../_shared/push.ts';
-import type { CupboardItem, Match, Recall, Source, UserProfile } from '../_shared/types.ts';
+import type { CupboardItem, Match, Recall, UserProfile } from '../_shared/types.ts';
 import { bestPhoto, downloadPdf, imagePath } from '../_shared/images.ts';
 import { mapLimit } from '../_shared/util.ts';
 
@@ -58,7 +62,11 @@ async function addPhotos(db: Db): Promise<{ added: number; checked: number }> {
 const FIRST_RUN_DAYS = 30; // history to load the very first time, so the app isn't empty at launch
 // Pet medicine recalls are rare (a handful a year) and the VMD withdraws each notice once its recall
 // is over, so a year of history gives just the recalls that still apply.
-const FIRST_RUN_DAYS_BY_SOURCE: Partial<Record<Source, number>> = { vmd: 365 };
+// HSE publishes only a few alerts a year, so it starts with two years.
+const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
+// Older recalls are loaded separately, a batch each run (see backfill.ts). This is how long the
+// backfill may keep starting new batches, so the whole run stays well inside its time limit.
+const BACKFILL_SECONDS = 70;
 
 type Db = SupabaseClient;
 
@@ -99,7 +107,7 @@ async function saveRecalls(db: Db, recalls: Recall[]): Promise<Recall[]> {
   return recalls.filter((r) => !known.has(r.id));
 }
 
-async function collectSource(db: Db, source: Source, fetcher: typeof fetchFsaSince): Promise<{ newRecalls: Recall[]; firstRun: boolean; error?: string }> {
+async function collectSource(db: Db, source: string, fetcher: typeof fetchFsaSince): Promise<{ newRecalls: Recall[]; firstRun: boolean; error?: string }> {
   const { data: state } = await db.from('sync_state').select('*').eq('source', source).maybeSingle();
   const firstRun = !state?.last_seen_at;
   const firstRunDays = FIRST_RUN_DAYS_BY_SOURCE[source] ?? FIRST_RUN_DAYS;
@@ -188,12 +196,17 @@ Deno.serve(async (req) => {
   });
 
   const report: Record<string, unknown> = {};
-  const SOURCES: Array<[Source, typeof fetchFsaSince]> = [
+  const started = Date.now();
+  // Each entry keeps its own place in sync_state, so the name doesn't have to be a recall source.
+  const SOURCES: Array<[string, typeof fetchFsaSince]> = [
     ['fsa', fetchFsaSince],
     ['opss', fetchOpssSince],
     ['mhra', fetchMhraSince],
+    ['mhra-fsn', fetchFsnSince],
     ['vmd', fetchVmdSince],
     ['fss', fetchFssSince],
+    ['hse', fetchHseSince],
+    ['eu', fetchEuSince],
   ];
   const results = await Promise.all(SOURCES.map(([source, fetcher]) => collectSource(db, source, fetcher)));
 
@@ -223,6 +236,29 @@ Deno.serve(async (req) => {
         errors.push(`${recall.id}: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
+  }
+
+  // Older recalls, a batch per source each run. Saved quietly: no alerts for these.
+  try {
+    report.backfill = await runBackfill({
+      fetchFn: fetch,
+      deadline: started + BACKFILL_SECONDS * 1000,
+      load: async () => {
+        const { data, error } = await db.from('backfill_state').select('key, from_date, next_offset, done');
+        if (error) throw error;
+        return (data ?? []).map((r: { key: string; from_date: string; next_offset: number; done: boolean }) =>
+          ({ key: r.key, fromDate: r.from_date, offset: r.next_offset, done: r.done }) as BackfillState);
+      },
+      store: async (s) => {
+        const { error } = await db.from('backfill_state').upsert({
+          key: s.key, from_date: s.fromDate, next_offset: s.offset, done: s.done, updated_at: new Date().toISOString(),
+        });
+        if (error) throw error;
+      },
+      save: async (recalls) => { await saveRecalls(db, recalls); },
+    });
+  } catch (err) {
+    errors.push(`backfill: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   try {

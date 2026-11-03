@@ -8,9 +8,9 @@ import { createClient, type SupabaseClient } from 'npm:@supabase/supabase-js@2';
 // Shared shapes used across the backend. Kept dependency-free so they run in
 // Supabase Edge Functions (Deno) and in local tests (Node).
 
-type Source = 'fsa' | 'opss' | 'mhra' | 'fss' | 'vmd';
+type Source = 'fsa' | 'opss' | 'mhra' | 'fss' | 'vmd' | 'hse' | 'eu';
 
-type AlertType = 'recall' | 'allergy' | 'safety-report' | 'safety-alert' | 'action';
+type AlertType = 'recall' | 'allergy' | 'safety-report' | 'safety-alert' | 'action' | 'field-safety-notice' | 'eu-warning';
 
 type RiskLevel = 'serious' | 'high' | 'medium' | 'low' | null;
 
@@ -423,6 +423,12 @@ function normaliseFsaAlert(item: Json): Recall {
 async function fetchFsaSince(fetchFn: FetchFn, since: string, maxAlerts = 200): Promise<Recall[]> {
   const sinceParam = encodeURIComponent(since);
   const list = await getJson(fetchFn, `${FSA_BASE}?since=${sinceParam}&_limit=${maxAlerts}&_sort=-modified`);
+  return fsaRecallsFor(fetchFn, asArray<Json>(list.items));
+}
+
+/** Reads the full record of each alert in a list (batches, advice) and converts the published ones. */
+async function fsaRecallsFor(fetchFn: FetchFn, items: Json[]): Promise<Recall[]> {
+  const list = { items };
   const ids: string[] = asArray<Json>(list.items)
     .map((i) => i.notation ?? String(i['@id'] ?? '').split('/').pop())
     .filter(Boolean);
@@ -1174,6 +1180,475 @@ async function fetchFssSince(fetchFn: FetchFn, since: string): Promise<Recall[]>
   return fresh.slice(0, 20).map((item, idx) => normaliseFss(item, pages[idx]));
 }
 
+// ───────── mhra-fsn.ts ─────────
+// MHRA Field Safety Notices (FSNs): manufacturers' safety notices for medical devices, published on
+// GOV.UK as weekly lists, e.g. "Field Safety Notices: 29 September to 3 October 2025".
+// Each notice in a list is an <h3> "Manufacturer: Device", followed by lines for the date, the type of
+// device, the model and an "MHRA reference" link to the manufacturer's notice (a PDF).
+//
+// Most FSNs are for hospital equipment. We keep only devices people use at home, such as glucose
+// meters, insulin pens, inhalers, CPAP machines, hearing aids and mobility aids.
+// Licence: Open Government Licence v3.0 — attribution required.
+
+const FSN_ALERT_TYPE = 'field-safety-notices';
+
+const HOME_DEVICE = new RegExp(String.raw`\b(` + [
+  'blood glucose', 'glucose (?:meter|monitor|sensor|test)', 'continuous glucose', 'cgm', 'freestyle libre', 'libre',
+  'dexcom', 'omnipod', 'ketone', 'test strips?', 'lancets?', 'lancing device', 'insulin', 'pen needles?',
+  'injection pen', 'auto-?injector', 'adrenaline', 'epinephrine', 'epipen', 'inhalers?', 'spacer', 'nebuli[sz]ers?',
+  'c?pap', 'sleep apn(?:o)?ea', 'hearing aids?', 'sound processor', 'cochlear', 'contact lens(?:es)?',
+  'thermometers?', 'blood pressure monitor', 'sphygmomanometer', 'pulse oximeter', 'oximeter', 'pregnancy test',
+  'ovulation', 'self[- ]test(?:ing)?', 'home use', 'home test', 'lateral flow', 'wheelchairs?', 'mobility scooters?',
+  'walking (?:aid|frame|stick)s?', 'rollators?', 'crutch(?:es)?', 'stair ?lifts?', 'commodes?', 'bath lifts?',
+  'shower chairs?', 'ostomy', 'stoma', 'colostomy', 'ileostomy', 'urostomy', 'intermittent catheters?',
+  'incontinence', 'breast pumps?', 'tens\b', 'oxygen concentrators?', 'home (?:dialysis|oxygen|ventilat\w*)',
+  'peritoneal dialysis', 'defibrillators?', '\baed\b', 'condoms?', 'personal alarm', 'hospital bed for home',
+].join('|') + String.raw`)`, 'i');
+
+const HOSPITAL_ONLY = /\b(professional|hospital|surgical|surgery|theatre|x-?ray|mri\b|ct scanner|fluoroscop\w*|radiograph\w*|radiotherapy|endoscop\w*|anaesthe\w*|laborator\w*|analy[sz]er|stereotactic|apheresis|central venous|cardiac|catheter lab|implant\w*|ultrasound system|patient monitor)\b/i;
+
+type FsnEntry = {
+  manufacturer: string | null;
+  device: string;
+  heading: string;
+  anchor: string | null;
+  date: string | null;
+  deviceType: string | null;
+  model: string | null;
+  ref: string | null;
+  documentUrl: string | null;
+};
+
+/** Splits a weekly FSN list into its notices. */
+function parseFsnList(html: string): FsnEntry[] {
+  const out: FsnEntry[] = [];
+  const parts = html.split(/<h3\b/i).slice(1);
+  for (const part of parts) {
+    const [headHtml, ...rest] = part.split(/<\/h3>/i);
+    const anchor = headHtml.match(/id="([^"]+)"/)?.[1] ?? null;
+    const heading = cleanText(headHtml.replace(/^[^>]*>/, '')) ?? '';
+    if (!heading) continue;
+    const body = rest.join(' ');
+    const lines = [...body.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => ({ html: m[1], text: cleanText(m[1]) ?? '' }))
+      .filter((l) => l.text);
+    const [manufacturer, ...deviceParts] = heading.split(/\s*:\s*/);
+    const device = deviceParts.length ? deviceParts.join(': ') : heading;
+    const dateLine = lines.find((l) => /^(\d{1,2}\s+)?(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}$/i.test(l.text));
+    const refLine = lines.find((l) => /MHRA reference/i.test(l.text));
+    const modelLines = lines.filter((l) => /^(model|models|lot|lots|batch|serial)/i.test(l.text)).map((l) => l.text);
+    const typeLine = lines.find((l) => l !== dateLine && l !== refLine && !modelLines.includes(l.text) && !/MHRA reference/i.test(l.text));
+    out.push({
+      manufacturer: deviceParts.length ? manufacturer : null,
+      device,
+      heading,
+      anchor,
+      date: dateLine?.text ?? null,
+      deviceType: typeLine?.text ?? null,
+      model: modelLines.length ? modelLines.join('\n') : null,
+      ref: refLine?.html.match(/>(\d{5,})</)?.[1] ?? refLine?.text.match(/(\d{4}\/\d{3}\/\d{3}\/\d{3}\/\d{3})/)?.[1] ?? null,
+      documentUrl: refLine?.html.match(/href="([^"]+)"/)?.[1] ?? null,
+    });
+  }
+  return out;
+}
+
+/** True for devices people use at home, rather than hospital equipment. */
+function isHomeDevice(entry: Pick<FsnEntry, 'heading' | 'deviceType' | 'model'>): boolean {
+  const text = [entry.heading, entry.deviceType, entry.model].filter(Boolean).join(' ');
+  if (!HOME_DEVICE.test(text)) return false;
+  if (/\bhome\b/i.test(text)) return true;
+  return !HOSPITAL_ONLY.test(text);
+}
+
+function fsnDate(value: string | null, fallback: string): string {
+  if (!value) return fallback;
+  const d = new Date(/^\d/.test(value) ? value : `1 ${value}`);
+  return Number.isNaN(d.getTime()) ? fallback : d.toISOString();
+}
+
+/** Converts one notice from a weekly list into our Recall format. */
+function normaliseFsn(entry: FsnEntry, pageUrl: string, pagePublished: string): Recall {
+  const publishedAt = fsnDate(entry.date, pagePublished);
+  const key = (entry.ref ?? entry.anchor ?? entry.heading).replace(/[^A-Za-z0-9]+/g, '-').slice(0, 60);
+  const what = entry.deviceType ? ` (${entry.deviceType.replace(/\.$/, '')})` : '';
+  return {
+    id: `mhra-fsn:${key}`,
+    source: 'mhra',
+    sourceRef: entry.ref ?? key,
+    alertType: 'field-safety-notice',
+    title: entry.manufacturer ? `${entry.device} (${entry.manufacturer})` : entry.device,
+    summary: shorten(`The manufacturer has issued a field safety notice for this device${what}. The notice explains the problem and what to do.`),
+    advice: "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you rely on without advice.",
+    riskLevel: null,
+    categories: ['medicines'],
+    allergens: [],
+    businesses: entry.manufacturer ? [entry.manufacturer] : [],
+    sourceUrl: entry.anchor ? `${pageUrl}#${entry.anchor}` : pageUrl,
+    documentUrl: entry.documentUrl,
+    imageUrl: null,
+    publishedAt,
+    updatedAt: publishedAt,
+    products: [{
+      name: entry.device,
+      barcode: null,
+      packSize: null,
+      batchCodes: [],
+      bestBefore: null,
+      useBy: null,
+      batchNotes: entry.model,
+    }],
+  };
+}
+
+/** Home-device notices from one weekly list (its GOV.UK content item). */
+function homeFsnsFrom(content: Json): Recall[] {
+  const pageUrl = `${GOVUK}${content.base_path ?? ''}`;
+  const published = toIso(content.first_published_at ?? content.public_updated_at);
+  return parseFsnList(content.details?.body ?? '').filter(isHomeDevice).map((e) => normaliseFsn(e, pageUrl, published));
+}
+
+/** Weekly FSN lists published since `since`, reduced to devices people use at home. */
+async function fetchFsnSince(fetchFn: FetchFn, since: string, maxPages = 10): Promise<Recall[]> {
+  const url = `${GOVUK}/api/search.json?filter_format=medical_safety_alert&filter_alert_type=${FSN_ALERT_TYPE}` +
+    `&filter_public_timestamp=from:${since.slice(0, 10)}&order=-public_timestamp&count=${maxPages}&fields=link,public_timestamp`;
+  const page = await getJson(fetchFn, url);
+  const links = asArray<Json>(page.results).filter((r) => typeof r.link === 'string').map((r) => r.link as string);
+  const contents = await mapLimit(links, 3, (link) => getJson(fetchFn, `${GOVUK}/api/content${link}`).catch(() => null));
+  return contents.filter(Boolean).flatMap((c) => homeFsnsFrom(c));
+}
+
+// ───────── hse.ts ─────────
+// Health and Safety Executive (HSE) safety alerts and notices: faults in work equipment, protective
+// gear and processes. Published as a table at hse.gov.uk/safetybulletins/recent-bulletins.htm
+// (Date MM/YYYY | Topic | Bulletin No | Industry), each linking to a page with "Issue",
+// "Outline of the problem" and "Action required" sections.
+//
+// Many are for offshore, chemical or other specialist industries, which aren't relevant to the app's
+// users. We keep the ones a tradesperson, small business, school or household might meet.
+// Licence: Open Government Licence v3.0 — attribution required.
+
+const HSE_BASE = 'https://www.hse.gov.uk/safetybulletins';
+
+const SPECIALIST = /offshore|drilling|wind turbine|wind generation|marine|vessel|mooring|cargo|slop tank|radiograph|laborator|biological agent|nuclear|comah|refiner|mining|quarr|explosive|thermite|pesticide|oil and gas|gangway|grating|vapour recovery|motorsport|high voltage|switchgear|diving|pipeline|hydrogen sulphide|hydrogen sulfide/i;
+
+type HseRow = { month: string; url: string; slug: string; topic: string; bulletin: string | null; audience: string | null };
+
+/** Rows of the recent bulletins table. `month` is "YYYY-MM". */
+function parseHseList(html: string): HseRow[] {
+  const table = html.match(/<table[^>]*id="safetyalerts"[\s\S]*?<\/table>/i)?.[0] ?? html;
+  const rows: HseRow[] = [];
+  for (const row of table.matchAll(/<tr\b[\s\S]*?<\/tr>/gi)) {
+    const cells = [...row[0].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((c) => c[1]);
+    if (cells.length < 2) continue;
+    const date = (cleanText(cells[0]) ?? '').match(/^(\d{1,2})\/(\d{4})$/);
+    const link = cells[1].match(/href="([^"]+)"/)?.[1];
+    if (!date || !link) continue;
+    const url = link.startsWith('http') ? link : `${HSE_BASE}/${link.replace(/^\.?\//, '')}`;
+    rows.push({
+      month: `${date[2]}-${date[1].padStart(2, '0')}`,
+      url,
+      slug: (url.split('/').pop() ?? url).replace(/\.htm$/, ''),
+      topic: cleanText(cells[1]) ?? '',
+      bulletin: cleanText(cells[2]) || null,
+      audience: cleanText(cells[3]) || null,
+    });
+  }
+  return rows;
+}
+
+function isRelevantHse(row: Pick<HseRow, 'topic' | 'audience'>): boolean {
+  return !SPECIALIST.test(`${row.topic} ${row.audience ?? ''}`);
+}
+
+const END_OF_CONTENT = /^(guidance|relevant legal|further information|further guidance|related|is this page useful|footer|references?)/i;
+
+/**
+ * The text after a heading such as "Issue" or "Action required". With `throughSubheadings`, it carries
+ * on past sub-headings ("Users should:", "Check", ...) until the guidance and references at the end.
+ */
+function sectionAfter(html: string, heading: RegExp, throughSubheadings = false): string | null {
+  const parts = html.split(/(<h[1-4][^>]*>[\s\S]*?<\/h[1-4]>)/i);
+  for (let i = 1; i < parts.length; i += 2) {
+    if (!heading.test(cleanText(parts[i]) ?? '')) continue;
+    const pieces: string[] = [cleanText(parts[i + 1] ?? '') ?? ''];
+    if (throughSubheadings) {
+      for (let j = i + 2; j < parts.length; j += 2) {
+        const h = cleanText(parts[j]) ?? '';
+        if (END_OF_CONTENT.test(h)) break;
+        pieces.push(h, cleanText(parts[j + 1] ?? '') ?? '');
+      }
+    }
+    const text = pieces.filter(Boolean).join('\n').trim();
+    if (text) return text;
+  }
+  return null;
+}
+
+function normaliseHse(row: HseRow, html: string | null): Recall {
+  const page = html ?? '';
+  const main = page.match(/id="page-contents"[\s\S]*$/i)?.[0] ?? page;
+  const kind = /safety alert/i.test(main.slice(0, 3000)) ? 'Safety alert' : 'Safety notice';
+  const issueDate = cleanText(main.match(/Issue date:\s*([^<]+)/i)?.[1] ?? '')?.match(/(\d{1,2})\/(\d{2,4})/);
+  const month = issueDate ? `${issueDate[2].length === 2 ? `20${issueDate[2]}` : issueDate[2]}-${issueDate[1].padStart(2, '0')}` : row.month;
+  const publishedAt = new Date(`${month}-01T09:00:00Z`).toISOString();
+  const issue = sectionAfter(main, /^issue$/i) ?? sectionAfter(main, /outline of the problem/i);
+  const action = sectionAfter(main, /action required/i, true);
+  return {
+    id: `hse:${(row.bulletin ?? row.slug).replace(/[^A-Za-z0-9-]+/g, '-')}`,
+    source: 'hse',
+    sourceRef: row.bulletin ?? row.slug,
+    alertType: 'safety-alert',
+    title: row.topic,
+    summary: shorten(issue ? `${kind}: ${issue}` : `${kind} from the Health and Safety Executive.`),
+    advice: shorten(action, 400),
+    riskLevel: kind === 'Safety alert' ? 'serious' : null,
+    categories: ['trades-tools'],
+    allergens: [],
+    businesses: [],
+    sourceUrl: row.url,
+    documentUrl: null,
+    imageUrl: null,
+    publishedAt,
+    updatedAt: publishedAt,
+    products: [{
+      name: row.topic, barcode: null, packSize: null, batchCodes: [], bestBefore: null, useBy: null,
+      batchNotes: row.audience ? `Who it's for: ${row.audience}` : null,
+    }],
+  };
+}
+
+/** Relevant HSE alerts and notices from the month of `since` onwards. */
+async function fetchHseSince(fetchFn: FetchFn, since: string, maxItems = 20): Promise<Recall[]> {
+  const fromMonth = since.slice(0, 7);
+  const rows = parseHseList(await getText(fetchFn, `${HSE_BASE}/recent-bulletins.htm`))
+    .filter((r) => r.month >= fromMonth && isRelevantHse(r))
+    .slice(0, maxItems);
+  const pages = await mapLimit(rows, 3, (r) => getText(fetchFn, r.url).catch(() => null));
+  return rows.map((r, i) => normaliseHse(r, pages[i]));
+}
+
+// ───────── eu.ts ─────────
+// EU Safety Gate: dangerous non-food products reported by EU countries, published every Friday as an
+// XML weekly report. Many of these products are sold online in the UK too, so the app shows them as
+// "EU warnings", clearly separate from UK recalls. They only trigger alerts for barcode or cupboard
+// matches, never for categories.
+// Weekly report list: https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en
+// Licence: the weekly reports are published as open data (CC0 on data.europa.eu); credit the
+// European Commission's Safety Gate.
+
+const EU_LIST = 'https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en';
+
+/** Product types we leave out: vehicles are handled by national schemes, not useful here. */
+const SKIP_CATEGORIES = /motor vehicles|recreational craft/i;
+
+type EuReport = { reference: string; date: string; url: string };
+
+function tag(xml: string, name: string): string | null {
+  const m = xml.match(new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)</${name}>`));
+  if (!m) return null;
+  const value = m[1].replace(/^<!\[CDATA\[([\s\S]*?)\]\]>$/, '$1').trim();
+  return decode(value) || null;
+}
+
+function decode(s: string): string {
+  return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'");
+}
+
+/** All weekly reports, oldest first. */
+function parseEuReportList(xml: string): EuReport[] {
+  const reports: EuReport[] = [];
+  for (const m of xml.matchAll(/<weeklyReport>([\s\S]*?)<\/weeklyReport>/g)) {
+    const r = m[1];
+    const y = tag(r, 'year'), mo = tag(r, 'month'), d = tag(r, 'day');
+    const url = tag(r, 'URL');
+    if (!y || !mo || !d || !url) continue;
+    reports.push({ reference: tag(r, 'reference') ?? `${y}-${mo}-${d}`, date: `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`, url });
+  }
+  return reports.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** "Category of measure(s): Recall of the product from end users" → "Recall of the product from end users". */
+function euMeasures(text: string | null): string[] {
+  if (!text) return [];
+  return [...new Set([...text.matchAll(/Category of measure\(s\):\s*(.*?)(?=Date of entry into force:|Type of economic operator|$)/gs)]
+    .map((m) => m[1].trim()).filter(Boolean))];
+}
+
+function euCategories(category: string, text: string) {
+  const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return categoriesForOpss(slug, text);
+}
+
+/** Converts one notification from a weekly report. Returns null for ones we leave out. */
+function normaliseEuNotification(xml: string, reportDate: string): Recall | null {
+  const category = tag(xml, 'category') ?? '';
+  if (SKIP_CATEGORIES.test(category)) return null;
+  if ((tag(xml, 'type') ?? 'Consumer') !== 'Consumer') return null;
+  const caseNumber = tag(xml, 'caseNumber');
+  const reference = tag(xml, 'reference');
+  if (!caseNumber || !reference) return null;
+  const product = tag(xml, 'product') ?? category;
+  const brand = tag(xml, 'brand');
+  const name = tag(xml, 'name');
+  const model = tag(xml, 'type_numberOfModel');
+  const barcodes = (tag(xml, 'barcode') ?? '').split(/[,;\s/]+/).map((b) => b.replace(/\D/g, '')).filter((b) => b.length >= 8 && b.length <= 14);
+  const batch = (tag(xml, 'batchNumber') ?? '').split(/[,;]+/).map((b) => b.trim()).filter(Boolean);
+  const risk = tag(xml, 'riskType');
+  const danger = tag(xml, 'danger');
+  const level = tag(xml, 'level');
+  const country = tag(xml, 'notifyingCountry');
+  const measures = euMeasures(tag(xml, 'measures'));
+  const pictures = [...xml.matchAll(/<picture>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/picture>/g)].map((m) => m[1].trim());
+  const sold = tag(xml, 'onlineTrader');
+  const title = [brand, name && name !== product ? name : null].filter(Boolean).join(' ') || product;
+  const publishedAt = new Date(`${reportDate}T12:00:00Z`).toISOString();
+  const text = [category, product, name, tag(xml, 'description')].filter(Boolean).join(' ');
+
+  const intro = `Reported as dangerous in the EU${country ? ` by ${country}` : ''}${risk ? ` (${risk.toLowerCase()})` : ''}.`;
+  const advice = [
+    measures.length ? `Action taken in the EU: ${measures.join('; ')}.` : null,
+    "If you have this product, stop using it and contact the seller. It may also have been sold in the UK, especially online.",
+  ].filter(Boolean).join(' ');
+
+  return {
+    id: `eu:${caseNumber.replace(/[^A-Za-z0-9]+/g, '-')}`,
+    source: 'eu',
+    sourceRef: caseNumber,
+    alertType: 'eu-warning',
+    title: product !== title && !title.toLowerCase().includes(product.toLowerCase()) ? `${title} (${product.toLowerCase()})` : title,
+    summary: shorten(`${intro} ${danger ?? ''}`.trim()),
+    advice: shorten(advice, 400),
+    riskLevel: /serious/i.test(level ?? '') ? 'serious' : /high/i.test(level ?? '') ? 'high' : /medium/i.test(level ?? '') ? 'medium' : /low/i.test(level ?? '') ? 'low' : null,
+    categories: euCategories(category, text),
+    allergens: [],
+    businesses: [brand, sold && !/^other/i.test(sold) ? sold.replace(/\s*\/\s*$/, '') : null].filter((b): b is string => !!b),
+    sourceUrl: reference,
+    documentUrl: null,
+    imageUrl: pictures[0] ?? null,
+    publishedAt,
+    updatedAt: publishedAt,
+    products: [{
+      name: [brand, name ?? product].filter(Boolean).join(' '),
+      barcode: barcodes[0] ?? null,
+      packSize: null,
+      batchCodes: batch,
+      bestBefore: null,
+      useBy: null,
+      batchNotes: [model ? `Model: ${model}` : null, barcodes.length > 1 ? `Barcodes: ${barcodes.join(', ')}` : null].filter(Boolean).join('\n') || null,
+    }],
+  };
+}
+
+function parseEuReport(xml: string, reportDate: string): Recall[] {
+  return [...xml.matchAll(/<notifications\b[\s\S]*?<\/notifications>/g)]
+    .map((m) => normaliseEuNotification(m[0], reportDate))
+    .filter((r): r is Recall => r !== null);
+}
+
+async function fetchEuReports(fetchFn: FetchFn, reports: EuReport[]): Promise<Recall[]> {
+  const xmls = await mapLimit(reports, 2, (r) => getText(fetchFn, r.url).catch(() => null));
+  return reports.flatMap((r, i) => (xmls[i] ? parseEuReport(xmls[i]!, r.date) : []));
+}
+
+/** Weekly reports published since `since` (at most `maxReports`, newest). */
+async function fetchEuSince(fetchFn: FetchFn, since: string, maxReports = 6): Promise<Recall[]> {
+  const fromDate = since.slice(0, 10);
+  const reports = parseEuReportList(await getText(fetchFn, EU_LIST)).filter((r) => r.date >= fromDate).slice(-maxReports);
+  return fetchEuReports(fetchFn, reports);
+}
+
+// ───────── backfill.ts ─────────
+// Loads older recalls (two years) from each source, a batch at a time, oldest first.
+// It runs inside collect-recalls after the usual collection, so the library fills up over a day or two
+// without slowing anything down. Backfilled recalls are saved but never trigger alerts.
+//
+// Each source keeps its place in the backfill_state table: the date it started from and how many
+// items it has worked through. Newer items only ever appear at the end of the list, so the count stays valid.
+
+const BACKFILL_DAYS = 730;
+
+type BackfillState = { key: string; fromDate: string; offset: number; done: boolean };
+type BackfillBatch = { recalls: Recall[]; scanned: number; done: boolean };
+
+type Step = (fetchFn: FetchFn, fromDate: string, offset: number) => Promise<BackfillBatch>;
+
+/** A GOV.UK finder, read oldest first from `fromDate`, `batch` items at a time. */
+function govuk(filter: string, batch: number, convert: (content: Json) => Recall[], keep: (r: Json) => boolean = () => true): Step {
+  return async (fetchFn, fromDate, offset) => {
+    const url = `${GOVUK}/api/search.json?${filter}&filter_public_timestamp=from:${fromDate}` +
+      `&order=public_timestamp&count=${batch}&start=${offset}&fields=link,public_timestamp,title`;
+    const page = await getJson(fetchFn, url);
+    const results = asArray<Json>(page.results);
+    const links = results.filter((r) => typeof r.link === 'string' && keep(r)).map((r) => r.link as string);
+    const contents = await mapLimit(links, 4, (link) => getJson(fetchFn, `${GOVUK}/api/content${link}`).catch(() => null));
+    const recalls = contents
+      .filter((c): c is Json => !!c && !(c.withdrawn_notice && Object.keys(c.withdrawn_notice).length))
+      .flatMap((c) => { try { return convert(c); } catch { return []; } });
+    return { recalls, scanned: results.length, done: results.length < batch };
+  };
+}
+
+const fsaStep: Step = async (fetchFn, fromDate, offset) => {
+  const batch = 40;
+  const list = await getJson(fetchFn, `${FSA_BASE}?since=${encodeURIComponent(`${fromDate}T00:00:00Z`)}&_sort=created&_limit=${batch}&_offset=${offset}`);
+  const items = asArray<Json>(list.items);
+  return { recalls: await fsaRecallsFor(fetchFn, items), scanned: items.length, done: items.length < batch };
+};
+
+/** EU Safety Gate: two weekly reports at a time. */
+const euStep: Step = async (fetchFn, fromDate, offset) => {
+  const reports = parseEuReportList(await getText(fetchFn, EU_LIST)).filter((r) => r.date >= fromDate);
+  const slice = reports.slice(offset, offset + 2);
+  return { recalls: await fetchEuReports(fetchFn, slice), scanned: slice.length, done: offset + slice.length >= reports.length };
+};
+
+const BACKFILL_STEPS: Record<string, Step> = {
+  fsa: fsaStep,
+  opss: govuk('filter_format=product_safety_alert_report_recall', 40, (c) => [normaliseOpssItem(c)]),
+  'mhra-recalls': govuk('filter_format=medical_safety_alert&filter_alert_type=medicines-recall-notification', 40, (c) => [normaliseMhraItem(c)]),
+  'mhra-devices': govuk('filter_format=medical_safety_alert&filter_alert_type=device-safety-information', 40, (c) => [normaliseMhraItem(c)]),
+  'mhra-fsn': govuk(`filter_format=medical_safety_alert&filter_alert_type=${FSN_ALERT_TYPE}`, 6, homeFsnsFrom),
+  vmd: govuk('filter_organisations=veterinary-medicines-directorate&filter_content_store_document_type=news_story', 40,
+    (c) => (isVmdRecallTitle(String(c.title ?? '')) ? [normaliseVmdItem(c)] : []),
+    (r) => isVmdRecallTitle(String(r.title ?? ''))),
+  eu: euStep,
+};
+
+function backfillStartDate(now = new Date()): string {
+  return new Date(now.getTime() - BACKFILL_DAYS * 86400_000).toISOString().slice(0, 10);
+}
+
+/**
+ * Runs one batch for each source that isn't finished, while time allows.
+ * `save` stores recalls (without alerts); `load`/`store` read and write each source's place.
+ */
+async function runBackfill(opts: {
+  fetchFn: FetchFn;
+  load: () => Promise<BackfillState[]>;
+  store: (state: BackfillState) => Promise<void>;
+  save: (recalls: Recall[]) => Promise<void>;
+  deadline: number; // ms timestamp: start no new batch after this
+  now?: Date;
+}): Promise<Record<string, { saved: number; offset: number; done: boolean; error?: string }>> {
+  const report: Record<string, { saved: number; offset: number; done: boolean; error?: string }> = {};
+  const states = new Map((await opts.load()).map((s) => [s.key, s]));
+  for (const [key, step] of Object.entries(BACKFILL_STEPS)) {
+    const state = states.get(key) ?? { key, fromDate: backfillStartDate(opts.now), offset: 0, done: false };
+    if (state.done) continue;
+    if (Date.now() > opts.deadline) break;
+    try {
+      const batch = await step(opts.fetchFn, state.fromDate, state.offset);
+      if (batch.recalls.length) await opts.save(batch.recalls);
+      const next = { ...state, offset: state.offset + batch.scanned, done: batch.done };
+      await opts.store(next);
+      report[key] = { saved: batch.recalls.length, offset: next.offset, done: next.done };
+    } catch (err) {
+      report[key] = { saved: 0, offset: state.offset, done: false, error: err instanceof Error ? err.message : String(err) };
+    }
+  }
+  return report;
+}
+
 // ───────── matching.ts ─────────
 // Decides who should hear about a recall, and how sure we are.
 //
@@ -1263,7 +1738,8 @@ function matchRecall(recall: Recall, profiles: UserProfile[], cupboard: Cupboard
     }
   }
 
-  for (const profile of profiles) {
+  // EU warnings aren't UK recalls, so they only alert people whose cupboard matches.
+  for (const profile of recall.source === 'eu' ? [] : profiles) {
     if (byUser.has(profile.userId)) continue;
 
     // 2. Allergens in their household.
@@ -1285,6 +1761,11 @@ function matchRecall(recall: Recall, profiles: UserProfile[], cupboard: Cupboard
 function notificationText(recall: Recall, match: Match, itemName?: string): { title: string; body: string } {
   if (match.reason === 'cupboard') {
     const what = itemName ?? recall.title;
+    if (recall.source === 'eu') {
+      return match.confidence === 'barcode'
+        ? { title: 'Safety warning: an item in your cupboard', body: `${what} was reported as dangerous in the EU. Tap to see what to do.` }
+        : { title: 'Possible safety warning in your cupboard', body: `${what} may match a product reported as dangerous in the EU. Tap to check.` };
+    }
     return match.confidence === 'barcode'
       ? { title: 'Recall: an item in your cupboard', body: `${what} has been recalled. Tap to see what to do.` }
       : { title: 'Possible recall in your cupboard', body: `${what} may be affected. Tap to check your batch code.` };
@@ -1292,6 +1773,8 @@ function notificationText(recall: Recall, match: Match, itemName?: string): { ti
   if (match.reason === 'allergen') {
     return { title: 'Allergy alert', body: recall.title };
   }
+  if (recall.alertType === 'field-safety-notice') return { title: 'Medical device notice', body: recall.title };
+  if (recall.source === 'hse') return { title: 'Work safety alert', body: recall.title };
   return { title: recall.riskLevel === 'serious' ? 'Serious-risk recall' : 'New recall', body: recall.title };
 }
 
@@ -1483,7 +1966,7 @@ const imagePath = (recallId: string) => `${recallId.replace(/[^A-Za-z0-9-]+/g, '
 // ───────── collect-recalls/index.ts ─────────
 // collect-recalls: the engine. Runs every hour (see migrations/0002_schedule.sql).
 //
-// 1. Asks the FSA and OPSS for anything new or changed since last run
+// 1. Asks every source (FSA, FSS, OPSS, MHRA, VMD, HSE, EU Safety Gate) for anything new since last run
 // 2. Saves it in our own format
 // 3. Works out who should be told (cupboard, allergens, categories)
 // 4. Sends phone notifications (category alerts wait for the daily digest if the person chose that)
@@ -1529,7 +2012,11 @@ async function addPhotos(db: Db): Promise<{ added: number; checked: number }> {
 const FIRST_RUN_DAYS = 30; // history to load the very first time, so the app isn't empty at launch
 // Pet medicine recalls are rare (a handful a year) and the VMD withdraws each notice once its recall
 // is over, so a year of history gives just the recalls that still apply.
-const FIRST_RUN_DAYS_BY_SOURCE: Partial<Record<Source, number>> = { vmd: 365 };
+// HSE publishes only a few alerts a year, so it starts with two years.
+const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
+// Older recalls are loaded separately, a batch each run (see backfill.ts). This is how long the
+// backfill may keep starting new batches, so the whole run stays well inside its time limit.
+const BACKFILL_SECONDS = 70;
 
 type Db = SupabaseClient;
 
@@ -1570,7 +2057,7 @@ async function saveRecalls(db: Db, recalls: Recall[]): Promise<Recall[]> {
   return recalls.filter((r) => !known.has(r.id));
 }
 
-async function collectSource(db: Db, source: Source, fetcher: typeof fetchFsaSince): Promise<{ newRecalls: Recall[]; firstRun: boolean; error?: string }> {
+async function collectSource(db: Db, source: string, fetcher: typeof fetchFsaSince): Promise<{ newRecalls: Recall[]; firstRun: boolean; error?: string }> {
   const { data: state } = await db.from('sync_state').select('*').eq('source', source).maybeSingle();
   const firstRun = !state?.last_seen_at;
   const firstRunDays = FIRST_RUN_DAYS_BY_SOURCE[source] ?? FIRST_RUN_DAYS;
@@ -1659,12 +2146,17 @@ Deno.serve(async (req) => {
   });
 
   const report: Record<string, unknown> = {};
-  const SOURCES: Array<[Source, typeof fetchFsaSince]> = [
+  const started = Date.now();
+  // Each entry keeps its own place in sync_state, so the name doesn't have to be a recall source.
+  const SOURCES: Array<[string, typeof fetchFsaSince]> = [
     ['fsa', fetchFsaSince],
     ['opss', fetchOpssSince],
     ['mhra', fetchMhraSince],
+    ['mhra-fsn', fetchFsnSince],
     ['vmd', fetchVmdSince],
     ['fss', fetchFssSince],
+    ['hse', fetchHseSince],
+    ['eu', fetchEuSince],
   ];
   const results = await Promise.all(SOURCES.map(([source, fetcher]) => collectSource(db, source, fetcher)));
 
@@ -1694,6 +2186,29 @@ Deno.serve(async (req) => {
         errors.push(`${recall.id}: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
+  }
+
+  // Older recalls, a batch per source each run. Saved quietly: no alerts for these.
+  try {
+    report.backfill = await runBackfill({
+      fetchFn: fetch,
+      deadline: started + BACKFILL_SECONDS * 1000,
+      load: async () => {
+        const { data, error } = await db.from('backfill_state').select('key, from_date, next_offset, done');
+        if (error) throw error;
+        return (data ?? []).map((r: { key: string; from_date: string; next_offset: number; done: boolean }) =>
+          ({ key: r.key, fromDate: r.from_date, offset: r.next_offset, done: r.done }) as BackfillState);
+      },
+      store: async (s) => {
+        const { error } = await db.from('backfill_state').upsert({
+          key: s.key, from_date: s.fromDate, next_offset: s.offset, done: s.done, updated_at: new Date().toISOString(),
+        });
+        if (error) throw error;
+      },
+      save: async (recalls) => { await saveRecalls(db, recalls); },
+    });
+  } catch (err) {
+    errors.push(`backfill: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   try {

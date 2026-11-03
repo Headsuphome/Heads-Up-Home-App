@@ -88,7 +88,8 @@ export function matchRecall(recall: Recall, profiles: UserProfile[], cupboard: C
     }
   }
 
-  for (const profile of profiles) {
+  // EU warnings aren't UK recalls, so they only alert people whose cupboard matches.
+  for (const profile of recall.source === 'eu' ? [] : profiles) {
     if (byUser.has(profile.userId)) continue;
 
     // 2. Allergens in their household.
@@ -110,6 +111,11 @@ export function matchRecall(recall: Recall, profiles: UserProfile[], cupboard: C
 export function notificationText(recall: Recall, match: Match, itemName?: string): { title: string; body: string } {
   if (match.reason === 'cupboard') {
     const what = itemName ?? recall.title;
+    if (recall.source === 'eu') {
+      return match.confidence === 'barcode'
+        ? { title: 'Safety warning: an item in your cupboard', body: `${what} was reported as dangerous in the EU. Tap to see what to do.` }
+        : { title: 'Possible safety warning in your cupboard', body: `${what} may match a product reported as dangerous in the EU. Tap to check.` };
+    }
     return match.confidence === 'barcode'
       ? { title: 'Recall: an item in your cupboard', body: `${what} has been recalled. Tap to see what to do.` }
       : { title: 'Possible recall in your cupboard', body: `${what} may be affected. Tap to check your batch code.` };
@@ -117,5 +123,7 @@ export function notificationText(recall: Recall, match: Match, itemName?: string
   if (match.reason === 'allergen') {
     return { title: 'Allergy alert', body: recall.title };
   }
+  if (recall.alertType === 'field-safety-notice') return { title: 'Medical device notice', body: recall.title };
+  if (recall.source === 'hse') return { title: 'Work safety alert', body: recall.title };
   return { title: recall.riskLevel === 'serious' ? 'Serious-risk recall' : 'New recall', body: recall.title };
 }

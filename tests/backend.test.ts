@@ -559,3 +559,131 @@ test('the VMD collector skips other news and withdrawn alerts', async () => {
   const recalls = await fetchVmdSince(fetchFn, '2026-10-01T00:00:00Z');
   assert.deepEqual(recalls.map((r) => r.id), ['vmd:a']);
 });
+
+// ───────────── More sources: MHRA Field Safety Notices, HSE, EU Safety Gate, and history loading ─────────────
+import { parseFsnList, isHomeDevice, homeFsnsFrom } from '../supabase/functions/_shared/mhra-fsn.ts';
+import { parseHseList, isRelevantHse, normaliseHse } from '../supabase/functions/_shared/hse.ts';
+import { parseEuReportList, parseEuReport, euMeasures } from '../supabase/functions/_shared/eu.ts';
+import { runBackfill, BACKFILL_STEPS, type BackfillState } from '../supabase/functions/_shared/backfill.ts';
+import { matchRecall as matchRecallForSources, notificationText as notificationTextForSources } from '../supabase/functions/_shared/matching.ts';
+
+const fsnBody = '<h2 id="overview">Overview</h2><p>If you receive a field safety notice (FSN) from a manufacturer you must always act on it.</p>' +
+  '<h3 id="abbott-freestyle-libre-3-app">Abbott: FreeStyle Libre 3 App</h3><p>14 October 2026</p><p>Continuous glucose monitoring app</p>' +
+  '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/abc">40512345</a> 2026/010/014/601/001</p>' +
+  '<h3 id="philips-zenition">Philips Medical Systems Nederland BV: Philips Zenition 50</h3><p>29 September 2026</p><p>Interventional Fluoroscopic X-Ray System</p>' +
+  '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/def">37220338</a></p>' +
+  '<h3 id="b-braun-space">B Braun: Space Infusion Pumps</h3><p>October 2026</p><p>Bedside syringe pump/infusion pump, single-channel</p>' +
+  '<p>MHRA reference: <a rel="external" href="https://mhra-gov.filecamp.com/s/d/ghi">40400000</a></p>';
+
+test('MHRA Field Safety Notices keep only devices people use at home', () => {
+  const all = parseFsnList(fsnBody);
+  assert.equal(all.length, 3);
+  assert.deepEqual(all.map(isHomeDevice), [true, false, false]);
+  const recalls = homeFsnsFrom({ base_path: '/drug-device-alerts/field-safety-notices-12-to-16-october-2026', first_published_at: '2026-10-19T10:00:00Z', details: { body: fsnBody } });
+  assert.equal(recalls.length, 1);
+  const r = recalls[0];
+  assert.equal(r.id, 'mhra-fsn:40512345');
+  assert.equal(r.source, 'mhra');
+  assert.equal(r.alertType, 'field-safety-notice');
+  assert.equal(r.title, 'FreeStyle Libre 3 App (Abbott)');
+  assert.equal(r.documentUrl, 'https://mhra-gov.filecamp.com/s/d/abc');
+  assert.equal(r.sourceUrl, 'https://www.gov.uk/drug-device-alerts/field-safety-notices-12-to-16-october-2026#abbott-freestyle-libre-3-app');
+  assert.deepEqual(r.categories, ['medicines']);
+  assert.equal(r.publishedAt.slice(0, 10), '2026-10-14');
+});
+
+const hseList = '<table class="hse-table" id="safetyalerts"><thead><tr><th>Date</th><th>Topic</th><th>Bulletin No</th><th>Industry</th></tr></thead><tbody>' +
+  '<tr><td>09/2026</td><td><a href="offshore-elevated-cabin-floor-windows.htm">Offshore - Elevated cabin floor windows</a></td><td>ED03-2026</td><td>Offshore installation duty holders</td></tr>' +
+  '<tr><td>08/2023</td><td><a href="bendpak-vehicle-lifts2.htm">Unsafe bolts on BendPak XPR series two-post vehicle lift</a></td><td>FOD02-2023</td><td>Vehicle repair garages</td></tr></tbody></table>';
+const hsePage = '<div id="page-contents"><h1>Health and Safety Executive - Safety alert</h1><p>Issue date: 08/23</p><h2>Issue</h2><p>Some lifts use bolts that are not strong enough.</p>' +
+  '<h2>Action required:</h2><h3>Users of BendPak two-post lifts should:</h3><h4>Check</h4><p>Check the bolts.</p><h2>Guidance</h2><p>More reading.</p></div>';
+
+test('HSE alerts: specialist industries are left out, the rest become Trades & tools alerts', () => {
+  const rows = parseHseList(hseList);
+  assert.equal(rows.length, 2);
+  assert.deepEqual(rows.map(isRelevantHse), [false, true]);
+  assert.equal(rows[1].url, 'https://www.hse.gov.uk/safetybulletins/bendpak-vehicle-lifts2.htm');
+  const r = normaliseHse(rows[1], hsePage);
+  assert.equal(r.id, 'hse:FOD02-2023');
+  assert.equal(r.source, 'hse');
+  assert.deepEqual(r.categories, ['trades-tools']);
+  assert.equal(r.riskLevel, 'serious');
+  assert.match(r.summary ?? '', /^Safety alert: Some lifts use bolts/);
+  assert.match(r.advice ?? '', /Users of BendPak two-post lifts should:\nCheck\nCheck the bolts\./);
+  assert.doesNotMatch(r.advice ?? '', /More reading/);
+  assert.equal(r.publishedAt.slice(0, 7), '2023-08');
+});
+
+const euList = '<Safety-Gate><weeklyReport><reference>Report-2026-43</reference><year>2026</year><month>10</month><day>30</day><URL>https://ec.europa.eu/r/43?language=en&amp;x=1</URL></weeklyReport>' +
+  '<weeklyReport><reference>Report-2026-42</reference><year>2026</year><month>10</month><day>23</day><URL>https://ec.europa.eu/r/42</URL></weeklyReport></Safety-Gate>';
+const euNotification = (n: string, category: string, extra = '') => `<notifications><caseNumber>SR/0${n}/26</caseNumber>` +
+  `<reference><![CDATA[https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/${n}]]></reference><category><![CDATA[${category}]]></category>` +
+  '<product><![CDATA[Projector lamp]]></product><brand><![CDATA[Hema]]></brand><name><![CDATA[Night light]]></name><type_numberOfModel><![CDATA[39.62]]></type_numberOfModel>' +
+  '<batchNumber><![CDATA[]]></batchNumber><barcode><![CDATA[8720354642689]]></barcode><riskType><![CDATA[Chemical]]></riskType><danger><![CDATA[Too much lead.]]></danger>' +
+  '<measures><![CDATA[Type of economic operator taking notified measure(s): OtherCategory of measure(s): Recall of the product from end usersDate of entry into force: 22/05/2026]]></measures>' +
+  `<notifyingCountry>Luxembourg</notifyingCountry><type>Consumer</type><level>Serious risk</level><pictures><picture><![CDATA[https://ec.europa.eu/img/1]]></picture></pictures>${extra}</notifications>`;
+
+test('EU Safety Gate weekly reports become clearly labelled EU warnings', () => {
+  const reports = parseEuReportList(euList);
+  assert.deepEqual(reports.map((r) => r.date), ['2026-10-23', '2026-10-30']);
+  assert.equal(reports[1].url, 'https://ec.europa.eu/r/43?language=en&x=1');
+  assert.deepEqual(euMeasures('Type of economic operator: OtherCategory of measure(s): Recall of the product from end usersDate of entry into force: 22/05/2026'), ['Recall of the product from end users']);
+  const recalls = parseEuReport(`<Safety-Gate>${euNotification('3024', 'Electrical appliances and equipment')}${euNotification('3099', 'Motor vehicles')}</Safety-Gate>`, '2026-10-30');
+  assert.equal(recalls.length, 1, 'vehicles are left out');
+  const r = recalls[0];
+  assert.equal(r.id, 'eu:SR-03024-26');
+  assert.equal(r.source, 'eu');
+  assert.equal(r.alertType, 'eu-warning');
+  assert.equal(r.title, 'Hema Night light (projector lamp)');
+  assert.equal(r.products[0].barcode, '8720354642689');
+  assert.equal(r.imageUrl, 'https://ec.europa.eu/img/1');
+  assert.equal(r.riskLevel, 'serious');
+  assert.ok(r.categories.includes('electrical'));
+  assert.match(r.summary ?? '', /^Reported as dangerous in the EU by Luxembourg \(chemical\)\. Too much lead\./);
+  assert.match(r.advice ?? '', /Action taken in the EU: Recall of the product from end users\./);
+});
+
+test('EU warnings only alert people whose cupboard matches, never by category', () => {
+  const [eu] = parseEuReport(euNotification('3024', 'Electrical appliances and equipment'), '2026-10-30');
+  const profiles = [{ userId: 'u1', categories: ['electrical'], allergens: [], alertTiming: 'instant' as const }];
+  const cupboard = [{ id: 7, userId: 'u2', name: 'Night light', brand: 'Hema', barcode: '8720354642689', dismissedRecalls: [] }];
+  const matches = matchRecallForSources(eu, profiles, cupboard);
+  assert.deepEqual(matches.map((m) => [m.userId, m.reason, m.confidence]), [['u2', 'cupboard', 'barcode']]);
+  assert.equal(notificationTextForSources(eu, matches[0], 'Night light').title, 'Safety warning: an item in your cupboard');
+});
+
+test('history loading works through each source a batch at a time, then stops', async () => {
+  const stored = new Map<string, BackfillState>();
+  const saved: string[] = [];
+  const pages: Record<string, number> = {};
+  const fetchFn = async (url: string) => {
+    const u = new URL(url);
+    if (u.hostname === 'www.gov.uk' && u.pathname === '/api/search.json') {
+      const start = Number(u.searchParams.get('start') ?? 0);
+      const key = u.searchParams.get('filter_format') + (u.searchParams.get('filter_alert_type') ?? '') + (u.searchParams.get('filter_organisations') ?? '');
+      pages[key] = (pages[key] ?? 0) + 1;
+      const results = start === 0 ? [{ link: `/x/${encodeURIComponent(key)}`, public_timestamp: '2025-01-01T00:00:00Z', title: 'Product recall alert: test' }] : [];
+      return new Response(JSON.stringify({ results }));
+    }
+    if (u.hostname === 'www.gov.uk') return new Response(JSON.stringify({ ...vmdContent, base_path: u.pathname.replace('/api/content', '') }));
+    if (u.hostname === 'data.food.gov.uk') return new Response(JSON.stringify({ items: [] }));
+    if (u.hostname === 'ec.europa.eu') return new Response(euList.replace(/https:\/\/ec\.europa\.eu\/r\/\d+[^<]*/g, 'https://ec.europa.eu/report'));
+    return new Response('<Safety-Gate></Safety-Gate>');
+  };
+  const run = () => runBackfill({
+    fetchFn: fetchFn as typeof fetch,
+    load: async () => [...stored.values()],
+    store: async (s) => { stored.set(s.key, s); },
+    save: async (recalls) => { saved.push(...recalls.map((r) => r.id)); },
+    deadline: Date.now() + 60_000,
+    now: new Date('2026-11-03T00:00:00Z'),
+  });
+  const first = await run();
+  assert.deepEqual(Object.keys(first).sort(), Object.keys(BACKFILL_STEPS).sort());
+  assert.ok(Object.values(first).every((r) => !r.error), JSON.stringify(first));
+  assert.equal(stored.get('opss')?.fromDate, '2024-11-03');
+  assert.ok(Object.values(first).every((r) => r.done), 'each fake source has fewer items than a batch');
+  const second = await run();
+  assert.deepEqual(second, {}, 'finished sources are skipped');
+  assert.ok(saved.length > 0);
+});

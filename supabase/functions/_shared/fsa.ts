@@ -105,6 +105,12 @@ export function normaliseFsaAlert(item: Json): Recall {
 export async function fetchFsaSince(fetchFn: FetchFn, since: string, maxAlerts = 200): Promise<Recall[]> {
   const sinceParam = encodeURIComponent(since);
   const list = await getJson(fetchFn, `${FSA_BASE}?since=${sinceParam}&_limit=${maxAlerts}&_sort=-modified`);
+  return fsaRecallsFor(fetchFn, asArray<Json>(list.items));
+}
+
+/** Reads the full record of each alert in a list (batches, advice) and converts the published ones. */
+export async function fsaRecallsFor(fetchFn: FetchFn, items: Json[]): Promise<Recall[]> {
+  const list = { items };
   const ids: string[] = asArray<Json>(list.items)
     .map((i) => i.notation ?? String(i['@id'] ?? '').split('/').pop())
     .filter(Boolean);
