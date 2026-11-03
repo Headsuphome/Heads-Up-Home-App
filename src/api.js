@@ -9,7 +9,8 @@ const FIELDS = [
 
 async function get(path) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-    headers: { apikey: SUPABASE_KEY, Accept: 'application/json' },
+    // x-heads-up-client tells the database this version labels EU warnings, so it may see them.
+    headers: { apikey: SUPABASE_KEY, Accept: 'application/json', 'x-heads-up-client': '2' },
   });
   if (!res.ok) {
     let detail = '';
