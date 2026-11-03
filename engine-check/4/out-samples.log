@@ -1,0 +1,11 @@
+200 eu-weekly-list.txt https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en 391889 chars application/xml;charset=UTF-8
+200 eu-weekly-list-1.txt https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/detail/xml/10000329?language=en&search=WEB_REPORT%7C:%7C10000329, 163197 chars application/xml;charset=UTF-8
+200 eu-weekly-list-2.txt https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/detail/xml/10000328?language=en&search=WEB_REPORT%7C:%7C10000328, 211138 chars application/xml;charset=UTF-8
+200 eu-weekly-list-3.txt https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/detail/xml/10000327?language=en&search=WEB_REPORT%7C:%7C10000327, 187648 chars application/xml;charset=UTF-8
+200 eu-dataset.txt https://data.europa.eu/api/hub/search/datasets/rapex-rapid-alert-system-non-food 124866 chars application/json
+200 eu-webreport.txt https://ec.europa.eu/safety-gate-alerts/screen/webReport 2277 chars text/html;charset=UTF-8
+200 hse-alert-1.txt https://www.hse.gov.uk/safetybulletins/ear-loop-respirators.htm 39693 chars text/html
+200 hse-alert-2.txt https://www.hse.gov.uk/safetybulletins/bendpak-vehicle-lifts2.htm 40330 chars text/html
+200 mhra-fsn-latest.txt https://www.gov.uk/api/content/drug-device-alerts/field-safety-notices-19-to-23-october-2026 18802 chars application/json; charset=utf-8
+200 mhra-fsn-search.txt https://www.gov.uk/api/search.json?filter_format=medical_safety_alert&filter_alert_type=field-safety-notices&filter_public_timestamp=from:2024-11-01&order=public_timestamp&count=5&fields=title,link,public_timestamp 1848 chars application/json
+200 fss-p3.txt https://www.foodstandards.gov.scot/alerts?&page=3 311537 chars text/html; charset=UTF-8

@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Safety Gate: the EU rapid alert system for dangerous non-food products</title>
+    <base href="/safety-gate-alerts/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="icon" type="image/x-icon" href="https://ec.europa.eu/safety-gate-alerts/favicon.ico">
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <script type="text/javascript" src="https://ec.europa.eu/safety-gate-alerts/ruxitagentjs_ICANVfgqrux_10343260715123811.js" data-dtconfig="app=6c758c1e49bd4eb7|agentId=daf728c050733d88|srtbv=4|owasp=1|featureHash=ICANVfgqrux|rdnt=1|uxrgce=1|cuc=m097nmfl|mel=100000|dpvc=1|lastModification=1793688684792|tp=500,50,0|srbbv=3|agentUri=/safety-gate-alerts/ruxitagentjs_ICANVfgqrux_10343260715123811.js|reportUrl=/safety-gate-alerts/rb_39a3e95b-5423-482c-879b-99ef235dffeb|rid=RID_91433178|rpid=1918693188|domain=europa.eu/safety-gate-alerts"></script><script defer="" src="https://webtools.europa.eu/load.js?globan=1110" type="text/javascript"></script>
+
+    <!--
+        ACCEPTANCE: 61b3a1f8-f72a-453a-b734-18fffa6909bf
+        PRODUCTION: acc8c102-aa88-4e53-9af7-8428bc63c6b2
+    -->
+    <script type="application/json">
+        {
+            "utility": "analytics",
+            "siteID": "acc8c102-aa88-4e53-9af7-8428bc63c6b2"
+        }
+    </script>
+
+    <script type="application/json">
+        {
+            "utility": "cck",
+            "url": "https://commission.europa.eu/cookies-policy_en"
+        }
+    </script>
+<link rel="stylesheet" href="https://ec.europa.eu/safety-gate-alerts/styles-FNMVW65Y.css"></head>
+<body>
+<app-root>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
+</app-root>
+<link rel="modulepreload" href="https://ec.europa.eu/safety-gate-alerts/chunk-DFRNXLOX.js"><link rel="modulepreload" href="https://ec.europa.eu/safety-gate-alerts/chunk-LJUV7ZUA.js"><link rel="modulepreload" href="https://ec.europa.eu/safety-gate-alerts/chunk-TSRGIXR5.js"><script src="https://ec.europa.eu/safety-gate-alerts/polyfills-DOYHMSTV.js" type="module"></script><script src="https://ec.europa.eu/safety-gate-alerts/main-4R4LZE3C.js" type="module"></script></body>
+</html>
