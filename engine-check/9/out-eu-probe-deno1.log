@@ -1,0 +1,117 @@
+Deno 1.46.3
+FAIL list/ours: 200 body broke after 472687 bytes, 808ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=null content-length=null connection=close server=Europa | TypeError: error reading a body from connection
+OK   list/identity: 200 391889 bytes in 1470ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=chunked content-length=null connection=keep-alive server=Europa
+FAIL list/xml: 200 body broke after 391889 bytes, 294ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=null content-length=null connection=close server=Europa | TypeError: error reading a body from connection
+FAIL list/gzipOnly: 200 body broke after 391874 bytes, 454ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=null content-length=null connection=close server=Europa | TypeError: error reading a body from connection
+FAIL report/ours: 200 body broke after 166793 bytes, 1203ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=null content-length=null connection=close server=Europa | TypeError: error reading a body from connection
+OK   report/identity: 200 166793 bytes in 1973ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=chunked content-length=null connection=keep-alive server=Europa
+FAIL report/xml: 200 body broke after 148748 bytes, 1060ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=null content-length=null connection=close server=Europa | TypeError: error reading a body from connection
+FAIL report/gzipOnly: 200 body broke after 148703 bytes, 1000ms | content-type=application/xml;charset=UTF-8 content-encoding=null transfer-encoding=null content-length=null connection=close server=Europa | TypeError: error reading a body from connection
+OK   hse/ours: 200 50418 bytes in 272ms | content-type=text/html content-encoding=null transfer-encoding=null content-length=null connection=null server=cloudflare
+OK   hse/identity: 200 50418 bytes in 166ms | content-type=text/html content-encoding=null transfer-encoding=null content-length=null connection=null server=cloudflare
+OK   hse/xml: 406 1346 bytes in 147ms | content-type=text/html content-encoding=null transfer-encoding=null content-length=null connection=null server=cloudflare
+OK   hse/gzipOnly: 200 50057 bytes in 169ms | content-type=text/html content-encoding=null transfer-encoding=null content-length=null connection=null server=cloudflare
+RAW list/identity
+  raw read error after 474933 bytes: UnexpectedEof: peer closed connection without sending TLS close_notify: https://docs.rs/rustls/latest/rustls/manual/_03_howto/index.html#unexpected-eof
+  raw 474933 bytes; headers:
+    HTTP/1.1 200 
+    Date: Wed, 04 Nov 2026 20:12:33 GMT
+    Content-Type: application/xml;charset=UTF-8
+    Transfer-Encoding: chunked
+    X-OneAgent-JS-Injection: true
+    Server-Timing: dtRpid;desc="-332934390", dtSInfo;desc="0"
+    Vary: Origin
+    Vary: Access-Control-Request-Method
+    Vary: Access-Control-Request-Headers
+    X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
+    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+    Pragma: no-cache
+    Expires: 0
+    X-Frame-Options: DENY
+    Content-Security-Policy: script-src https://europa.eu/webtools/load.js https://europa.eu/webtools/webtools.cck.js https://europa.eu/webtools/services/cck https://europa.eu/webtools/js/webtools.cck.js https://webtools.europa.eu/load.js https://webtools.europa.eu/js/webtools.cck.js https://webtools.europa.eu/services/cck https://webtools.europa.eu/js/webtools.cck.js https://commission.europa.eu/cookies-policy_en https://webanalytics.europa.eu/ppms.js https://www.webanalytics.europa.eu/ppms.js https://webtools.europa.eu/ https://www.webanalytics-az.acc.fpfis.tech.ec.europa.eu/ppms.js https://cdn.eaec.fpfis.tech.ec.europa.eu/ 'self' 'unsafe-eval' 'unsafe-inline'; style-src https://europa.eu/webtools/webtools.theme-ec.css https://europa.eu/webtools/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.icons.flags.css https://webtools.europa.eu/css/webtools.icons.default.css 'self' 'unsafe-inline';form-action 'self'; report-uri /safety-gate-alerts/violations/report; report-to csp-violation-report;frame-ancestors https://*.europa.eu http://localhost:8080 http://localhost:4200
+    Referrer-Policy: strict-origin-when-cross-origin
+    Report-To: {"group":"csp-violation-report","max_age":2592000,"endpoints":[{"url":"/safety-gate-alerts/violations/report"}]}
+    Server: Europa
+    Connection: close
+    Set-Cookie: dtCookie=v_4_srv_56_sn_FFC78AF53505A2496958B16FB0F01277_perc_100000_ol_0_mul_1_app-3A6c758c1e49bd4eb7_1_rcs-3Acss_0; Path=/; Domain=.europa.eu/safety-gate-alerts
+    Set-Cookie: rps=!22QRQrnVlQOoikbbA+6l1zXkw7/S2cK0Bl/TKLtfMk6zzHHgOJ5N+AFMUI2y4nCb0wnpn3GWzTp0cherXPEcZEzh/7xRCfoHYnbkZsG1; path=/; Httponly; Secure
+  chunked: 2 chunks, 472687 body bytes, ends cleanly=true, trailing=0
+  oddities: none
+RAW list/gzip
+  raw read error after 22863 bytes: UnexpectedEof: peer closed connection without sending TLS close_notify: https://docs.rs/rustls/latest/rustls/manual/_03_howto/index.html#unexpected-eof
+  raw 22863 bytes; headers:
+    HTTP/1.1 200 
+    Date: Wed, 04 Nov 2026 20:12:35 GMT
+    Content-Type: application/xml;charset=UTF-8
+    X-OneAgent-JS-Injection: true
+    Server-Timing: dtRpid;desc="548241232", dtSInfo;desc="0"
+    Vary: Origin
+    Vary: Access-Control-Request-Method
+    Vary: Access-Control-Request-Headers
+    X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
+    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+    Pragma: no-cache
+    Expires: 0
+    X-Frame-Options: DENY
+    Content-Security-Policy: script-src https://europa.eu/webtools/load.js https://europa.eu/webtools/webtools.cck.js https://europa.eu/webtools/services/cck https://europa.eu/webtools/js/webtools.cck.js https://webtools.europa.eu/load.js https://webtools.europa.eu/js/webtools.cck.js https://webtools.europa.eu/services/cck https://webtools.europa.eu/js/webtools.cck.js https://commission.europa.eu/cookies-policy_en https://webanalytics.europa.eu/ppms.js https://www.webanalytics.europa.eu/ppms.js https://webtools.europa.eu/ https://www.webanalytics-az.acc.fpfis.tech.ec.europa.eu/ppms.js https://cdn.eaec.fpfis.tech.ec.europa.eu/ 'self' 'unsafe-eval' 'unsafe-inline'; style-src https://europa.eu/webtools/webtools.theme-ec.css https://europa.eu/webtools/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.icons.flags.css https://webtools.europa.eu/css/webtools.icons.default.css 'self' 'unsafe-inline';form-action 'self'; report-uri /safety-gate-alerts/violations/report; report-to csp-violation-report;frame-ancestors https://*.europa.eu http://localhost:8080 http://localhost:4200
+    Referrer-Policy: strict-origin-when-cross-origin
+    Report-To: {"group":"csp-violation-report","max_age":2592000,"endpoints":[{"url":"/safety-gate-alerts/violations/report"}]}
+    Server: Europa
+    Connection: close
+    Content-Encoding: gzip
+    Set-Cookie: dtCookie=v_4_srv_54_sn_5E5E96B153F00E630FF19CF48B9C1E18_perc_100000_ol_0_mul_1_app-3A6c758c1e49bd4eb7_1_rcs-3Acss_0; Path=/; Domain=.europa.eu/safety-gate-alerts
+    Set-Cookie: rps=!II0I6jOjuaACHz0J1l7j19/F6MRRhF7GLXuN5jY5iPqzkwLNdGJLrrf1bFJHCwjympt2m86DX0moVGt6BMdZPPODKHNLsx9nqa5KcvFk; path=/; Httponly; Secure
+RAW report/identity
+  raw read error after 169039 bytes: UnexpectedEof: peer closed connection without sending TLS close_notify: https://docs.rs/rustls/latest/rustls/manual/_03_howto/index.html#unexpected-eof
+  raw 169039 bytes; headers:
+    HTTP/1.1 200 
+    Date: Wed, 04 Nov 2026 20:12:37 GMT
+    Content-Type: application/xml;charset=UTF-8
+    Transfer-Encoding: chunked
+    X-OneAgent-JS-Injection: true
+    Server-Timing: dtRpid;desc="1259295576", dtSInfo;desc="0"
+    Vary: Origin
+    Vary: Access-Control-Request-Method
+    Vary: Access-Control-Request-Headers
+    X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
+    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+    Pragma: no-cache
+    Expires: 0
+    X-Frame-Options: DENY
+    Content-Security-Policy: script-src https://europa.eu/webtools/load.js https://europa.eu/webtools/webtools.cck.js https://europa.eu/webtools/services/cck https://europa.eu/webtools/js/webtools.cck.js https://webtools.europa.eu/load.js https://webtools.europa.eu/js/webtools.cck.js https://webtools.europa.eu/services/cck https://webtools.europa.eu/js/webtools.cck.js https://commission.europa.eu/cookies-policy_en https://webanalytics.europa.eu/ppms.js https://www.webanalytics.europa.eu/ppms.js https://webtools.europa.eu/ https://www.webanalytics-az.acc.fpfis.tech.ec.europa.eu/ppms.js https://cdn.eaec.fpfis.tech.ec.europa.eu/ 'self' 'unsafe-eval' 'unsafe-inline'; style-src https://europa.eu/webtools/webtools.theme-ec.css https://europa.eu/webtools/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.icons.flags.css https://webtools.europa.eu/css/webtools.icons.default.css 'self' 'unsafe-inline';form-action 'self'; report-uri /safety-gate-alerts/violations/report; report-to csp-violation-report;frame-ancestors https://*.europa.eu http://localhost:8080 http://localhost:4200
+    Referrer-Policy: strict-origin-when-cross-origin
+    Report-To: {"group":"csp-violation-report","max_age":2592000,"endpoints":[{"url":"/safety-gate-alerts/violations/report"}]}
+    Server: Europa
+    Connection: close
+    Set-Cookie: dtCookie=v_4_srv_47_sn_C1E37B28F707641481B71581559B5D30_perc_100000_ol_0_mul_1_app-3A6c758c1e49bd4eb7_1_rcs-3Acss_0; Path=/; Domain=.europa.eu/safety-gate-alerts
+    Set-Cookie: rps=!B5tnDCTcWzTD7H7bA+6l1zXkw7/S2cCWd1KDwcwq2KFwHEg6vjzodq+WnSkA3R6pXnAlcCQAWLPg+XKsIxseziTPAo44T4HvKhrIg796; path=/; Httponly; Secure
+  chunked: 2 chunks, 166793 body bytes, ends cleanly=true, trailing=0
+  oddities: none
+RAW report/gzip
+  raw read error after 26820 bytes: UnexpectedEof: peer closed connection without sending TLS close_notify: https://docs.rs/rustls/latest/rustls/manual/_03_howto/index.html#unexpected-eof
+  raw 26820 bytes; headers:
+    HTTP/1.1 200 
+    Date: Wed, 04 Nov 2026 20:12:38 GMT
+    Content-Type: application/xml;charset=UTF-8
+    X-OneAgent-JS-Injection: true
+    Server-Timing: dtRpid;desc="4136559", dtSInfo;desc="0"
+    Vary: Origin
+    Vary: Access-Control-Request-Method
+    Vary: Access-Control-Request-Headers
+    X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
+    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+    Pragma: no-cache
+    Expires: 0
+    X-Frame-Options: DENY
+    Content-Security-Policy: script-src https://europa.eu/webtools/load.js https://europa.eu/webtools/webtools.cck.js https://europa.eu/webtools/services/cck https://europa.eu/webtools/js/webtools.cck.js https://webtools.europa.eu/load.js https://webtools.europa.eu/js/webtools.cck.js https://webtools.europa.eu/services/cck https://webtools.europa.eu/js/webtools.cck.js https://commission.europa.eu/cookies-policy_en https://webanalytics.europa.eu/ppms.js https://www.webanalytics.europa.eu/ppms.js https://webtools.europa.eu/ https://www.webanalytics-az.acc.fpfis.tech.ec.europa.eu/ppms.js https://cdn.eaec.fpfis.tech.ec.europa.eu/ 'self' 'unsafe-eval' 'unsafe-inline'; style-src https://europa.eu/webtools/webtools.theme-ec.css https://europa.eu/webtools/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.theme-ec.css https://webtools.europa.eu/css/webtools.icons.flags.css https://webtools.europa.eu/css/webtools.icons.default.css 'self' 'unsafe-inline';form-action 'self'; report-uri /safety-gate-alerts/violations/report; report-to csp-violation-report;frame-ancestors https://*.europa.eu http://localhost:8080 http://localhost:4200
+    Referrer-Policy: strict-origin-when-cross-origin
+    Report-To: {"group":"csp-violation-report","max_age":2592000,"endpoints":[{"url":"/safety-gate-alerts/violations/report"}]}
+    Server: Europa
+    Connection: close
+    Content-Encoding: gzip
+    Set-Cookie: dtCookie=v_4_srv_51_sn_3055E0B3367E2A6096971AFA18ECE016_perc_100000_ol_0_mul_1_app-3A6c758c1e49bd4eb7_1_rcs-3Acss_0; Path=/; Domain=.europa.eu/safety-gate-alerts
+    Set-Cookie: rps=!lb3+MO3jJ458+YoJ1l7j19/F6MRRhHQmKwoHi/mDLGuuBgL08CSGGQLFiID5/hFlyGsrdnwH7HouaK//YwkpbQaEy+yw9u8jDmQrL/kU; path=/; Httponly; Secure
