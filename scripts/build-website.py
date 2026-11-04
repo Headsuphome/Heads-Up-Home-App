@@ -15,6 +15,8 @@ SITE = "https://headsuphome.co.uk"
 
 # The person responsible for the app (the data "controller" in UK data protection law).
 CONTROLLER = "Connor J Cronin"
+# Registration with the Information Commissioner's Office (data protection fee paid November 2026).
+ICO_NUMBER = "ZC292698"
 
 LOGO = """<svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
   <rect width="100" height="100" rx="22" fill="#0E1A2B"/>
@@ -355,7 +357,7 @@ PRIVACY = f"""
 
   <h2 id="who">1. Who we are</h2>
   <p>Heads Up Home is an app that tells people in the UK about recalls of food, products, medicines and pet items. It's run by {CONTROLLER} ("we" or "us") in the United Kingdom.</p>
-  <p>Under UK data protection law we're the "controller" of the personal information described here, which means we decide how it's used and we're responsible for looking after it. You can contact us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+  <p>Under UK data protection law we're the "controller" of the personal information described here, which means we decide how it's used and we're responsible for looking after it. We're registered with the Information Commissioner's Office (ICO), registration number <a href="https://ico.org.uk/ESDWebPages/Entry/{ICO_NUMBER}">{ICO_NUMBER}</a>. You can contact us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 
   <h2 id="what">2. What we collect and why</h2>
   <h3>On your phone</h3>
