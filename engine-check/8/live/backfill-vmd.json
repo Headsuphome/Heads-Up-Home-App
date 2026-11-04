@@ -1,0 +1,261 @@
+[
+ {
+  "id": "vmd:tu-400-mgml-suspension-for-injection-for-cattle-recall-alert",
+  "title": "Revozyn RTU 400 mg/ml Suspension for Injection for Cattle",
+  "publishedAt": "2025-03-25T16:23:24.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "Dechra, on behalf of Marketing Authorisation Holder Eurovet Animal Health B.V., has initiated a Class II recall to the wholesaler level for the below mentioned ",
+  "advice": "Dechra is contacting wholesale dealers to examine inventory immediately and quarantine products subject to this recall. For further information regarding the re",
+  "products": [
+   {
+    "name": "Revozyn RTU 400 mg/ml Suspension for Injection for Cattle",
+    "barcode": null,
+    "batches": [
+     "24F042"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/revozyn-rtu-400-mgml-suspension-for-injection-for-cattle-recall-alert",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:nt-labs-methylene-blue-product-defect-recall-alert",
+  "title": "NT Labs Methylene Blue",
+  "publishedAt": "2025-04-08T08:34:44.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "The composition stated on the bottle label & carton is incorrect.",
+  "advice": "This recall affects the below mentioned batches only: NT Labs is contacting wholesale dealers to examine inventory immediately and quarantine products subject t",
+  "products": [
+   {
+    "name": "Methylene Blue",
+    "barcode": null,
+    "batches": [
+     "21474",
+     "22055"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/nt-labs-methylene-blue-product-defect-recall-alert",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:efect-recall-alert-alamycin-la-injection-pen-strep-injection",
+  "title": "Alamycin LA Injection, Pen + Strep Injection",
+  "publishedAt": "2025-06-05T11:52:44.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "Norbrook Laboratories Limited are initiating a Class III recall to wholesaler level as a precautionary measure.",
+  "advice": "This recall is for the below mentioned products and batches only: Norbrook Laboratories Limited is contacting wholesale dealers to examine inventory immediately",
+  "products": [
+   {
+    "name": "Alamycin LA Solution for Injection for Cattle, Sheep and Pigs 100ml (Vm 02000/ 4117)",
+    "barcode": null,
+    "batches": [
+     "4491-600C"
+    ]
+   },
+   {
+    "name": "Pen & Strep Suspension for Injection 100ml (Vm 02000/ 4100)",
+    "barcode": null,
+    "batches": [
+     "5033-51A"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/product-defect-recall-alert-alamycin-la-injection-pen-strep-injection",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:solution-for-injection-for-dogs-cats-and-horses-recall-alert",
+  "title": "Anesketin 100 mg/ml Solution for Injection for Dogs, Cats and Horses",
+  "publishedAt": "2025-07-17T15:18:21.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "Visible particles present in the vials.",
+  "advice": "This recall is for the below mentioned batches (50 ml vials) only: Dechra Pharmaceuticals PLC is contacting veterinarians, wholesalers and retailers to examine ",
+  "products": [
+   {
+    "name": "Anesketin 100 mg/ml Solution for Injection for Dogs, Cats and Horses",
+    "barcode": null,
+    "batches": [
+     "148221",
+     "149367",
+     "154100",
+     "156456"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/anesketin-100-mgml-solution-for-injection-for-dogs-cats-and-horses-recall-alert",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:75-gml-solution-for-injection-for-pigs-product-defect-recall",
+  "title": "Maprelin 75 µg/ml Solution for Injection for Pigs",
+  "publishedAt": "2025-10-14T14:21:50.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "An increased risk of microbial contamination in the aseptically manufactured products at the site of the contracted manufacturer, in the period from 01/2024 to ",
+  "advice": "This recall is for: Kela Animal Health UK is contacting wholesalers to examine inventory immediately and quarantine products, subject to this recall. For furthe",
+  "products": [
+   {
+    "name": "Maprelin 75 µg/ml Solution for Injection for Pigs",
+    "barcode": null,
+    "batches": [
+     "24B067",
+     "24E271"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/maprelin-75-gml-solution-for-injection-for-pigs-product-defect-recall",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:r-injection-for-cattle-pigs-and-horses-product-defect-recall",
+  "title": "Gonavet Veyx 50 micrograms/ml Solution for Injection for Cattle, Pigs and Horses",
+  "publishedAt": "2025-10-14T15:13:46.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "An increased risk of microbial contamination in the aseptically manufactured products at the site of the contracted manufacturer, in the period from 01/2024 to ",
+  "advice": "This recall is for: Kela Animal Health UK is contacting wholesalers to examine inventory immediately and quarantine products, subject to this recall. For furthe",
+  "products": [
+   {
+    "name": "Gonavet Veyx 50 micrograms/ml Solution for Injection for Cattle, Pigs and Horses",
+    "barcode": null,
+    "batches": [
+     "24B072",
+     "24G253"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/gonavet-veyx-50-microgramsml-solution-for-injection-for-cattle-pigs-and-horses-product-defect-recall",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:ion-for-injection-for-cattle-and-sheep-product-defect-recall",
+  "title": "Tilmodil 300 mg/ml Solution for Injection for Cattle and Sheep",
+  "publishedAt": "2025-10-16T12:15:20.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "An increased risk of microbial contamination in the aseptically manufactured products at the site of the contracted manufacturer, in the period from 01/2024 to ",
+  "advice": "This recall is for: Emdoka and DUG(V) UK Ltd is contacting wholesalers to examine inventory immediately and quarantine products, subject to this recall. For fur",
+  "products": [
+   {
+    "name": "Tilmodil 300 mg/ml Solution for Injection for Cattle and Sheep",
+    "barcode": null,
+    "batches": [
+     "24E013"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/tilmodil-300-mgml-solution-for-injection-for-cattle-and-sheep-product-defect-recall",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:recall-alert-for-four-products-by-dechra-pharmaceuticals-plc",
+  "title": "four products by Dechra Pharmaceuticals PLC",
+  "publishedAt": "2025-10-21T23:00:00.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "An increased risk of microbial contamination in the aseptically manufactured products at the site of the contracted manufacturer, in the period from 01/2024 to ",
+  "advice": "This recall is for following batches: Dechra Pharmaceuticals PLC is contacting wholesalers to examine inventory immediately and quarantine products, subject to ",
+  "products": [
+   {
+    "name": "Apovomin 3 mg/ml solution for injection for dogs",
+    "barcode": null,
+    "batches": [
+     "24K017",
+     "25B254"
+    ]
+   },
+   {
+    "name": "Revozyn RTU 400 mg/ml suspension for injection for cattle",
+    "barcode": null,
+    "batches": [
+     "24J014"
+    ]
+   },
+   {
+    "name": "Equipalazone 200 mg/ml Solution for Injection",
+    "barcode": null,
+    "batches": [
+     "151300",
+     "152435"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/product-defect-recall-alert-for-four-products-by-dechra-pharmaceuticals-plc",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:ptra-ear-drops-solution-for-dogs-product-defect-recall-alert",
+  "title": "Neptra Ear Drops Solution for Dogs",
+  "publishedAt": "2025-10-30T10:17:53.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "The wholesaler, MWI Animal Health, has initiated a Class II recall to retailer level with immediate effect for Neptra Ear Drops Solution for Dogs Vm 04895/5007.",
+  "advice": "This recall is for: For further information regarding the recall, please contact MWI; customerteam@mwiah.co.uk>. This recall is at retailer level.",
+  "products": [
+   {
+    "name": "Neptra Ear Drops Solution for Dogs",
+    "barcode": null,
+    "batches": [
+     "E154100A"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/neptra-ear-drops-solution-for-dogs-product-defect-recall-alert",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "vmd:call-alert-catophos-100-mgml-005-mgml-solution-for-injection",
+  "title": "Catophos 100 mg/ml + 0.05 mg/ml Solution for Injection",
+  "publishedAt": "2025-10-30T10:23:43.000Z",
+  "categories": [
+   "pets"
+  ],
+  "risk": null,
+  "summary": "The identification of visible particles present in the vials.",
+  "advice": "DUG(V)UK Limited is contacting wholesalers and veterinarians to examine inventory immediately and quarantine products subject to this recall. For further inform",
+  "products": [
+   {
+    "name": "Catophos 100 mg/ml + 0.05 mg/ml Solution for Injection",
+    "barcode": null,
+    "batches": [
+     "23K206"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/government/news/recall-alert-catophos-100-mgml-005-mgml-solution-for-injection",
+  "documentUrl": null,
+  "imageUrl": null
+ }
+]
