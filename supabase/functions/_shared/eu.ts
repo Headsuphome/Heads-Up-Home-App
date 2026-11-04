@@ -12,6 +12,11 @@ import { getText, getTextUntil, isPermanent, mapLimit, shorten, type FetchFn } f
 
 export const EU_LIST = 'https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en';
 
+// Asked for compressed, the EU server sends its files without a length and just hangs up at the end,
+// which the Supabase runtime reports as "error reading a body from connection". Uncompressed, it sends
+// them in marked chunks with a clear end, which reads cleanly everywhere.
+const EU_GET = { headers: { 'Accept-Encoding': 'identity' } };
+
 /** Product types we leave out: vehicles are handled by national schemes, not useful here. */
 const SKIP_CATEGORIES = /motor vehicles|recreational craft/i;
 
@@ -74,7 +79,7 @@ export async function euReportsSince(fetchFn: FetchFn, cutoff: string, now = Dat
   if (!cached || now - cached.at > LIST_FRESH_MS || cached.readTo > cutoff) {
     const depth = new Date(now - LIST_DAYS * 86400_000).toISOString().slice(0, 10);
     const readTo = cutoff < depth ? cutoff : depth;
-    const reports = parseEuReportList(await getTextUntil(fetchFn, EU_LIST, listReaches(readTo)));
+    const reports = parseEuReportList(await getTextUntil(fetchFn, EU_LIST, listReaches(readTo), EU_GET));
     cached = { at: now, readTo, reports };
     listCache.set(fetchFn, cached);
   }
@@ -166,7 +171,7 @@ export function parseEuReport(xml: string, reportDate: string): Recall[] {
  */
 export async function fetchEuReports(fetchFn: FetchFn, reports: EuReport[]): Promise<{ recalls: Recall[]; fetched: number }> {
   const results = await mapLimit(reports, 2, (r) =>
-    getText(fetchFn, r.url).then((xml) => ({ xml }), (error: unknown) => (isPermanent(error) ? { xml: '' } : { error })));
+    getText(fetchFn, r.url, EU_GET).then((xml) => ({ xml }), (error: unknown) => (isPermanent(error) ? { xml: '' } : { error })));
   const failed = results.findIndex((r) => 'error' in r);
   if (failed === 0) throw (results[0] as { error: unknown }).error;
   const fetched = failed < 0 ? reports.length : failed;

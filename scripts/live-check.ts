@@ -1,5 +1,7 @@
 // Runs every collector against the real sources (as the hourly engine would) and saves what came back.
 // Usage: node scripts/live-check.ts <out dir>
+//    or: deno run -A scripts/live-check.ts <out dir>   (the runtime Supabase uses)
+import process from 'node:process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { fetchFsaSince } from '../supabase/functions/_shared/fsa.ts';
 import { fetchOpssSince } from '../supabase/functions/_shared/opss.ts';

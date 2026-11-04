@@ -112,24 +112,27 @@ async function withRetries<T>(attempts: number, fn: () => Promise<T>): Promise<T
   throw lastError;
 }
 
-async function request(fetchFn: FetchFn, url: string, accept: string): Promise<Response> {
-  const res = await fetchFn(url, { headers: { Accept: accept, 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+type GetOptions = { attempts?: number; headers?: Record<string, string> };
+
+async function request(fetchFn: FetchFn, url: string, accept: string, extra: Record<string, string> = {}): Promise<Response> {
+  const headers = { Accept: accept, 'User-Agent': USER_AGENT, ...extra };
+  const res = await fetchFn(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!res.ok) throw new HttpError(res.status, `${res.status} ${res.statusText} for ${url}`);
   return res;
 }
 
 /** Fetches a web page as text (for sources with no data feed). A dropped download is tried again. */
-async function getText(fetchFn: FetchFn, url: string, attempts = 3): Promise<string> {
-  return await withRetries(attempts, async () => await (await request(fetchFn, url, 'text/html')).text());
+async function getText(fetchFn: FetchFn, url: string, opts: GetOptions = {}): Promise<string> {
+  return await withRetries(opts.attempts ?? 3, async () => await (await request(fetchFn, url, 'text/html', opts.headers)).text());
 }
 
 /**
  * Reads a page from the top and stops as soon as `enough(textSoFar)` says it has what it needs,
  * so a long list (newest first) doesn't have to be downloaded in full. Returns the whole page if it ends first.
  */
-async function getTextUntil(fetchFn: FetchFn, url: string, enough: (text: string) => boolean, attempts = 3): Promise<string> {
-  return await withRetries(attempts, async () => {
-    const res = await request(fetchFn, url, 'text/html');
+async function getTextUntil(fetchFn: FetchFn, url: string, enough: (text: string) => boolean, opts: GetOptions = {}): Promise<string> {
+  return await withRetries(opts.attempts ?? 3, async () => {
+    const res = await request(fetchFn, url, 'text/html', opts.headers);
     if (!res.body) return await res.text();
     const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
     let text = '';

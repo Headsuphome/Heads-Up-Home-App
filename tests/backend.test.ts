@@ -791,3 +791,15 @@ test('EU reports stop before one that fails, so it is tried again next time', as
   assert.equal(missing.fetched, 3, 'a report that no longer exists is passed over');
   assert.deepEqual(missing.recalls.map((r) => r.id), ['eu:SR-01001-26', 'eu:SR-03001-26']);
 });
+
+test('every EU download asks for an uncompressed file, which the Supabase runtime reads cleanly', async () => {
+  const asked: string[] = [];
+  const fetchFn = async (url: string, init?: RequestInit) => {
+    asked.push((init?.headers as Record<string, string>)['Accept-Encoding'] ?? 'default');
+    if (url.includes('/list/')) return new Response(euWeeklyList(10));
+    return new Response(`<Safety-Gate>${euNotification(url.slice(-1) + '001', 'Toys')}</Safety-Gate>`);
+  };
+  await fetchEuSince(fetchFn as typeof fetch, '2026-10-20T12:00:00.000Z');
+  assert.ok(asked.length >= 3);
+  assert.ok(asked.every((a) => a === 'identity'), asked.join(','));
+});
