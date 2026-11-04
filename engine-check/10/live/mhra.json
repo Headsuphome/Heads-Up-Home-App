@@ -1,0 +1,136 @@
+[
+ {
+  "id": "mhra:EL26A45",
+  "title": "Lercanidipine Hydrochloride 10mg Film-Coated Tablets",
+  "publishedAt": "2026-10-29T00:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": "high",
+  "summary": "Accord-UK Ltd is recalling one batch of Lercanidipine Hydrochloride 10mg Tablets due to a packaging mix-up involving the incorrect strength.",
+  "advice": "Accord has received a single report of a carton of Accord-UK Ltd Lercanidipine Hydrochloride 10 mg Tablets containing a blister strip of Lercanidipine Hydrochlo",
+  "products": [
+   {
+    "name": "Lercanidipine Hydrochloride 10mg Film-Coated Tablets",
+    "barcode": null,
+    "batches": [
+     "M2510877"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-2-medicines-recall-accord-uk-ltd-lercanidipine-hydrochloride-10mg-film-coated-tablets-el-26-a-slash-45",
+  "documentUrl": "https://assets.publishing.service.gov.uk/media/6ae333e7d22fc5fecb3eb789/Class_2_Medicines_Recall__Accord-UK_Ltd__Lercanidipine_Hydrochloride_10mg_Film-Coated_Tablets__EL26A45.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra:EL26A44",
+  "title": "Mynzepli 40 mg/mL solution for injection in pre-filled syringe",
+  "publishedAt": "2026-10-29T00:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": "high",
+  "summary": "Advanz Pharma Limited are recalling specified batches of Mynzepli 40 mg/mL solution for injection in pre-filled syringe as a precautionary measure.",
+  "advice": "This is a Pharmacy and Wholesaler level recall, therefore no further action is required by patients.\nThis product is only administered by a qualified healthcare",
+  "products": [
+   {
+    "name": "Mynzepli 40 mg/mL solution for injection in pre-filled syringe",
+    "barcode": null,
+    "batches": [
+     "2325742",
+     "2325726"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-2-medicines-recall-advanz-pharma-limited-mynzepli-40-mg-slash-ml-solution-for-injection-in-pre-filled-syringe-el-26-a-slash-44",
+  "documentUrl": "https://assets.publishing.service.gov.uk/media/6ae1de57460c1346f7be77ec/EL_26_A44_Mynzeplia_recall_Amdipharm.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra:EL26A43",
+  "title": "Clopidogrel Oral Liquids (all strengths)",
+  "publishedAt": "2026-10-26T00:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": "high",
+  "summary": "Xeal Pharma have informed MHRA that all strengths of their Clopidogrel Oral Suspension and Clopidogrel Oral Solution products contain less than the labelled amo",
+  "advice": "Never stop taking medicines such as clopidogrel without medical advice. Suddenly stopping clopidogrel may cause serious thrombotic events.\nYour GP, specialist, ",
+  "products": [
+   {
+    "name": "Clopidogrel Oral Liquids (all strengths)",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-2-medicines-recall-xeal-pharma-clopidogrel-oral-liquids-all-strengths-el-26-a-slash-43",
+  "documentUrl": "https://assets.publishing.service.gov.uk/media/6adf1c67d798ae11e9bc5caf/EL26A43_C2_Clopidogrel_Xeal_Pharma.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra:EL26A42",
+  "title": "Pedmarqsi 80 mg/mL solution for infusion",
+  "publishedAt": "2026-10-12T00:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": "high",
+  "summary": "Norgine Pharmaceuticals Limited is recalling the batches listed in the table due to risk of particulate matter being present in the product identified during ro",
+  "advice": "This is a Pharmacy and Wholesaler level recall, therefore no further action is required by patients. This product is normally administered by healthcare profess",
+  "products": [
+   {
+    "name": "Pedmarqsi 80 mg/mL solution for infusion",
+    "barcode": null,
+    "batches": [
+     "458273",
+     "475287"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-2-medicines-recall-norgine-pharmaceuticals-limited-pedmarqsi-80-mg-slash-ml-solution-for-infusion-el-26-a-slash-42",
+  "documentUrl": "https://assets.publishing.service.gov.uk/media/6acc9be9b016250bca013bac/Class_2_Medicines_Recall_-_Norgine_Pharmaceuticals_Limited__Pedmarqsi_80_mg_mL_solution_for_infusion__EL_26_A-42.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra:DSI2026013",
+  "title": "Nova Biomedical StatStrip ketone test strips: risk of disruption to blood ketone testing due to quality-control failures and supply interruption DSI/2026/013",
+  "publishedAt": "2026-10-09T00:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": null,
+  "summary": "Nova Biomedical has identified quality issues affecting specified lots of StatStrip ketone test strips. The affected lots have been associated with quality-cont",
+  "advice": "the advice in this DSI is aimed at healthcare professionals who are managing your care. You can be reassured that your healthcare professional will take the nec",
+  "products": [
+   {
+    "name": "Nova Biomedical StatStrip ketone test strips",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/nova-biomedical-statstrip-ketone-test-strips-risk-of-disruption-to-blood-ketone-testing-due-to-quality-control-failures-and-supply-interruption-dsi-slash-2026-slash-013",
+  "documentUrl": "https://assets.publishing.service.gov.uk/media/6ad23d21e5db84746b47975b/DSI_-_Nova_Biomedical_StatStrip_ketone_test_strips_16_10_26.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "mhra:DSI2026014",
+  "title": "Continuous renal replacement therapy (CRRT): Consider delayed administration of concurrent echinocandins, such as caspofungin, to reduce the risk of adsorption onto new polyacrylonitrile (PAN)-based filter membranes DSI/2026/014",
+  "publishedAt": "2026-10-13T00:00:00.000Z",
+  "categories": [
+   "medicines"
+  ],
+  "risk": null,
+  "summary": "Continuous renal replacement therapy (CRRT) is used for managing severe acute kidney injury and fluid overload. Published evidence has shown that caspofungin ca",
+  "advice": "The advice in this DSI is aimed at healthcare professionals in charge of treating and managing patients receiving CRRT. If you have any concerns about this advi",
+  "products": [
+   {
+    "name": "Continuous renal replacement therapy (CRRT)",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.gov.uk/drug-device-alerts/continuous-renal-replacement-therapy-crrt-consider-delayed-administration-of-concurrent-echinocandins-such-as-caspofungin-to-reduce-the-risk-of-adsorption-onto-new-polyacrylonitrile-pan-based-filter-membranes-dsi-slash-2026-slash-",
+  "documentUrl": "https://assets.publishing.service.gov.uk/media/6accb26aec9d3aba1e013be7/DSI_-_PAN_based_CRRT_membranes_and_Caspofungin_DSI_2026_014.pdf",
+  "imageUrl": null
+ }
+]
