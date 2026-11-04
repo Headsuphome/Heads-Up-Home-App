@@ -1,0 +1,46 @@
+[
+ {
+  "id": "hse:ED02-2025",
+  "title": "Excavators : Use of safety control lever or isolation devices",
+  "publishedAt": "2025-08-01T09:00:00.000Z",
+  "categories": [
+   "trades-tools"
+  ],
+  "risk": null,
+  "summary": "Safety notice: There is a risk that people can be struck by the excavator or a load if the excavator operator does not use the safety control lever or isolation",
+  "advice": "Duty holders must, so far as reasonably practicable, ensure the safety of persons in the working arc of slewing plant and also any load, with the proper plannin",
+  "products": [
+   {
+    "name": "Excavators : Use of safety control lever or isolation devices",
+    "barcode": null,
+    "batches": [],
+    "notes": "Who it's for: Excavator operators, slingers and anyone working near them"
+   }
+  ],
+  "sourceUrl": "https://www.hse.gov.uk/safetybulletins/excavators-safety-control-lever-isolation-devices.htm",
+  "documentUrl": null,
+  "imageUrl": null
+ },
+ {
+  "id": "hse:EPD01-2025",
+  "title": "Risk from height adjustable display screen stands in schools and other education settings",
+  "publishedAt": "2025-05-01T09:00:00.000Z",
+  "categories": [
+   "trades-tools"
+  ],
+  "risk": null,
+  "summary": "Safety notice: Certain motorised display screen wall mounts intended for use in schools and educational establishments are a serious risk of injury.",
+  "advice": "Users and leaders in education settings\nEmployers and governing bodies in schools and other education settings have a legal duty to ensure that this equipment i",
+  "products": [
+   {
+    "name": "Risk from height adjustable display screen stands in schools and other education settings",
+    "barcode": null,
+    "batches": [],
+    "notes": "Who it's for: Users, installers and procurers of height adjustable display scree"
+   }
+  ],
+  "sourceUrl": "https://www.hse.gov.uk/safetybulletins/risk-from-height-adjustable-display-screen-education.htm",
+  "documentUrl": null,
+  "imageUrl": null
+ }
+]
