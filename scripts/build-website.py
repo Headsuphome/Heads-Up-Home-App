@@ -356,7 +356,7 @@ PRIVACY = f"""
   </nav>
 
   <h2 id="who">1. Who we are</h2>
-  <p>Heads Up Home is an app that tells people in the UK about recalls of food, products, medicines and pet items. It's run by {CONTROLLER} ("we" or "us") in the United Kingdom.</p>
+  <p>Heads Up Home is an app that tells people in the UK about recalls of food, products, medicines and pet items. It's run by Mr {CONTROLLER}, a sole trader based in the United Kingdom, trading as Heads Up Home. In this policy, "we" and "us" mean Mr {CONTROLLER}.</p>
   <p>Under UK data protection law we're the "controller" of the personal information described here, which means we decide how it's used and we're responsible for looking after it. We're registered with the Information Commissioner's Office (ICO), registration number <a href="https://ico.org.uk/ESDWebPages/Entry/{ICO_NUMBER}">{ICO_NUMBER}</a>. You can contact us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 
   <h2 id="what">2. What we collect and why</h2>
