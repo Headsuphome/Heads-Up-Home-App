@@ -150,27 +150,74 @@ async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promis
   return results;
 }
 
-/** Fetches a web page as text (for sources with no data feed). */
-async function getText(fetchFn: FetchFn, url: string): Promise<string> {
-  const res = await fetchFn(url, { headers: { Accept: 'text/html', 'User-Agent': 'HeadsUpHome/1.0 (recall alerts)' } });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} for ${url}`);
-  return await res.text();
+const USER_AGENT = 'HeadsUpHome/1.0 (recall alerts)';
+const TIMEOUT_MS = 30_000; // a stuck download gives up rather than holding up the whole run
+
+/** A server's "no" (as opposed to a dropped connection), with its status code. */
+class HttpError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
 }
 
-async function getJson(fetchFn: FetchFn, url: string, attempts = 3): Promise<Json> {
+/** True for answers that won't change if we ask again (404 and friends). */
+function isPermanent(err: unknown): boolean {
+  return err instanceof HttpError && err.status >= 400 && err.status < 500 && err.status !== 429;
+}
+
+/** Tries `fn` up to `attempts` times, waiting a little longer each time. Doesn't retry permanent errors. */
+async function withRetries<T>(attempts: number, fn: () => Promise<T>): Promise<T> {
   let lastError: unknown;
   for (let i = 0; i < attempts; i++) {
     try {
-      const res = await fetchFn(url, { headers: { Accept: 'application/json', 'User-Agent': 'HeadsUpHome/1.0 (recall alerts)' } });
-      if (res.ok) return await res.json();
-      lastError = new Error(`${res.status} ${res.statusText} for ${url}`);
-      if (res.status < 500 && res.status !== 429) break; // don't retry client errors
+      return await fn();
     } catch (err) {
       lastError = err;
+      if (isPermanent(err)) break;
     }
-    await new Promise((r) => setTimeout(r, 500 * 2 ** i));
+    if (i < attempts - 1) await new Promise((r) => setTimeout(r, 500 * 2 ** i));
   }
   throw lastError;
+}
+
+async function request(fetchFn: FetchFn, url: string, accept: string): Promise<Response> {
+  const res = await fetchFn(url, { headers: { Accept: accept, 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  if (!res.ok) throw new HttpError(res.status, `${res.status} ${res.statusText} for ${url}`);
+  return res;
+}
+
+/** Fetches a web page as text (for sources with no data feed). A dropped download is tried again. */
+async function getText(fetchFn: FetchFn, url: string, attempts = 3): Promise<string> {
+  return await withRetries(attempts, async () => await (await request(fetchFn, url, 'text/html')).text());
+}
+
+/**
+ * Reads a page from the top and stops as soon as `enough(textSoFar)` says it has what it needs,
+ * so a long list (newest first) doesn't have to be downloaded in full. Returns the whole page if it ends first.
+ */
+async function getTextUntil(fetchFn: FetchFn, url: string, enough: (text: string) => boolean, attempts = 3): Promise<string> {
+  return await withRetries(attempts, async () => {
+    const res = await request(fetchFn, url, 'text/html');
+    if (!res.body) return await res.text();
+    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    let text = '';
+    try {
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) return text;
+        text += value;
+        if (enough(text)) return text;
+      }
+    } finally {
+      reader.cancel().catch(() => {}); // stop the rest of the download
+    }
+  });
+}
+
+async function getJson(fetchFn: FetchFn, url: string, attempts = 3): Promise<Json> {
+  return await withRetries(attempts, async () => await (await request(fetchFn, url, 'application/json')).json());
 }
 
 // ───────── categories.ts ─────────
@@ -1460,17 +1507,57 @@ function decode(s: string): string {
   return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'");
 }
 
+const REPORT_ENTRY = /<weeklyReport>([\s\S]*?)<\/weeklyReport>/g;
+
+function reportFrom(entry: string): EuReport | null {
+  const y = tag(entry, 'year'), mo = tag(entry, 'month'), d = tag(entry, 'day');
+  const url = tag(entry, 'URL');
+  if (!y || !mo || !d || !url) return null;
+  return { reference: tag(entry, 'reference') ?? `${y}-${mo}-${d}`, date: `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`, url };
+}
+
 /** All weekly reports, oldest first. */
 function parseEuReportList(xml: string): EuReport[] {
-  const reports: EuReport[] = [];
-  for (const m of xml.matchAll(/<weeklyReport>([\s\S]*?)<\/weeklyReport>/g)) {
-    const r = m[1];
-    const y = tag(r, 'year'), mo = tag(r, 'month'), d = tag(r, 'day');
-    const url = tag(r, 'URL');
-    if (!y || !mo || !d || !url) continue;
-    reports.push({ reference: tag(r, 'reference') ?? `${y}-${mo}-${d}`, date: `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`, url });
+  return [...xml.matchAll(REPORT_ENTRY)]
+    .map((m) => reportFrom(m[1]))
+    .filter((r): r is EuReport => r !== null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/**
+ * The full list goes back to 2005 and is newest first, so we only read its top: up to the second
+ * report older than `cutoff` (two, in case one report has a misprinted date).
+ */
+function listReaches(cutoff: string): (text: string) => boolean {
+  return (text) => {
+    let older = 0;
+    for (const m of text.matchAll(REPORT_ENTRY)) {
+      const r = reportFrom(m[1]);
+      if (r && r.date < cutoff && ++older >= 2) return true;
+    }
+    return false;
+  };
+}
+
+/** How far back the list is read: a little more than the two years of history the backfill loads. */
+const LIST_DAYS = 760;
+const LIST_FRESH_MS = 15 * 60_000;
+const listCache = new WeakMap<FetchFn, { at: number; readTo: string; reports: EuReport[] }>();
+
+/**
+ * Weekly reports dated `cutoff` or later, oldest first. The list is read once per run and shared
+ * by the everyday check and the history loader.
+ */
+async function euReportsSince(fetchFn: FetchFn, cutoff: string, now = Date.now()): Promise<EuReport[]> {
+  let cached = listCache.get(fetchFn);
+  if (!cached || now - cached.at > LIST_FRESH_MS || cached.readTo > cutoff) {
+    const depth = new Date(now - LIST_DAYS * 86400_000).toISOString().slice(0, 10);
+    const readTo = cutoff < depth ? cutoff : depth;
+    const reports = parseEuReportList(await getTextUntil(fetchFn, EU_LIST, listReaches(readTo)));
+    cached = { at: now, readTo, reports };
+    listCache.set(fetchFn, cached);
   }
-  return reports.sort((a, b) => a.date.localeCompare(b.date));
+  return cached.reports.filter((r) => r.date >= cutoff);
 }
 
 /** "Category of measure(s): Recall of the product from end users" → "Recall of the product from end users". */
@@ -1551,16 +1638,25 @@ function parseEuReport(xml: string, reportDate: string): Recall[] {
     .filter((r): r is Recall => r !== null);
 }
 
-async function fetchEuReports(fetchFn: FetchFn, reports: EuReport[]): Promise<Recall[]> {
-  const xmls = await mapLimit(reports, 2, (r) => getText(fetchFn, r.url).catch(() => null));
-  return reports.flatMap((r, i) => (xmls[i] ? parseEuReport(xmls[i]!, r.date) : []));
+/**
+ * Downloads weekly reports (oldest first), two at a time. If one fails, the batch stops just before it,
+ * so it's tried again next run rather than skipped; if the first one fails, this throws.
+ * A report the server says doesn't exist (404 and the like) is passed over.
+ */
+async function fetchEuReports(fetchFn: FetchFn, reports: EuReport[]): Promise<{ recalls: Recall[]; fetched: number }> {
+  const results = await mapLimit(reports, 2, (r) =>
+    getText(fetchFn, r.url).then((xml) => ({ xml }), (error: unknown) => (isPermanent(error) ? { xml: '' } : { error })));
+  const failed = results.findIndex((r) => 'error' in r);
+  if (failed === 0) throw (results[0] as { error: unknown }).error;
+  const fetched = failed < 0 ? reports.length : failed;
+  const recalls = reports.slice(0, fetched).flatMap((r, i) => parseEuReport((results[i] as { xml: string }).xml, r.date));
+  return { recalls, fetched };
 }
 
 /** Weekly reports published since `since` (at most `maxReports`, newest). */
 async function fetchEuSince(fetchFn: FetchFn, since: string, maxReports = 6): Promise<Recall[]> {
-  const fromDate = since.slice(0, 10);
-  const reports = parseEuReportList(await getText(fetchFn, EU_LIST)).filter((r) => r.date >= fromDate).slice(-maxReports);
-  return fetchEuReports(fetchFn, reports);
+  const reports = (await euReportsSince(fetchFn, since.slice(0, 10))).slice(-maxReports);
+  return (await fetchEuReports(fetchFn, reports)).recalls;
 }
 
 // ───────── backfill.ts ─────────
@@ -1601,11 +1697,11 @@ const fsaStep: Step = async (fetchFn, fromDate, offset) => {
   return { recalls: await fsaRecallsFor(fetchFn, items), scanned: items.length, done: items.length < batch };
 };
 
-/** EU Safety Gate: two weekly reports at a time. */
+/** EU Safety Gate: two weekly reports at a time. A report that fails is tried again next run. */
 const euStep: Step = async (fetchFn, fromDate, offset) => {
-  const reports = parseEuReportList(await getText(fetchFn, EU_LIST)).filter((r) => r.date >= fromDate);
-  const slice = reports.slice(offset, offset + 2);
-  return { recalls: await fetchEuReports(fetchFn, slice), scanned: slice.length, done: offset + slice.length >= reports.length };
+  const reports = await euReportsSince(fetchFn, fromDate);
+  const { recalls, fetched } = await fetchEuReports(fetchFn, reports.slice(offset, offset + 2));
+  return { recalls, scanned: fetched, done: offset + fetched >= reports.length };
 };
 
 const BACKFILL_STEPS: Record<string, Step> = {

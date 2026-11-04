@@ -11,8 +11,8 @@ import { GOVUK, normaliseOpssItem } from './opss.ts';
 import { normaliseMhraItem } from './mhra.ts';
 import { isVmdRecallTitle, normaliseVmdItem } from './vmd.ts';
 import { FSN_ALERT_TYPE, homeFsnsFrom } from './mhra-fsn.ts';
-import { EU_LIST, fetchEuReports, parseEuReportList } from './eu.ts';
-import { asArray, getJson, getText, mapLimit, type FetchFn, type Json } from './util.ts';
+import { euReportsSince, fetchEuReports } from './eu.ts';
+import { asArray, getJson, mapLimit, type FetchFn, type Json } from './util.ts';
 
 export const BACKFILL_DAYS = 730;
 
@@ -44,11 +44,11 @@ const fsaStep: Step = async (fetchFn, fromDate, offset) => {
   return { recalls: await fsaRecallsFor(fetchFn, items), scanned: items.length, done: items.length < batch };
 };
 
-/** EU Safety Gate: two weekly reports at a time. */
+/** EU Safety Gate: two weekly reports at a time. A report that fails is tried again next run. */
 const euStep: Step = async (fetchFn, fromDate, offset) => {
-  const reports = parseEuReportList(await getText(fetchFn, EU_LIST)).filter((r) => r.date >= fromDate);
-  const slice = reports.slice(offset, offset + 2);
-  return { recalls: await fetchEuReports(fetchFn, slice), scanned: slice.length, done: offset + slice.length >= reports.length };
+  const reports = await euReportsSince(fetchFn, fromDate);
+  const { recalls, fetched } = await fetchEuReports(fetchFn, reports.slice(offset, offset + 2));
+  return { recalls, scanned: fetched, done: offset + fetched >= reports.length };
 };
 
 export const BACKFILL_STEPS: Record<string, Step> = {

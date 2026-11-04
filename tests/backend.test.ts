@@ -691,3 +691,103 @@ test('history loading works through each source a batch at a time, then stops', 
   assert.deepEqual(second, {}, 'finished sources are skipped');
   assert.ok(saved.length > 0);
 });
+
+// ───────── Unreliable connections ─────────
+
+import { getText } from '../supabase/functions/_shared/util.ts';
+import { euReportsSince, fetchEuReports, fetchEuSince, listReaches } from '../supabase/functions/_shared/eu.ts';
+
+const encode = (s: string) => new TextEncoder().encode(s);
+
+/** A download that drops part-way through, as the EU server's sometimes do. */
+function droppedResponse(start: string) {
+  return new Response(new ReadableStream({
+    start(c) { c.enqueue(encode(start)); c.error(new TypeError('error reading a body from connection')); },
+  }));
+}
+
+/** Sends `text` in small pieces and counts how many were actually read. */
+function trickle(text: string, size: number, counter: { pieces: number; total: number }) {
+  let at = 0;
+  counter.total = Math.ceil(text.length / size);
+  return new Response(new ReadableStream({
+    pull(c) {
+      if (at >= text.length) { c.close(); return; }
+      counter.pieces++;
+      c.enqueue(encode(text.slice(at, at + size)));
+      at += size;
+    },
+  }));
+}
+
+/** The EU list: one report a week, newest first, like the real one. */
+function euWeeklyList(weeks: number, newest = '2026-10-30') {
+  const entries = Array.from({ length: weeks }, (_, i) => {
+    const d = new Date(Date.parse(`${newest}T00:00:00Z`) - i * 7 * 86400_000);
+    return `<weeklyReport><reference>Report-${i}</reference><year>${d.getUTCFullYear()}</year><month>${d.getUTCMonth() + 1}</month>` +
+      `<day>${d.getUTCDate()}</day><URL>https://ec.europa.eu/report/${i}</URL></weeklyReport>`;
+  });
+  return `<?xml version="1.0"?><Safety-Gate>${entries.join('')}</Safety-Gate>`;
+}
+
+test('a dropped download is tried again', async () => {
+  let n = 0;
+  const fetchFn = async () => (++n === 1 ? droppedResponse('<html>half') : new Response('<html>whole</html>'));
+  assert.equal(await getText(fetchFn as typeof fetch, 'https://example.org/page'), '<html>whole</html>');
+  assert.equal(n, 2);
+});
+
+test('a missing page is not asked for again', async () => {
+  let n = 0;
+  const fetchFn = async () => { n++; return new Response('gone', { status: 404 }); };
+  await assert.rejects(getText(fetchFn as typeof fetch, 'https://example.org/gone'), /404/);
+  assert.equal(n, 1);
+});
+
+test('the EU list is read only as far back as needed, once per run', async () => {
+  const counter = { pieces: 0, total: 0 };
+  let requests = 0;
+  const xml = euWeeklyList(1000);
+  const fetchFn = async () => { requests++; return trickle(xml, 2000, counter); };
+  const now = Date.parse('2026-11-04T19:00:00Z');
+  const recent = await euReportsSince(fetchFn as typeof fetch, '2026-10-01', now);
+  assert.deepEqual(recent.map((r) => r.date), ['2026-10-02', '2026-10-09', '2026-10-16', '2026-10-23', '2026-10-30']);
+  assert.ok(counter.pieces < counter.total / 4, `read ${counter.pieces} of ${counter.total} pieces`);
+  const twoYears = await euReportsSince(fetchFn as typeof fetch, '2024-11-04', now);
+  assert.equal(requests, 1, 'the history loader reuses the same list');
+  assert.equal(twoYears[0].date, '2024-11-08');
+  assert.equal(twoYears.at(-1)!.date, '2026-10-30');
+});
+
+test('one misprinted date does not cut the EU list short', () => {
+  const entry = (d: string) => { const [y, m, day] = d.split('-'); return `<weeklyReport><year>${y}</year><month>${m}</month><day>${day}</day><URL>u</URL></weeklyReport>`; };
+  const reaches = listReaches('2026-10-01');
+  assert.equal(reaches(entry('2026-10-30') + entry('2026-01-23') + entry('2026-10-16')), false);
+  assert.equal(reaches(entry('2026-10-30') + entry('2026-09-25') + entry('2026-09-18')), true);
+});
+
+test('the everyday EU check survives a dropped list download', async () => {
+  let listRequests = 0;
+  const fetchFn = async (url: string) => {
+    if (url.includes('/list/')) return ++listRequests === 1 ? droppedResponse('<Safety-Gate><weekly') : new Response(euWeeklyList(10));
+    return new Response(`<Safety-Gate>${euNotification(url.slice(-1) + '001', 'Toys')}</Safety-Gate>`);
+  };
+  const recalls = await fetchEuSince(fetchFn as typeof fetch, '2026-10-20T12:00:00.000Z');
+  assert.equal(listRequests, 2);
+  assert.deepEqual(recalls.map((r) => r.publishedAt.slice(0, 10)), ['2026-10-23', '2026-10-30']);
+});
+
+test('EU reports stop before one that fails, so it is tried again next time', async () => {
+  const reports = ['1', '2', '3'].map((n) => ({ reference: n, date: `2026-10-0${n}`, url: `https://ec.europa.eu/report/${n}` }));
+  const serve = (status: Record<string, number>) => async (url: string) => {
+    const n = url.slice(-1);
+    return status[n] ? new Response('no', { status: status[n] }) : new Response(`<Safety-Gate>${euNotification(`${n}001`, 'Toys')}</Safety-Gate>`);
+  };
+  const busy = await fetchEuReports(serve({ 2: 503 }) as typeof fetch, reports);
+  assert.equal(busy.fetched, 1);
+  assert.deepEqual(busy.recalls.map((r) => r.id), ['eu:SR-01001-26']);
+  await assert.rejects(fetchEuReports(serve({ 1: 503 }) as typeof fetch, reports), /503/);
+  const missing = await fetchEuReports(serve({ 2: 404 }) as typeof fetch, reports);
+  assert.equal(missing.fetched, 3, 'a report that no longer exists is passed over');
+  assert.deepEqual(missing.recalls.map((r) => r.id), ['eu:SR-01001-26', 'eu:SR-03001-26']);
+});

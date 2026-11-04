@@ -8,7 +8,7 @@
 
 import type { Recall } from './types.ts';
 import { categoriesForOpss } from './categories.ts';
-import { getText, mapLimit, shorten, type FetchFn } from './util.ts';
+import { getText, getTextUntil, isPermanent, mapLimit, shorten, type FetchFn } from './util.ts';
 
 export const EU_LIST = 'https://ec.europa.eu/safety-gate-alerts/api/download/weeklyReport/list/xml/en';
 
@@ -28,17 +28,57 @@ function decode(s: string): string {
   return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'");
 }
 
+const REPORT_ENTRY = /<weeklyReport>([\s\S]*?)<\/weeklyReport>/g;
+
+function reportFrom(entry: string): EuReport | null {
+  const y = tag(entry, 'year'), mo = tag(entry, 'month'), d = tag(entry, 'day');
+  const url = tag(entry, 'URL');
+  if (!y || !mo || !d || !url) return null;
+  return { reference: tag(entry, 'reference') ?? `${y}-${mo}-${d}`, date: `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`, url };
+}
+
 /** All weekly reports, oldest first. */
 export function parseEuReportList(xml: string): EuReport[] {
-  const reports: EuReport[] = [];
-  for (const m of xml.matchAll(/<weeklyReport>([\s\S]*?)<\/weeklyReport>/g)) {
-    const r = m[1];
-    const y = tag(r, 'year'), mo = tag(r, 'month'), d = tag(r, 'day');
-    const url = tag(r, 'URL');
-    if (!y || !mo || !d || !url) continue;
-    reports.push({ reference: tag(r, 'reference') ?? `${y}-${mo}-${d}`, date: `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`, url });
+  return [...xml.matchAll(REPORT_ENTRY)]
+    .map((m) => reportFrom(m[1]))
+    .filter((r): r is EuReport => r !== null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/**
+ * The full list goes back to 2005 and is newest first, so we only read its top: up to the second
+ * report older than `cutoff` (two, in case one report has a misprinted date).
+ */
+export function listReaches(cutoff: string): (text: string) => boolean {
+  return (text) => {
+    let older = 0;
+    for (const m of text.matchAll(REPORT_ENTRY)) {
+      const r = reportFrom(m[1]);
+      if (r && r.date < cutoff && ++older >= 2) return true;
+    }
+    return false;
+  };
+}
+
+/** How far back the list is read: a little more than the two years of history the backfill loads. */
+const LIST_DAYS = 760;
+const LIST_FRESH_MS = 15 * 60_000;
+const listCache = new WeakMap<FetchFn, { at: number; readTo: string; reports: EuReport[] }>();
+
+/**
+ * Weekly reports dated `cutoff` or later, oldest first. The list is read once per run and shared
+ * by the everyday check and the history loader.
+ */
+export async function euReportsSince(fetchFn: FetchFn, cutoff: string, now = Date.now()): Promise<EuReport[]> {
+  let cached = listCache.get(fetchFn);
+  if (!cached || now - cached.at > LIST_FRESH_MS || cached.readTo > cutoff) {
+    const depth = new Date(now - LIST_DAYS * 86400_000).toISOString().slice(0, 10);
+    const readTo = cutoff < depth ? cutoff : depth;
+    const reports = parseEuReportList(await getTextUntil(fetchFn, EU_LIST, listReaches(readTo)));
+    cached = { at: now, readTo, reports };
+    listCache.set(fetchFn, cached);
   }
-  return reports.sort((a, b) => a.date.localeCompare(b.date));
+  return cached.reports.filter((r) => r.date >= cutoff);
 }
 
 /** "Category of measure(s): Recall of the product from end users" → "Recall of the product from end users". */
@@ -119,14 +159,23 @@ export function parseEuReport(xml: string, reportDate: string): Recall[] {
     .filter((r): r is Recall => r !== null);
 }
 
-export async function fetchEuReports(fetchFn: FetchFn, reports: EuReport[]): Promise<Recall[]> {
-  const xmls = await mapLimit(reports, 2, (r) => getText(fetchFn, r.url).catch(() => null));
-  return reports.flatMap((r, i) => (xmls[i] ? parseEuReport(xmls[i]!, r.date) : []));
+/**
+ * Downloads weekly reports (oldest first), two at a time. If one fails, the batch stops just before it,
+ * so it's tried again next run rather than skipped; if the first one fails, this throws.
+ * A report the server says doesn't exist (404 and the like) is passed over.
+ */
+export async function fetchEuReports(fetchFn: FetchFn, reports: EuReport[]): Promise<{ recalls: Recall[]; fetched: number }> {
+  const results = await mapLimit(reports, 2, (r) =>
+    getText(fetchFn, r.url).then((xml) => ({ xml }), (error: unknown) => (isPermanent(error) ? { xml: '' } : { error })));
+  const failed = results.findIndex((r) => 'error' in r);
+  if (failed === 0) throw (results[0] as { error: unknown }).error;
+  const fetched = failed < 0 ? reports.length : failed;
+  const recalls = reports.slice(0, fetched).flatMap((r, i) => parseEuReport((results[i] as { xml: string }).xml, r.date));
+  return { recalls, fetched };
 }
 
 /** Weekly reports published since `since` (at most `maxReports`, newest). */
 export async function fetchEuSince(fetchFn: FetchFn, since: string, maxReports = 6): Promise<Recall[]> {
-  const fromDate = since.slice(0, 10);
-  const reports = parseEuReportList(await getText(fetchFn, EU_LIST)).filter((r) => r.date >= fromDate).slice(-maxReports);
-  return fetchEuReports(fetchFn, reports);
+  const reports = (await euReportsSince(fetchFn, since.slice(0, 10))).slice(-maxReports);
+  return (await fetchEuReports(fetchFn, reports)).recalls;
 }

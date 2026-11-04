@@ -80,27 +80,74 @@ async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promis
   return results;
 }
 
-/** Fetches a web page as text (for sources with no data feed). */
-async function getText(fetchFn: FetchFn, url: string): Promise<string> {
-  const res = await fetchFn(url, { headers: { Accept: 'text/html', 'User-Agent': 'HeadsUpHome/1.0 (recall alerts)' } });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} for ${url}`);
-  return await res.text();
+const USER_AGENT = 'HeadsUpHome/1.0 (recall alerts)';
+const TIMEOUT_MS = 30_000; // a stuck download gives up rather than holding up the whole run
+
+/** A server's "no" (as opposed to a dropped connection), with its status code. */
+class HttpError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
 }
 
-async function getJson(fetchFn: FetchFn, url: string, attempts = 3): Promise<Json> {
+/** True for answers that won't change if we ask again (404 and friends). */
+function isPermanent(err: unknown): boolean {
+  return err instanceof HttpError && err.status >= 400 && err.status < 500 && err.status !== 429;
+}
+
+/** Tries `fn` up to `attempts` times, waiting a little longer each time. Doesn't retry permanent errors. */
+async function withRetries<T>(attempts: number, fn: () => Promise<T>): Promise<T> {
   let lastError: unknown;
   for (let i = 0; i < attempts; i++) {
     try {
-      const res = await fetchFn(url, { headers: { Accept: 'application/json', 'User-Agent': 'HeadsUpHome/1.0 (recall alerts)' } });
-      if (res.ok) return await res.json();
-      lastError = new Error(`${res.status} ${res.statusText} for ${url}`);
-      if (res.status < 500 && res.status !== 429) break; // don't retry client errors
+      return await fn();
     } catch (err) {
       lastError = err;
+      if (isPermanent(err)) break;
     }
-    await new Promise((r) => setTimeout(r, 500 * 2 ** i));
+    if (i < attempts - 1) await new Promise((r) => setTimeout(r, 500 * 2 ** i));
   }
   throw lastError;
+}
+
+async function request(fetchFn: FetchFn, url: string, accept: string): Promise<Response> {
+  const res = await fetchFn(url, { headers: { Accept: accept, 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  if (!res.ok) throw new HttpError(res.status, `${res.status} ${res.statusText} for ${url}`);
+  return res;
+}
+
+/** Fetches a web page as text (for sources with no data feed). A dropped download is tried again. */
+async function getText(fetchFn: FetchFn, url: string, attempts = 3): Promise<string> {
+  return await withRetries(attempts, async () => await (await request(fetchFn, url, 'text/html')).text());
+}
+
+/**
+ * Reads a page from the top and stops as soon as `enough(textSoFar)` says it has what it needs,
+ * so a long list (newest first) doesn't have to be downloaded in full. Returns the whole page if it ends first.
+ */
+async function getTextUntil(fetchFn: FetchFn, url: string, enough: (text: string) => boolean, attempts = 3): Promise<string> {
+  return await withRetries(attempts, async () => {
+    const res = await request(fetchFn, url, 'text/html');
+    if (!res.body) return await res.text();
+    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    let text = '';
+    try {
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) return text;
+        text += value;
+        if (enough(text)) return text;
+      }
+    } finally {
+      reader.cancel().catch(() => {}); // stop the rest of the download
+    }
+  });
+}
+
+async function getJson(fetchFn: FetchFn, url: string, attempts = 3): Promise<Json> {
+  return await withRetries(attempts, async () => await (await request(fetchFn, url, 'application/json')).json());
 }
 
 // ───────── push.ts ─────────
