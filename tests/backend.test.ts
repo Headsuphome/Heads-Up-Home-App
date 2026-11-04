@@ -701,8 +701,12 @@ const encode = (s: string) => new TextEncoder().encode(s);
 
 /** A download that drops part-way through, as the EU server's sometimes do. */
 function droppedResponse(start: string) {
+  let sent = false;
   return new Response(new ReadableStream({
-    start(c) { c.enqueue(encode(start)); c.error(new TypeError('error reading a body from connection')); },
+    pull(c) {
+      if (!sent) { sent = true; c.enqueue(encode(start)); return; }
+      c.error(new TypeError('error reading a body from connection'));
+    },
   }));
 }
 
@@ -802,4 +806,22 @@ test('every EU download asks for an uncompressed file, which the Supabase runtim
   await fetchEuSince(fetchFn as typeof fetch, '2026-10-20T12:00:00.000Z');
   assert.ok(asked.length >= 3);
   assert.ok(asked.every((a) => a === 'identity'), asked.join(','));
+});
+
+test('an EU report whose connection drops after the closing tag is kept, not retried', async () => {
+  let reportRequests = 0;
+  const fetchFn = async (url: string) => {
+    if (url.includes('/list/')) return new Response(euWeeklyList(10));
+    reportRequests++;
+    return droppedResponse(`<Safety-Gate>${euNotification(url.slice(-1) + '001', 'Toys')}</Safety-Gate>\n`);
+  };
+  const recalls = await fetchEuSince(fetchFn as typeof fetch, '2026-10-20T12:00:00.000Z');
+  assert.equal(recalls.length, 2);
+  assert.equal(reportRequests, 2);
+});
+
+test('a download that keeps dropping says how far it got', async () => {
+  const fetchFn = async () => droppedResponse('<html>half');
+  await assert.rejects(getText(fetchFn as typeof fetch, 'https://example.org/page', { attempts: 1 }),
+    /error reading a body from connection \(after 10 characters; encoding none, transfer none\)/);
 });

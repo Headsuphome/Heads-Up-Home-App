@@ -67,6 +67,8 @@ const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
 // Older recalls are loaded separately, a batch each run (see backfill.ts). This is how long the
 // backfill may keep starting new batches, so the whole run stays well inside its time limit.
 const BACKFILL_SECONDS = 55;
+/** Shown in each run's report, so we can tell which version of the engine ran. */
+const ENGINE_VERSION = '2026-11-04.3';
 
 type Db = SupabaseClient;
 
@@ -199,7 +201,7 @@ Deno.serve(async (req) => {
     auth: { persistSession: false },
   });
 
-  const report: Record<string, unknown> = {};
+  const report: Record<string, unknown> = { engine: ENGINE_VERSION };
   const started = Date.now();
   // Each entry keeps its own place in sync_state, so the name doesn't have to be a recall source.
   const SOURCES: Array<[string, typeof fetchFsaSince]> = [

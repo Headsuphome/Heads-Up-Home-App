@@ -112,18 +112,28 @@ async function withRetries<T>(attempts: number, fn: () => Promise<T>): Promise<T
   throw lastError;
 }
 
-type GetOptions = { attempts?: number; headers?: Record<string, string> };
+/**
+ * attempts: how many tries. headers: extra request headers.
+ * complete: says whether text already holds the whole document, so a connection that drops
+ * right at the end (some servers hang up without a proper goodbye) still counts as a success.
+ */
+type GetOptions = { attempts?: number; headers?: Record<string, string>; complete?: (text: string) => boolean };
 
 async function request(fetchFn: FetchFn, url: string, accept: string, extra: Record<string, string> = {}): Promise<Response> {
   const headers = { Accept: accept, 'User-Agent': USER_AGENT, ...extra };
-  const res = await fetchFn(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  let res: Response;
+  try {
+    res = await fetchFn(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  } catch (err) {
+    throw new Error(`${err instanceof Error ? err.message : String(err)} (no response)`, { cause: err });
+  }
   if (!res.ok) throw new HttpError(res.status, `${res.status} ${res.statusText} for ${url}`);
   return res;
 }
 
 /** Fetches a web page as text (for sources with no data feed). A dropped download is tried again. */
 async function getText(fetchFn: FetchFn, url: string, opts: GetOptions = {}): Promise<string> {
-  return await withRetries(opts.attempts ?? 3, async () => await (await request(fetchFn, url, 'text/html', opts.headers)).text());
+  return await getTextUntil(fetchFn, url, () => false, opts);
 }
 
 /**
@@ -134,15 +144,20 @@ async function getTextUntil(fetchFn: FetchFn, url: string, enough: (text: string
   return await withRetries(opts.attempts ?? 3, async () => {
     const res = await request(fetchFn, url, 'text/html', opts.headers);
     if (!res.body) return await res.text();
-    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
     let text = '';
     try {
       for (;;) {
         const { value, done } = await reader.read();
-        if (done) return text;
-        text += value;
+        if (done) return text + decoder.decode();
+        text += decoder.decode(value, { stream: true });
         if (enough(text)) return text;
       }
+    } catch (err) {
+      if (opts.complete?.(text)) return text;
+      const how = `encoding ${res.headers.get('content-encoding') ?? 'none'}, transfer ${res.headers.get('transfer-encoding') ?? 'none'}`;
+      throw new Error(`${err instanceof Error ? err.message : String(err)} (after ${text.length} characters; ${how})`, { cause: err });
     } finally {
       reader.cancel().catch(() => {}); // stop the rest of the download
     }

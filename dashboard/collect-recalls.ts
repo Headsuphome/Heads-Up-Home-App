@@ -182,18 +182,28 @@ async function withRetries<T>(attempts: number, fn: () => Promise<T>): Promise<T
   throw lastError;
 }
 
-type GetOptions = { attempts?: number; headers?: Record<string, string> };
+/**
+ * attempts: how many tries. headers: extra request headers.
+ * complete: says whether text already holds the whole document, so a connection that drops
+ * right at the end (some servers hang up without a proper goodbye) still counts as a success.
+ */
+type GetOptions = { attempts?: number; headers?: Record<string, string>; complete?: (text: string) => boolean };
 
 async function request(fetchFn: FetchFn, url: string, accept: string, extra: Record<string, string> = {}): Promise<Response> {
   const headers = { Accept: accept, 'User-Agent': USER_AGENT, ...extra };
-  const res = await fetchFn(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  let res: Response;
+  try {
+    res = await fetchFn(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  } catch (err) {
+    throw new Error(`${err instanceof Error ? err.message : String(err)} (no response)`, { cause: err });
+  }
   if (!res.ok) throw new HttpError(res.status, `${res.status} ${res.statusText} for ${url}`);
   return res;
 }
 
 /** Fetches a web page as text (for sources with no data feed). A dropped download is tried again. */
 async function getText(fetchFn: FetchFn, url: string, opts: GetOptions = {}): Promise<string> {
-  return await withRetries(opts.attempts ?? 3, async () => await (await request(fetchFn, url, 'text/html', opts.headers)).text());
+  return await getTextUntil(fetchFn, url, () => false, opts);
 }
 
 /**
@@ -204,15 +214,20 @@ async function getTextUntil(fetchFn: FetchFn, url: string, enough: (text: string
   return await withRetries(opts.attempts ?? 3, async () => {
     const res = await request(fetchFn, url, 'text/html', opts.headers);
     if (!res.body) return await res.text();
-    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
     let text = '';
     try {
       for (;;) {
         const { value, done } = await reader.read();
-        if (done) return text;
-        text += value;
+        if (done) return text + decoder.decode();
+        text += decoder.decode(value, { stream: true });
         if (enough(text)) return text;
       }
+    } catch (err) {
+      if (opts.complete?.(text)) return text;
+      const how = `encoding ${res.headers.get('content-encoding') ?? 'none'}, transfer ${res.headers.get('transfer-encoding') ?? 'none'}`;
+      throw new Error(`${err instanceof Error ? err.message : String(err)} (after ${text.length} characters; ${how})`, { cause: err });
     } finally {
       reader.cancel().catch(() => {}); // stop the rest of the download
     }
@@ -1496,8 +1511,12 @@ const EU_LIST = 'https://ec.europa.eu/safety-gate-alerts/api/download/weeklyRepo
 
 // Asked for compressed, the EU server sends its files without a length and just hangs up at the end,
 // which the Supabase runtime reports as "error reading a body from connection". Uncompressed, it sends
-// them in marked chunks with a clear end, which reads cleanly everywhere.
-const EU_GET = { headers: { 'Accept-Encoding': 'identity' } };
+// them in marked chunks with a clear end, which reads cleanly everywhere. And if the connection still
+// drops after the closing tag has arrived, we already have the whole file, so we keep it.
+const EU_GET = {
+  headers: { 'Accept-Encoding': 'identity' },
+  complete: (text: string) => /<\/Safety-Gate>\s*$/.test(text),
+};
 
 /** Product types we leave out: vehicles are handled by national schemes, not useful here. */
 const SKIP_CATEGORIES = /motor vehicles|recreational craft/i;
@@ -2127,6 +2146,8 @@ const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
 // Older recalls are loaded separately, a batch each run (see backfill.ts). This is how long the
 // backfill may keep starting new batches, so the whole run stays well inside its time limit.
 const BACKFILL_SECONDS = 55;
+/** Shown in each run's report, so we can tell which version of the engine ran. */
+const ENGINE_VERSION = '2026-11-04.3';
 
 type Db = SupabaseClient;
 
@@ -2259,7 +2280,7 @@ Deno.serve(async (req) => {
     auth: { persistSession: false },
   });
 
-  const report: Record<string, unknown> = {};
+  const report: Record<string, unknown> = { engine: ENGINE_VERSION };
   const started = Date.now();
   // Each entry keeps its own place in sync_state, so the name doesn't have to be a recall source.
   const SOURCES: Array<[string, typeof fetchFsaSince]> = [

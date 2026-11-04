@@ -14,8 +14,12 @@ export const EU_LIST = 'https://ec.europa.eu/safety-gate-alerts/api/download/wee
 
 // Asked for compressed, the EU server sends its files without a length and just hangs up at the end,
 // which the Supabase runtime reports as "error reading a body from connection". Uncompressed, it sends
-// them in marked chunks with a clear end, which reads cleanly everywhere.
-const EU_GET = { headers: { 'Accept-Encoding': 'identity' } };
+// them in marked chunks with a clear end, which reads cleanly everywhere. And if the connection still
+// drops after the closing tag has arrived, we already have the whole file, so we keep it.
+const EU_GET = {
+  headers: { 'Accept-Encoding': 'identity' },
+  complete: (text: string) => /<\/Safety-Gate>\s*$/.test(text),
+};
 
 /** Product types we leave out: vehicles are handled by national schemes, not useful here. */
 const SKIP_CATEGORIES = /motor vehicles|recreational craft/i;
