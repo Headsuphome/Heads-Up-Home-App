@@ -1,0 +1,4 @@
+status: success
+commit: 045d4eb6c6620970bc794ef4e4a5cbe66d5e7821
+trigger: refs/heads/play-build
+finished: 2026-11-08T18:41:24Z
