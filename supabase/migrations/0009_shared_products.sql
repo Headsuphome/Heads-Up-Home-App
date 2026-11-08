@@ -32,6 +32,7 @@ drop policy if exists "shared products are public" on public.shared_products;
 create policy "shared products are public" on public.shared_products
   for select using (true);
 -- No insert or update policy: names only arrive through suggest_product() below.
+grant select on public.shared_products to anon, authenticated;
 
 -- Adds a name for a barcode. The first name stays; the same name typed again counts as a confirmation.
 create or replace function public.suggest_product(p_barcode text, p_name text, p_brand text default null)
