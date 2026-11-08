@@ -1,0 +1,47 @@
+CREATE FUNCTION
+CREATE TABLE
+ALTER TABLE
+psql:supabase/migrations/0009_shared_products.sql:31: NOTICE:  policy "shared products are public" for relation "public.shared_products" does not exist, skipping
+DROP POLICY
+CREATE POLICY
+CREATE FUNCTION
+REVOKE
+GRANT
+ shared_products 
+-----------------
+               0
+(1 row)
+
+ ean13_ok | ean13_bad | ean8_ok | upca_ok 
+----------+-----------+---------+---------
+ t        | f         | t       | t
+(1 row)
+
+SET
+ suggest_product 
+-----------------
+ 
+(1 row)
+
+ suggest_product 
+-----------------
+ 
+(1 row)
+
+ suggest_product 
+-----------------
+ 
+(1 row)
+
+ suggest_product 
+-----------------
+ 
+(1 row)
+
+ suggest_product 
+-----------------
+ 
+(1 row)
+
+psql:scripts/sql-tests/0009_shared_products_test.sql:11: ERROR:  permission denied for table shared_products
+SQL TEST FAILED
