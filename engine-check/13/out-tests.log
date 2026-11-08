@@ -1,0 +1,314 @@
+TAP version 13
+# (node:2457) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/tests/backend.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to /home/runner/work/Heads-Up-Home-App/Heads-Up-Home-App/package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: FSA recall becomes a clean food recall with barcode and dates
+ok 1 - FSA recall becomes a clean food recall with barcode and dates
+  ---
+  duration_ms: 5.561131
+  type: 'test'
+  ...
+# Subtest: FSA allergy alert picks up allergens, batch codes and children category
+ok 2 - FSA allergy alert picks up allergens, batch codes and children category
+  ---
+  duration_ms: 1.400006
+  type: 'test'
+  ...
+# Subtest: allergen labels map to the 14 UK allergens
+ok 3 - allergen labels map to the 14 UK allergens
+  ---
+  duration_ms: 0.688066
+  type: 'test'
+  ...
+# Subtest: OPSS title is split into product name and reference
+ok 4 - OPSS title is split into product name and reference
+  ---
+  duration_ms: 0.643923
+  type: 'test'
+  ...
+# Subtest: OPSS report becomes an electrical recall with hazard, advice and barcode
+ok 5 - OPSS report becomes an electrical recall with hazard, advice and barcode
+  ---
+  duration_ms: 4.008189
+  type: 'test'
+  ...
+# Subtest: OPSS childcare recall lands in Baby & children
+ok 6 - OPSS childcare recall lands in Baby & children
+  ---
+  duration_ms: 0.889492
+  type: 'test'
+  ...
+# Subtest: unknown OPSS categories still get a home
+ok 7 - unknown OPSS categories still get a home
+  ---
+  duration_ms: 0.449911
+  type: 'test'
+  ...
+# Subtest: tokens ignore filler words and join sizes
+ok 8 - tokens ignore filler words and join sizes
+  ---
+  duration_ms: 0.424664
+  type: 'test'
+  ...
+# Subtest: barcode match is the most confident
+ok 9 - barcode match is the most confident
+  ---
+  duration_ms: 0.649484
+  type: 'test'
+  ...
+# Subtest: brand + name match is likely, partial is possible, wrong brand is ignored
+ok 10 - brand + name match is likely, partial is possible, wrong brand is ignored
+  ---
+  duration_ms: 0.633694
+  type: 'test'
+  ...
+# Subtest: "Not mine" stops the same recall matching again
+ok 11 - "Not mine" stops the same recall matching again
+  ---
+  duration_ms: 0.306223
+  type: 'test'
+  ...
+# Subtest: one alert per person, cupboard beats allergen beats category
+ok 12 - one alert per person, cupboard beats allergen beats category
+  ---
+  duration_ms: 0.48701
+  type: 'test'
+  ...
+# Subtest: notification wording is calm and honest about certainty
+ok 13 - notification wording is calm and honest about certainty
+  ---
+  duration_ms: 0.255107
+  type: 'test'
+  ...
+# Subtest: fetchFsaSince lists new alerts then loads each in full, skipping withdrawn ones
+ok 14 - fetchFsaSince lists new alerts then loads each in full, skipping withdrawn ones
+  ---
+  duration_ms: 28.417748
+  type: 'test'
+  ...
+# Subtest: one FSA alert failing does not lose the others
+ok 15 - one FSA alert failing does not lose the others
+  ---
+  duration_ms: 1.238624
+  type: 'test'
+  ...
+# Subtest: fetchOpssSince searches GOV.UK then reads each notice
+ok 16 - fetchOpssSince searches GOV.UK then reads each notice
+  ---
+  duration_ms: 3.183568
+  type: 'test'
+  ...
+# Subtest: sendPush batches messages and reports uninstalled devices
+ok 17 - sendPush batches messages and reports uninstalled devices
+  ---
+  duration_ms: 1.922322
+  type: 'test'
+  ...
+# Subtest: sendPush splits a batch that mixes apps, as Expo asks
+ok 18 - sendPush splits a batch that mixes apps, as Expo asks
+  ---
+  duration_ms: 0.869785
+  type: 'test'
+  ...
+# Subtest: a failed push batch is reported without stopping the others
+ok 19 - a failed push batch is reported without stopping the others
+  ---
+  duration_ms: 2.863731
+  type: 'test'
+  ...
+# Subtest: the product photo is lifted out of a notice PDF, skipping logos and CMYK images
+ok 20 - the product photo is lifted out of a notice PDF, skipping logos and CMYK images
+  ---
+  duration_ms: 2.596651
+  type: 'test'
+  ...
+# Subtest: a PDF without photos gives no photo
+ok 21 - a PDF without photos gives no photo
+  ---
+  duration_ms: 0.115936
+  type: 'test'
+  ...
+# Subtest: notice PDFs and direct images are found for both agencies
+ok 22 - notice PDFs and direct images are found for both agencies
+  ---
+  duration_ms: 0.328734
+  type: 'test'
+  ...
+# Subtest: photo file names are safe
+ok 23 - photo file names are safe
+  ---
+  duration_ms: 0.158657
+  type: 'test'
+  ...
+# Subtest: MHRA recall titles are split into company, product and reference
+ok 24 - MHRA recall titles are split into company, product and reference
+  ---
+  duration_ms: 0.504132
+  type: 'test'
+  ...
+# Subtest: MHRA batch table and patient advice are read
+ok 25 - MHRA batch table and patient advice are read
+  ---
+  duration_ms: 1.404485
+  type: 'test'
+  ...
+# Subtest: only medicine recalls and device safety information are collected
+ok 26 - only medicine recalls and device safety information are collected
+  ---
+  duration_ms: 1.218105
+  type: 'test'
+  ...
+# Subtest: only Scotland-only alerts are taken from the FSS page
+ok 27 - only Scotland-only alerts are taken from the FSS page
+  ---
+  duration_ms: 0.771381
+  type: 'test'
+  ...
+# Subtest: FSS alerts become recalls with business, product and allergens
+ok 28 - FSS alerts become recalls with business, product and allergens
+  ---
+  duration_ms: 1.523436
+  type: 'test'
+  ...
+# Subtest: pet food recalls are filed under Pets, not food for people
+ok 29 - pet food recalls are filed under Pets, not food for people
+  ---
+  duration_ms: 0.125454
+  type: 'test'
+  ...
+# Subtest: pet products are told apart from children's toys shaped like animals
+ok 30 - pet products are told apart from children's toys shaped like animals
+  ---
+  duration_ms: 0.131976
+  type: 'test'
+  ...
+# Subtest: VMD recall notices become pet medicine recalls
+ok 31 - VMD recall notices become pet medicine recalls
+  ---
+  duration_ms: 4.755566
+  type: 'test'
+  ...
+# Subtest: VMD notices written as labels and values: product, batch, reason and action
+ok 32 - VMD notices written as labels and values: product, batch, reason and action
+  ---
+  duration_ms: 1.280402
+  type: 'test'
+  ...
+# Subtest: VMD letter-style notices: titles, batch tables, lists, reasons and actions
+ok 33 - VMD letter-style notices: titles, batch tables, lists, reasons and actions
+  ---
+  duration_ms: 2.170315
+  type: 'test'
+  ...
+# Subtest: VMD notices: products named once in a table, and reasons worded in other ways
+ok 34 - VMD notices: products named once in a table, and reasons worded in other ways
+  ---
+  duration_ms: 1.609917
+  type: 'test'
+  ...
+# Subtest: the VMD collector skips other news and withdrawn alerts
+ok 35 - the VMD collector skips other news and withdrawn alerts
+  ---
+  duration_ms: 1.159667
+  type: 'test'
+  ...
+# Subtest: MHRA Field Safety Notices keep only devices people use at home
+ok 36 - MHRA Field Safety Notices keep only devices people use at home
+  ---
+  duration_ms: 4.013929
+  type: 'test'
+  ...
+# Subtest: HSE alerts: specialist industries are left out, the rest become Trades & tools alerts
+ok 37 - HSE alerts: specialist industries are left out, the rest become Trades & tools alerts
+  ---
+  duration_ms: 2.111816
+  type: 'test'
+  ...
+# Subtest: EU Safety Gate weekly reports become clearly labelled EU warnings
+ok 38 - EU Safety Gate weekly reports become clearly labelled EU warnings
+  ---
+  duration_ms: 16.455026
+  type: 'test'
+  ...
+# Subtest: EU warnings only alert people whose cupboard matches, never by category
+ok 39 - EU warnings only alert people whose cupboard matches, never by category
+  ---
+  duration_ms: 0.650265
+  type: 'test'
+  ...
+# Subtest: history loading works through each source a batch at a time, then stops
+ok 40 - history loading works through each source a batch at a time, then stops
+  ---
+  duration_ms: 6.153447
+  type: 'test'
+  ...
+# Subtest: a dropped download is tried again
+ok 41 - a dropped download is tried again
+  ---
+  duration_ms: 502.02735
+  type: 'test'
+  ...
+# Subtest: a missing page is not asked for again
+ok 42 - a missing page is not asked for again
+  ---
+  duration_ms: 0.791138
+  type: 'test'
+  ...
+# Subtest: the EU list is read only as far back as needed, once per run
+ok 43 - the EU list is read only as far back as needed, once per run
+  ---
+  duration_ms: 10.271011
+  type: 'test'
+  ...
+# Subtest: one misprinted date does not cut the EU list short
+ok 44 - one misprinted date does not cut the EU list short
+  ---
+  duration_ms: 0.190836
+  type: 'test'
+  ...
+# Subtest: the everyday EU check survives a dropped list download
+ok 45 - the everyday EU check survives a dropped list download
+  ---
+  duration_ms: 502.289861
+  type: 'test'
+  ...
+# Subtest: EU reports stop before one that fails, so it is tried again next time
+ok 46 - EU reports stop before one that fails, so it is tried again next time
+  ---
+  duration_ms: 3006.345232
+  type: 'test'
+  ...
+# Subtest: every EU download asks for an uncompressed file, which the Supabase runtime reads cleanly
+ok 47 - every EU download asks for an uncompressed file, which the Supabase runtime reads cleanly
+  ---
+  duration_ms: 1.268732
+  type: 'test'
+  ...
+# Subtest: an EU report whose connection drops after the closing tag is kept, not retried
+ok 48 - an EU report whose connection drops after the closing tag is kept, not retried
+  ---
+  duration_ms: 0.869546
+  type: 'test'
+  ...
+# Subtest: a download that keeps dropping says how far it got
+ok 49 - a download that keeps dropping says how far it got
+  ---
+  duration_ms: 0.312043
+  type: 'test'
+  ...
+# Subtest: an allergen someone typed in matches food recalls that mention it as a whole word
+ok 50 - an allergen someone typed in matches food recalls that mention it as a whole word
+  ---
+  duration_ms: 0.590023
+  type: 'test'
+  ...
+1..50
+# tests 50
+# suites 0
+# pass 50
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4336.830259

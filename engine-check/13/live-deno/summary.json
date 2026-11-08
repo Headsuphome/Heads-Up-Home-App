@@ -1,0 +1,3271 @@
+{
+ "fsa": {
+  "count": 14,
+  "seconds": 1.317,
+  "categories": {
+   "food-drink": 14
+  },
+  "sample": [
+   {
+    "id": "fsa:FSA-PRIN-52-2026",
+    "title": "Baxters recalls Chef Selections Cullen Skink soup because of a manufacturing fault which may cause spoilage and cans to rupture",
+    "publishedAt": "2026-11-06T00:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "A manufacturing fault has occurred which may result in spoilage causing unpleasant odour and flavour, swelling and possible rupture of the can.",
+    "advice": "If you have bought the above product, do not eat it. Instead, dispose of the full can and product without opening. Carefully place the full can in a bag and dis",
+    "products": [
+     {
+      "name": "Baxters Chef Selections Cullen Skink soup",
+      "barcode": null,
+      "batches": [
+       "L07XC"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-52-2026",
+    "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-PRIN-52-2026/2f4d6a4fc2c7661f7314a909ce62de087a702b39c1ee457f68021427abb.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "fsa:FSA-AA-51-2026",
+    "title": "AG Barr recalls Rubicon Yuzu & Pink Grapefruit Cartons because they may contain undeclared sulphites",
+    "publishedAt": "2026-11-05T00:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "This product may contain sulphites making it a possible health risk for anyone with a sensitivity to sulphur dioxide and/or sulphites.",
+    "advice": "If you have bought the above product and have a sensitivity to sulphur dioxide or sulphites, do not consume it. Instead, return it to where you bought it from f",
+    "products": [
+     {
+      "name": "Rubicon Yuzu & Pink Grapefruit",
+      "barcode": null,
+      "batches": [
+       "6160"
+      ]
+     },
+     {
+      "name": "Rubicon Yuzu & Pink Grapefruit",
+      "barcode": null,
+      "batches": [
+       "6198"
+      ]
+     },
+     {
+      "name": "Rubicon Yuzu & Pink Grapefruit",
+      "barcode": null,
+      "batches": [
+       "6219"
+      ]
+     },
+     {
+      "name": "Rubicon Yuzu & Pink Grapefruit",
+      "barcode": null,
+      "batches": [
+       "6257"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-51-2026",
+    "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-51-2026/FSA-AA-51-2026-point-of-sale-notice-for-AG-Barr-recall-Rubicon-Yuzu-Pink-Grapefruit-Cartons-due-to-undeclared-sulphites.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "fsa:FSA-AA-50-2026-update-1",
+    "title": "Update 1 – PepsiCo updates its recall of Walkers Variety Snacks Sharing Box because of undeclared wheat (gluten)",
+    "publishedAt": "2026-10-30T00:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "Wheat (gluten)\nThis product contains gluten making it a possible health risk for anyone with an allergy or intolerance to wheat or gluten, or with coeliac disea",
+    "advice": "If you have bought the above product and have an allergy or intolerance to wheat or gluten or have coeliac disease, do not eat it. Instead, please call the Peps",
+    "products": [
+     {
+      "name": "Walkers Variety Snacks Sharing Box",
+      "barcode": null,
+      "batches": [
+       "107543"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-50-2026-update-1",
+    "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-50-2026-update-1/FSA-AA-50-2026-Update-1-Pepsico-recalls-Walkers-Variety-Snacks-Sharing-Box.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "opss": {
+  "count": 58,
+  "seconds": 2.098,
+  "categories": {
+   "trades-tools": 7,
+   "other": 4,
+   "toys": 8,
+   "electrical": 13,
+   "baby-children": 21,
+   "cosmetics": 3,
+   "clothing": 2,
+   "home-furniture": 3
+  },
+  "sample": [
+   {
+    "id": "opss:2610-0149",
+    "title": "VTEK Cordless Reciprocating Saw sold via Amazon",
+    "publishedAt": "2026-11-06T00:00:00.000Z",
+    "categories": [
+     "trades-tools"
+    ],
+    "risk": "high",
+    "summary": "The product presents a risk of fire as the supplied plug does not have a fuse. A fuse is required to ensure the safe operation of the product under fault condit",
+    "advice": "The import has been rejected at the border.\nAdditional information\nPSD notification number: 2610-0149\nNotified by: Local Authority Trading Standards",
+    "products": [
+     {
+      "name": "VTEK Cordless Reciprocating Saw sold via Amazon",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-vtek-cordless-reciprocating-saw-sold-via-amazon-2610-0149",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6aedf89f545f86712115b9a8/2610-0149-product-safety-report-vtek-cordless-saw.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "opss:2610-0235",
+    "title": "Yongkang Yongchang Electric Tools Co Ltd Cordless Drill sold via Amazon",
+    "publishedAt": "2026-11-06T00:00:00.000Z",
+    "categories": [
+     "trades-tools"
+    ],
+    "risk": "serious",
+    "summary": "The product presents a risk of electric shock as the power supply does not provide adequate electrical isolation between the mains input and DC output.",
+    "advice": "The import has been rejected at the border.\nAdditional information\nPSD notification number: 2610-0235\nNotified by: Local Authority Trading Standards",
+    "products": [
+     {
+      "name": "Yongkang Yongchang Electric Tools Co Ltd Cordless Drill sold via Amazon",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-yongkang-yongchang-electric-tools-co-ltd-cordless-drill-sold-via-amazon-2610-0235",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6aedf2b9545f86712115b998/2610-0235-product-safety-report-cordless-drill.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "opss:2610-0216",
+    "title": "Urban Arrow Cargo Bikes fitted with Satori Trident Seat Post",
+    "publishedAt": "2026-11-06T00:00:00.000Z",
+    "categories": [
+     "other"
+    ],
+    "risk": null,
+    "summary": "Electric bikes fitted with a Satori Trident seat post present a risk of injuries as the front bolt in the seat post clamping mechanism can break if the bolt is ",
+    "advice": "Electric bikes fitted with a Satori Trident Seat Post are subject to a replacement programme by Urban Arrow.\nIf you own an affected electric bike, please contac",
+    "products": [
+     {
+      "name": "Urban Arrow Cargo Bikes fitted with Satori Trident Seat Post",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-urban-arrow-cargo-bikes-fitted-with-satori-trident-seat-post-2610-0216",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6aededd83d2a37f5a363ac1e/2610-0216-product-safety-report-urban-arrow-cargo-bikes.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "mhra": {
+  "count": 8,
+  "seconds": 0.696,
+  "categories": {
+   "medicines": 8
+  },
+  "sample": [
+   {
+    "id": "mhra:EL26A46",
+    "title": "Co-Amoxiclav powder for oral suspension 250/62.5 mg/5mL",
+    "publishedAt": "2026-11-05T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": "low",
+    "summary": "Sandoz Limited have informed the MHRA of errors in the dosing table in the Summary of Product Characteristics (SmPC) for Co-amoxiclav 250/62.5 mg/5 ml Powder fo",
+    "advice": "Patients should continue to take this medication as prescribed. If you believe you have taken or administered the higher dose of co-amoxiclav and are currently ",
+    "products": [
+     {
+      "name": "Co-Amoxiclav powder for oral suspension 250/62.5 mg/5mL",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-4-medicines-defect-notification-sandoz-limited-co-amoxiclav-powder-for-oral-suspension-250-slash-62-dot-5-mg-slash-ml-el-26-a-slash-46",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6aec67c2bdbbd2ef07a254bd/EL26A46_Sandoz_Co_amoxiclav_incorrect_SmPC_002.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra:EL26A47",
+    "title": "Tropicamide 1% Eye Drops, solution in single dose containers 20 x 0.5ml",
+    "publishedAt": "2026-11-05T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": "medium",
+    "summary": "Aspire Pharma Ltd is recalling specific batches of Tropicamide 1% Eye Drops, solution in single dose containers 0.5ml x 20, due to them being labelled with the ",
+    "advice": "No further action is required by patients. This recall is being undertaken as a precautionary measure at the Pharmacy and Wholesaler level.\nPatients in possessi",
+    "products": [
+     {
+      "name": "Tropicamide 1% Eye Drops, solution in single dose containers 20 x 0.5ml",
+      "barcode": null,
+      "batches": [
+       "E941A",
+       "E941B",
+       "E941C"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-3-medicines-recall-aspire-pharma-limited-tropicamide-1-percent-eye-drops-solution-in-single-dose-containers-20-x-0-dot-5ml-el-26-a-slash-47",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6aeb52ee72d4b308dbe5c307/Class_3_Medicines_Recall_Aspire_Pharma_Limited__Tropicamide_1__Eye_Drops__solution_in_single_dose_containers_20_x_0.5ml___EL_26_A47.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra:EL26A45",
+    "title": "Lercanidipine Hydrochloride 10mg Film-Coated Tablets",
+    "publishedAt": "2026-10-29T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": "high",
+    "summary": "Accord-UK Ltd is recalling one batch of Lercanidipine Hydrochloride 10mg Tablets due to a packaging mix-up involving the incorrect strength.",
+    "advice": "Accord has received a single report of a carton of Accord-UK Ltd Lercanidipine Hydrochloride 10 mg Tablets containing a blister strip of Lercanidipine Hydrochlo",
+    "products": [
+     {
+      "name": "Lercanidipine Hydrochloride 10mg Film-Coated Tablets",
+      "barcode": null,
+      "batches": [
+       "M2510877"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-2-medicines-recall-accord-uk-ltd-lercanidipine-hydrochloride-10mg-film-coated-tablets-el-26-a-slash-45",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6ae333e7d22fc5fecb3eb789/Class_2_Medicines_Recall__Accord-UK_Ltd__Lercanidipine_Hydrochloride_10mg_Film-Coated_Tablets__EL26A45.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "mhra-fsn": {
+  "count": 5,
+  "seconds": 0.791,
+  "categories": {
+   "medicines": 5
+  },
+  "sample": [
+   {
+    "id": "mhra-fsn:41295467",
+    "title": "FreeStyle Libre 3 App (Abbott)",
+    "publishedAt": "2026-10-22T12:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "The manufacturer has issued a field safety notice for this device (Invasive interstitial-fluid glucose monitoring sys). The notice explains the problem and what",
+    "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+    "products": [
+     {
+      "name": "FreeStyle Libre 3 App",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-26-to-30-october-2026#abbott-freestyle-libre-3-app",
+    "documentUrl": "https://mhra-gov.filecamp.com/s/d/wauW21COcGX9K5Ln",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra-fsn:41192352",
+    "title": "FreeStyle Libre 3 App (Abbott)",
+    "publishedAt": "2026-10-28T13:23:46.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "The manufacturer has issued a field safety notice for this device (Invasive interstitial-fluid glucose monitoring sys). The notice explains the problem and what",
+    "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+    "products": [
+     {
+      "name": "FreeStyle Libre 3 App",
+      "barcode": null,
+      "batches": [],
+      "notes": "Ref ADC FA 1002-2026"
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-19-to-23-october-2026#abbott-freestyle-libre-3-app",
+    "documentUrl": "https://mhra-gov.filecamp.com/s/d/WfzD3DO9CeDCKR6G",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra-fsn:41019200",
+    "title": "t:slim X2 Insulin Pump (Tandem Diabetes Care)",
+    "publishedAt": "2026-09-01T12:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "The manufacturer has issued a field safety notice for this device (Ambulatory Insulin Infusion pump, electronic). The notice explains the problem and what to do",
+    "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+    "products": [
+     {
+      "name": "t:slim X2 Insulin Pump",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-5-to-9-october-2026#tandem-diabetes-care-tslim-x2-insulin-pump",
+    "documentUrl": "https://mhra-gov.filecamp.com/s/d/DcrXOsc0clOVDawk",
+    "imageUrl": null
+   }
+  ]
+ },
+ "vmd": {
+  "count": 4,
+  "seconds": 0.246,
+  "categories": {
+   "pets": 4
+  },
+  "sample": [
+   {
+    "id": "vmd:ion-for-cutaneous-administration-product-defect-recall-alert",
+    "title": "Scabigard Suspension for Cutaneous Administration",
+    "publishedAt": "2026-04-02T11:07:43.000Z",
+    "categories": [
+     "pets"
+    ],
+    "risk": null,
+    "summary": "The affected batches may not demonstrate the expected signs of take following administration.",
+    "advice": "This recall applies to the following batches: Zoetis is contacting wholesalers and veterinarians to immediately review inventory and quarantine products subject",
+    "products": [
+     {
+      "name": "Scabigard Suspension for Cutaneous Administration",
+      "barcode": null,
+      "batches": [
+       "7482095A01",
+       "7482095A02",
+       "7482095B01",
+       "7482095B02",
+       "7482095D01"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/government/news/scabigard-suspension-for-cutaneous-administration-product-defect-recall-alert",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "vmd:tin-100-mgml-solution-for-injection-for-dogs-cats-and-horses",
+    "title": "Anesketin 100 mg/ml Solution for Injection for Dogs, Cats and Horses",
+    "publishedAt": "2025-11-28T13:18:03.000Z",
+    "categories": [
+     "pets"
+    ],
+    "risk": null,
+    "summary": "Visible particles present in the vials.",
+    "advice": "This recall is for the following batches of 10 ml vials only: Dechra Pharmaceuticals PLC are contacting veterinarians and wholesalers to examine inventory immed",
+    "products": [
+     {
+      "name": "Anesketin 100 mg/ml Solution for Injection for Dogs, Cats and Horses",
+      "barcode": null,
+      "batches": [
+       "146534",
+       "148216",
+       "152285",
+       "154450",
+       "155130"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/government/news/batch-recall-anesketin-100-mgml-solution-for-injection-for-dogs-cats-and-horses",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "vmd:batch-recall-kelactin-and-pgf-veyx-forte",
+    "title": "Kelactin and PGF Veyx Forte",
+    "publishedAt": "2025-11-19T11:39:22.000Z",
+    "categories": [
+     "pets"
+    ],
+    "risk": null,
+    "summary": "An increased risk of microbial contamination in the aseptically manufactured products at the site of the contracted manufacturer, in the period from 01/2024 to ",
+    "advice": "This recall is for the following batches: Veyx-Pharma GmbH is contacting wholesalers to examine inventory immediately and quarantine products, subject to this r",
+    "products": [
+     {
+      "name": "Kelactin 50 Microgam/ml Oral Solution for Dogs and Cats",
+      "barcode": null,
+      "batches": [
+       "24E027",
+       "24I071",
+       "24L044"
+      ]
+     },
+     {
+      "name": "PGF Veyx Forte 0.250mg/ml Solution for Injection for Cattle and Pigs",
+      "barcode": null,
+      "batches": [
+       "24E015",
+       "24G232",
+       "24K021",
+       "25E033"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/government/news/batch-recall-kelactin-and-pgf-veyx-forte",
+    "documentUrl": null,
+    "imageUrl": null
+   }
+  ]
+ },
+ "fss": {
+  "count": 3,
+  "seconds": 1.026,
+  "categories": {
+   "food-drink": 3
+  },
+  "sample": [
+   {
+    "id": "fss:baxters-recalls-their-chef-selections-cullen-skink-soup-because-of-a-manufacturi",
+    "title": "Food alert\n6 November 2026\nBaxters recalls their Chef Selections Cullen Skink soup because of a manufacturing fault which may cause spoilage and cans to rupture\nBaxters is recalling their Chef Selections Cullen Skink soup due to a manufacturing fault which may cause spoilage of the product and for cans to swell and potentially rupture.",
+    "publishedAt": "2026-11-06T12:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "A manufacturing fault has occurred which may result in spoilage causing unpleasant odour and flavour, swelling and possible rupture of the can.",
+    "advice": "If you have bought the above product, do not eat it. Instead, dispose of the full can and product without opening. Carefully place the full can in a bag and dis",
+    "products": [
+     {
+      "name": "6 November 2026\nBaxters recalls their Chef Selections Cullen Skink soup because of a manufacturing fault which may cause spoilage and cans to rupture\nBaxters is recalling their Chef Selections Cullen Skink soup due to a manufacturing fault which may cause spoilage of the product and for cans to swell and potentially rupture.",
+      "barcode": null,
+      "batches": [],
+      "notes": "Product name Pack size Best before Batch code Baxters Chef Selections Cullen Ski"
+     }
+    ],
+    "sourceUrl": "https://www.foodstandards.gov.scot/alerts/baxters-recalls-their-chef-selections-cullen-skink-soup-because-of-a-manufacturing-fault-which-may-cause-spoilage-and-cans-to-rupture",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "fss:ag-barr-recalls-rubicon-yuzu-pink-grapefruit-1l-tetra-cartons-because-they-may-c",
+    "title": "Allergy alert\n4 November 2026\nAG Barr recalls Rubicon Yuzu & Pink Grapefruit 1L Tetra Cartons because they may contain undeclared sulphites\nAG Barr is recalling Rubicon Yuzu & Pink Grapefruit 1L Tetra Cartons because they may contain sulphites which are not mentioned on the label.",
+    "publishedAt": "2026-11-04T12:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "Allergen: Sulphites\nThis product may contain sulphites making it a possible health risk for anyone with a sensitivity to sulphur dioxide or sulphites.",
+    "advice": "If you have bought the above product and have a sensitivity to sulphur dioxide or sulphites, do not eat it. Instead, return it to where you bought it for a full",
+    "products": [
+     {
+      "name": "4 November 2026\nAG Barr recalls Rubicon Yuzu & Pink Grapefruit 1L Tetra Cartons because they may contain undeclared sulphites\nAG Barr is recalling Rubicon Yuzu & Pink Grapefruit 1L Tetra Cartons because they may contain sulphites which are not mentioned on the label.",
+      "barcode": null,
+      "batches": [],
+      "notes": "Product name Pack size Best Before End Batch codes Rubicon Yuzu & Pink Grapefrui"
+     }
+    ],
+    "sourceUrl": "https://www.foodstandards.gov.scot/alerts/ag-barr-recalls-rubicon-yuzu-pink-grapefruit-1l-tetra-cartons-because-they-may-contain-undeclared-sulphites",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "fss:waitrose-recalls-waitrose-tuna-pate-because-of-an-incorrect-use-by-date",
+    "title": "Food alert\n22 October 2026\nWaitrose recalls Waitrose Tuna Pate because of an incorrect use by date\nWaitrose is recalling Waitrose Tuna Pate because of a labelling error, the use by date is incorrect.",
+    "publishedAt": "2026-10-22T12:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "The product is labelled with an incorrect use by date of 17 December 2026 which makes it unsafe to eat after the correct use by date of 17 October 2026.",
+    "advice": "If you have bought the above product, please do not consume it. Instead, return it to your local Waitrose store for a full refund. For further information, plea",
+    "products": [
+     {
+      "name": "22 October 2026\nWaitrose recalls Waitrose Tuna Pate because of an incorrect use by date\nWaitrose is recalling Waitrose Tuna Pate because of a labelling error, the use by date is incorrect.",
+      "barcode": null,
+      "batches": [],
+      "notes": "Product name Pack size Best before - \"Use By\" date Waitrose Tuna Pate 115g 17 De"
+     }
+    ],
+    "sourceUrl": "https://www.foodstandards.gov.scot/alerts/waitrose-recalls-waitrose-tuna-pate-because-of-an-incorrect-use-by-date",
+    "documentUrl": null,
+    "imageUrl": null
+   }
+  ]
+ },
+ "hse": {
+  "count": 2,
+  "seconds": 0.277,
+  "categories": {
+   "trades-tools": 2
+  },
+  "sample": [
+   {
+    "id": "hse:ED02-2025",
+    "title": "Excavators : Use of safety control lever or isolation devices",
+    "publishedAt": "2025-08-01T09:00:00.000Z",
+    "categories": [
+     "trades-tools"
+    ],
+    "risk": null,
+    "summary": "Safety notice: There is a risk that people can be struck by the excavator or a load if the excavator operator does not use the safety control lever or isolation",
+    "advice": "Duty holders must, so far as reasonably practicable, ensure the safety of persons in the working arc of slewing plant and also any load, with the proper plannin",
+    "products": [
+     {
+      "name": "Excavators : Use of safety control lever or isolation devices",
+      "barcode": null,
+      "batches": [],
+      "notes": "Who it's for: Excavator operators, slingers and anyone working near them"
+     }
+    ],
+    "sourceUrl": "https://www.hse.gov.uk/safetybulletins/excavators-safety-control-lever-isolation-devices.htm",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "hse:EPD01-2025",
+    "title": "Risk from height adjustable display screen stands in schools and other education settings",
+    "publishedAt": "2025-05-01T09:00:00.000Z",
+    "categories": [
+     "trades-tools"
+    ],
+    "risk": null,
+    "summary": "Safety notice: Certain motorised display screen wall mounts intended for use in schools and educational establishments are a serious risk of injury.",
+    "advice": "Users and leaders in education settings\nEmployers and governing bodies in schools and other education settings have a legal duty to ensure that this equipment i",
+    "products": [
+     {
+      "name": "Risk from height adjustable display screen stands in schools and other education settings",
+      "barcode": null,
+      "batches": [],
+      "notes": "Who it's for: Users, installers and procurers of height adjustable display scree"
+     }
+    ],
+    "sourceUrl": "https://www.hse.gov.uk/safetybulletins/risk-from-height-adjustable-display-screen-education.htm",
+    "documentUrl": null,
+    "imageUrl": null
+   }
+  ]
+ },
+ "eu": {
+  "count": 365,
+  "seconds": 4.872,
+  "categories": {
+   "toys": 103,
+   "clothing": 49,
+   "electrical": 87,
+   "other": 30,
+   "baby-children": 52,
+   "cosmetics": 43,
+   "trades-tools": 30,
+   "home-furniture": 9
+  },
+  "sample": [
+   {
+    "id": "eu:SR-02826-26",
+    "title": "Nici - Counterfeit Renard (key ring with soft toy)",
+    "publishedAt": "2026-10-09T12:00:00.000Z",
+    "categories": [
+     "toys"
+    ],
+    "risk": "serious",
+    "summary": "Reported as dangerous in the EU by France (choking). The product has small parts that can easily detach (metal ring). Small children may put them in the mouth a",
+    "advice": "Action taken in the EU: Warning consumers of the risks; Removal of this product listing by the online marketplace. If you have this product, stop using it and c",
+    "products": [
+     {
+      "name": "Nici - Counterfeit Renard",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/10118540",
+    "documentUrl": null,
+    "imageUrl": "https://ec.europa.eu/safety-gate-alerts/public/api/notification/image/11237273"
+   },
+   {
+    "id": "eu:SR-02819-26",
+    "title": "Necklace",
+    "publishedAt": "2026-10-09T12:00:00.000Z",
+    "categories": [
+     "clothing"
+    ],
+    "risk": "serious",
+    "summary": "Reported as dangerous in the EU by Luxembourg (chemical). The rate of nickel release is too high (measured value up to 49 µg/cm2/week). Nickel is a strong sensi",
+    "advice": "Action taken in the EU: Destruction of the product. If you have this product, stop using it and contact the seller. It may also have been sold in the UK, especi",
+    "products": [
+     {
+      "name": "Necklace",
+      "barcode": null,
+      "batches": [],
+      "notes": "Model: 26046"
+     }
+    ],
+    "sourceUrl": "https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/10118712",
+    "documentUrl": null,
+    "imageUrl": "https://ec.europa.eu/safety-gate-alerts/public/api/notification/image/11237276"
+   },
+   {
+    "id": "eu:SR-02831-26",
+    "title": "Bracelet",
+    "publishedAt": "2026-10-09T12:00:00.000Z",
+    "categories": [
+     "clothing"
+    ],
+    "risk": "serious",
+    "summary": "Reported as dangerous in the EU by Luxembourg (chemical). The rate of nickel release is too high (measured value up to 89 µg/cm2/week). Nickel is a strong sensi",
+    "advice": "Action taken in the EU: Destruction of the product. If you have this product, stop using it and contact the seller. It may also have been sold in the UK, especi",
+    "products": [
+     {
+      "name": "Bracelet",
+      "barcode": null,
+      "batches": [],
+      "notes": "Model: 26020"
+     }
+    ],
+    "sourceUrl": "https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/10118716",
+    "documentUrl": null,
+    "imageUrl": "https://ec.europa.eu/safety-gate-alerts/public/api/notification/image/11237278"
+   }
+  ]
+ },
+ "backfill-fsa-batch": {
+  "scanned": 40,
+  "done": false
+ },
+ "backfill-fsa": {
+  "count": 40,
+  "seconds": 2.194,
+  "categories": {
+   "food-drink": 40
+  },
+  "sample": [
+   {
+    "id": "fsa:FSA-PRIN-47-2024",
+    "title": "The Happy Pear recalls hummus products due to possible contamination with animal matter",
+    "publishedAt": "2024-11-08T00:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "The possible presence of animal matter in the product.",
+    "advice": "If you have bought any of the above products do not consume them. Instead, return them to the store from where they were bought for a full refund.",
+    "products": [
+     {
+      "name": "Happy Pear Red Pepper Hummus",
+      "barcode": null,
+      "batches": [
+       "4304"
+      ]
+     },
+     {
+      "name": "Happy Pear Caramelised Onion Hummus",
+      "barcode": null,
+      "batches": [
+       "4305"
+      ]
+     },
+     {
+      "name": "Happy Pear Reduced Fat Hummus",
+      "barcode": null,
+      "batches": [
+       "4304"
+      ]
+     },
+     {
+      "name": "Happy Pear Hummus Triple Dip",
+      "barcode": null,
+      "batches": [
+       "4303"
+      ]
+     },
+     {
+      "name": "Moroccan Style Hummus",
+      "barcode": null,
+      "batches": [
+       "4305"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-47-2024",
+    "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-PRIN-47-2024/FSA-PRIN-47-2024-Happy-Pear-Hummus-recalled-due-to-foreign-matter.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "fsa:FSA-AA-51-2024-update-13",
+    "title": "Update 13 – Several brands recall products containing mustard because they may be contaminated with peanut",
+    "publishedAt": "2024-11-12T00:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "Peanuts\nThese products may contain peanuts making them a possible health risk for anyone with an allergy to peanuts.",
+    "advice": "If you have bought any of the above products and have an allergy to peanuts, do not eat them. Instead return them to the store from where they were bought for a",
+    "products": [
+     {
+      "name": "**Paxton & Whitfield Really Proper Piccalilli Orcio Jar",
+      "barcode": null,
+      "batches": [
+       "1-019 1-020"
+      ]
+     },
+     {
+      "name": "Highfield Preserves Real Ale Chutney",
+      "barcode": null,
+      "batches": [
+       "240230 240265 240288 240304 240424 240570 240591 240674"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Indian Spice Tin",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Yorkshire rhubarb pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s King Naga Garlic",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s East India Chilli Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Old Delhi Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Phall Curry paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s HHH Madras Curry Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Keswick Market Curry Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Lurch Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Hot Stuff Chilli Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Hot Coriander Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Indian Spice Tin with Silk Sari",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Caramelised Red Onion Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Kashmiri Chilli Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s HHH Hell Hot Habanero",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Hot Goan Curry Paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s North Indian Curry Paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Queen Naga",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Garlic Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Lime Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Brinjal Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s King Naga",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Mustard Seeds Whole (Black)",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Habanero Chilli Jam",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Tamarind Chipotle Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Tomato and Nigella Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Mango Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Banana Habanero",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Chilli Jam",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Fireaway BBQ Sauce Dip Pot",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Fireaway Garlic & Herb Sauce Dip Pot",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Domino’s BBQ Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Domino’s The Big Dip - BBQ",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "WheyHey Katsu Chicken & Rice",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Winter Warmer Sausage",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Winter Warmer Burger",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Summer Sizzler Sausage",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Summer Sizzler Burger",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Chef Select Takeaway Garlic and Herb Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Mr Vikki’s Hot Stuff Chilli Sauce",
+      "barcode": null,
+      "batches": [
+       "1824 2324 3324"
+      ]
+     },
+     {
+      "name": "Favourit Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Mild Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Medium Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Merchant Gourmet – Black Dhal with Black Lentils & Coconut Cream",
+      "barcode": null,
+      "batches": [
+       "LP22407S00262 LP42407S00461 LP22410S00008"
+      ]
+     },
+     {
+      "name": "Favourit Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Medium Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Mild Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Medium Madras Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Black Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Buffalo Rub",
+      "barcode": null,
+      "batches": [
+       "24017 24016 24012 24024 24023 24038 24033 24072 24059 24052 24081 24115 24113 24102 24145 24136 24152 24158 24169 24173 24178 24194 24197 24204"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Vindaloo Seasoning",
+      "barcode": null,
+      "batches": [
+       "24197 24116 24087 24100"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s War Hog Sauce",
+      "barcode": null,
+      "batches": [
+       "24016 24087 24199"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Wake the Dead Rub",
+      "barcode": null,
+      "batches": [
+       "24015 24024 24078 24054 24086 24094 24117 24116 24113 24122 24128 24134 24136 24142 24145 24158 24166 24178 24191 24197 24204 24211 24212 24213"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Cowabunga Rub",
+      "barcode": null,
+      "batches": [
+       "24005 23005 24003 23253 23349 24018 24025 24024 23032 24087 24086 24075 24067 24040 24129 24115 24113 24109 24108 24099 24089 24143 24142 24138 24131 24149 24156 24166 24171 24174 24060 24179 24187 24200 24206 24208"
+      ]
+     },
+     {
+      "name": "Highfield Preserves Tomato Chutney",
+      "barcode": null,
+      "batches": [
+       "240271 240449 240596"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Bone Sucker Rub",
+      "barcode": null,
+      "batches": [
+       "24010 24009 24007 23005 24004 24003 23253 23352 23349 24017 24016 24015 24011 24022 24023 24025 24023 24045 24038 24033 24080 24075 24094 24093 24086 24122 24121 24113 24110 24101 24099 24096 24120 24137 24131 24136 24135 24134 24130 24129 24128 24151 24144 24142 24141 24138 24157 24159 24162 24170 24165 24166 24176 24178 24180 24184 24186 24190 24194 24197 24201 24204 24205 24206 24212 24095 24120 24270 24269 24268 24276 24277 24282 24284 24289 24297 24298 24302 24303"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Cherry Bomb Rub",
+      "barcode": null,
+      "batches": [
+       "24031 24023 24029 24053 24051 24038 24058 24114 24108 24101 24100 24099 24096 24131 24128 24124 24123 24142 24141 24134 24152 24149 24145 24158 24159 24162 24166 24170 24173 24155 24156 24157 24158 24159 24160 24161 24162 24163 24164 24165 24166 24167 24168 24169 24170 24171 24172 24173 24174 24175 24176 24177 24178 24179 24180 24183 24187 24194 24199 24206 24212"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Hog Roast Rub",
+      "barcode": null,
+      "batches": [
+       "24072"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Texas Drip Sauce",
+      "barcode": null,
+      "batches": [
+       "24079 24158 24032 23347"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Burnt Peach Bourbon Sauce",
+      "barcode": null,
+      "batches": [
+       "24191 24158 24149 24017 24108 24269"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Golden Buffalo Sauce",
+      "barcode": null,
+      "batches": [
+       "24108"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Tubz Deli Seasoning",
+      "barcode": null,
+      "batches": [
+       "24054"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Mutang Mustard Sauce",
+      "barcode": null,
+      "batches": [
+       "24078 24106 24113 24141 24164"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Rattlesnake Rub",
+      "barcode": null,
+      "batches": [
+       "24149 24134 24158 24180 24114 24207 24212 24190 24191 24192 24193 24194 24195 24196 24197 24198 24199 24200 24201 24202 24203 24204 24205 24206 24207"
+      ]
+     },
+     {
+      "name": "Faves Craft Pepper Soup Spice",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Highfield Preserves Traditional Piccalilli",
+      "barcode": null,
+      "batches": [
+       "240350 240375 240492 240545 240579"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Cajun Premium Seasoning",
+      "barcode": null,
+      "batches": [
+       "23538000 150606A02"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Madras Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "23066000 15455A04"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "23623000 156060A04"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Yellow Mustard Powder",
+      "barcode": null,
+      "batches": [
+       "1560608 1374810"
+      ]
+     },
+     {
+      "name": "The National Gallery Brunch Basket",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Shoreditch Kitchen Slate Cheese Board with Soapstone Crayon & Chutney Selection",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "TGI Cajun Chicken Pasta with Chorizo",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Pasta Bolognese",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Naked Katsu Chicken",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Lasagne",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Northern Monk Heathen Sauce",
+      "barcode": null,
+      "batches": [
+       "24187"
+      ]
+     },
+     {
+      "name": "Slimming World King Prawn Bhuna",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Chicken Balti Biryani",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Cajun King Prawn Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Cajun Chicken Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Burger Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Tandoori Mixed Grill",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Singapore Noodles",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Katsu Chicken with Rice",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Chicken & Beef Naked Burrito",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Cajun Chicken Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Field & Flower Gordano Beef Rub",
+      "barcode": null,
+      "batches": [
+       "24082 24275"
+      ]
+     },
+     {
+      "name": "Blue Dragon Katsu Chicken",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Fajita",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chinese Curry Sauce",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chinese Chicken Curry",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Vindaloo",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Madras",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Jalfrezi",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Curry Noodles",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Beef Madras",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Luxury House Special Curry",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "SpiceGirl1969 Berbere",
+      "barcode": null,
+      "batches": [
+       "All batch codes"
+      ]
+     },
+     {
+      "name": "Iceland Luxury Fish Pie",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Nottingham Bazaar Madras Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Nottingham Bazaar Nazar Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Sterling Curry Mild Madras",
+      "barcode": null,
+      "batches": [
+       "15795A01"
+      ]
+     },
+     {
+      "name": "The Spice Factory Biryani Masala",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Bart Yellow Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "4227"
+      ]
+     },
+     {
+      "name": "Wilton Wholefoods Black Mustard Seeds",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods White Mustard Seeds",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Fajita Seasoning",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Mild Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "WheyHey Singapore Noodles",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Madras Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Cajun Seasoning",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods All Purpose Seasoning",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Legendary Sauce Co Habanero Wholegrain Mustard",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Papa John’s Garlic & Herb Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Papa John’s Garlic & Herb Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Waitrose Yellow Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "4227"
+      ]
+     },
+     {
+      "name": "Waitrose Pickling Spice",
+      "barcode": null,
+      "batches": [
+       "4244 4245"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Cayenne Pepper",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Vindaloo Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Indian Spice Collection",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Balti Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Tikka Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Panch Puran",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Biryani Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Korma Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Madras Curry Powder Hot",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Madras Curry Powder Mild",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Ground Mustard",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen The Curry Guy Tandoori Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Mustard Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Yellow Mustard Seed",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Brown Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Harrys Brown Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Harrys Roast Chipotle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Christmas Cranberry Chilli Jam",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Raj Naga",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s North African Harrissa",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Chilli Mafia Cajun Magic Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Kaffir lime vindaloo paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-51-2024-update-13",
+    "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-51-2024-update-13/FSA-AA-51-2024-Update-13-Several-brands-recall-a-number-of-products-containing-mustard-that-may-be-contaminated-with-peanut.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "fsa:FSA-AA-51-2024-update-14",
+    "title": "Update 14 – Several brands recall products containing mustard because they may be contaminated with peanut",
+    "publishedAt": "2024-11-13T00:00:00.000Z",
+    "categories": [
+     "food-drink"
+    ],
+    "risk": null,
+    "summary": "Peanuts\nThese products may contain peanuts making them a possible health risk for anyone with an allergy to peanuts.",
+    "advice": "If you have bought any of the above products and have an allergy to peanuts, do not eat them. Instead return them to the store from where they were bought for a",
+    "products": [
+     {
+      "name": "**Rye Spice Collection All Purpose Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "**Rye Spice Collection Madras Curry Blend",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Balti Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Cajun Seasoning",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods All Purpose Seasoning",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Legendary Sauce Co Habanero Wholegrain Mustard",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Papa John’s Garlic & Herb Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Papa John’s Garlic & Herb Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Waitrose Yellow Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "4227"
+      ]
+     },
+     {
+      "name": "Waitrose Pickling Spice",
+      "barcode": null,
+      "batches": [
+       "4244 4245"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Cayenne Pepper",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Vindaloo Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Balti Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Bhuna Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Hampshire Foods Tikka Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Panch Puran",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Biryani Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Korma Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Madras Curry Powder Hot",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Madras Curry Powder Mild",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Ground Mustard",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Mustard Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Bombay Potato Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Hampshire Foods Yellow Mustard Seed",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Hampshire Foods Brown Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Harrys Brown Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Harrys Roast Chipotle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Christmas Cranberry Chilli Jam",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Raj Naga",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s North African Harrissa",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Chilli Mafia Cajun Magic Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Kaffir lime vindaloo paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Yorkshire rhubarb pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Dopiaza Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Mr Vikki’s King Naga Garlic",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s East India Chilli Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Old Delhi Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Phall Curry paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s HHH Madras Curry Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Keswick Market Curry Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Lurch Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Hot Stuff Chilli Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Hot Coriander Sauce",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Caramelised Red Onion Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Karahi Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Mr Vikki’s Kashmiri Chilli Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s HHH Hell Hot Habanero",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Hot Goan Curry Paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s North Indian Curry Paste",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Queen Naga",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Garlic Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Lime Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Brinjal Pickle",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s King Naga",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Habanero Chilli Jam",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Patia Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Mr Vikki’s Tamarind Chipotle Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Tomato and Nigella Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Mango Chutney",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Banana Habanero",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Mr Vikki’s Chilli Jam",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Fireaway BBQ Sauce Dip Pot",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Fireaway Garlic & Herb Sauce Dip Pot",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Domino’s BBQ Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Domino’s The Big Dip - BBQ",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Winter Warmer Sausage",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Jalfrezi Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Winter Warmer Burger",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Summer Sizzler Sausage",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Westmorland Family Butchery Summer Sizzler Burger",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Chef Select Takeaway Garlic and Herb Dip",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Mr Vikki’s Hot Stuff Chilli Sauce",
+      "barcode": null,
+      "batches": [
+       "1824 2324 3324"
+      ]
+     },
+     {
+      "name": "Favourit Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Mild Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Medium Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Kebab Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Favourit Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Favourit Medium Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Mild Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Cajun Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Medium Madras Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Dunnes Stores Black Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Korma Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Madras Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**Rye Spice Collection Cajun Spice",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "**The Spice is Right Masala Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Rogan Josh Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Tandoori Rub",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Tikka Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Tikka Masala Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Vindaloo Spice Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Onion Bhaji Mix",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**The Spice is Right Dhaal",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**Tim Horton’s BBQ Sauce Dip Pot",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Paxton & Whitfield Really Proper Piccalilli Orcio Jar",
+      "barcode": null,
+      "batches": [
+       "1-019 1-020"
+      ]
+     },
+     {
+      "name": "**Rye Spice Collection Fajita Spice",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Highfield Preserves Real Ale Chutney",
+      "barcode": null,
+      "batches": [
+       "240230 240265 240288 240304 240424 240570 240591 240674"
+      ]
+     },
+     {
+      "name": "Highfield Preserves Tomato Chutney",
+      "barcode": null,
+      "batches": [
+       "240271 240449 240596"
+      ]
+     },
+     {
+      "name": "Highfield Preserves Traditional Piccalilli",
+      "barcode": null,
+      "batches": [
+       "240350 240375 240492 240545 240579"
+      ]
+     },
+     {
+      "name": "Northern Monk Heathen Sauce",
+      "barcode": null,
+      "batches": [
+       "24187"
+      ]
+     },
+     {
+      "name": "Field & Flower Gordano Beef Rub",
+      "barcode": null,
+      "batches": [
+       "24082 24275"
+      ]
+     },
+     {
+      "name": "SpiceGirl1969 Berbere",
+      "barcode": null,
+      "batches": [
+       "All batch codes"
+      ]
+     },
+     {
+      "name": "WheyHey Singapore Noodles",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Spice Kitchen Indian Spice Collection",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen The Curry Guy Tandoori Masala",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Indian Spice Tin",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "**Rye Spice Collection Steak Seasoning",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Indian Spice Tin with Silk Sari",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Spice Kitchen Mustard Seeds Whole (Black)",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "WheyHey Katsu Chicken & Rice",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Merchant Gourmet – Black Dhal with Black Lentils & Coconut Cream",
+      "barcode": null,
+      "batches": [
+       "LP22407S00262 LP42407S00461 LP22410S00008"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Buffalo Rub",
+      "barcode": null,
+      "batches": [
+       "24017 24016 24012 24024 24023 24038 24033 24072 24059 24052 24081 24115 24113 24102 24145 24136 24152 24158 24169 24173 24178 24194 24197 24204"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Vindaloo Seasoning",
+      "barcode": null,
+      "batches": [
+       "24197 24116 24087 24100"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s War Hog Sauce",
+      "barcode": null,
+      "batches": [
+       "24016 24087 24199"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Wake the Dead Rub",
+      "barcode": null,
+      "batches": [
+       "24015 24024 24078 24054 24086 24094 24117 24116 24113 24122 24128 24134 24136 24142 24145 24158 24166 24178 24191 24197 24204 24211 24212 24213"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Cowabunga Rub",
+      "barcode": null,
+      "batches": [
+       "24005 23005 24003 23253 23349 24018 24025 24024 23032 24087 24086 24075 24067 24040 24129 24115 24113 24109 24108 24099 24089 24143 24142 24138 24131 24149 24156 24166 24171 24174 24060 24179 24187 24200 24206 24208"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Bone Sucker Rub",
+      "barcode": null,
+      "batches": [
+       "24010 24009 24007 23005 24004 24003 23253 23352 23349 24017 24016 24015 24011 24022 24023 24025 24023 24045 24038 24033 24080 24075 24094 24093 24086 24122 24121 24113 24110 24101 24099 24096 24120 24137 24131 24136 24135 24134 24130 24129 24128 24151 24144 24142 24141 24138 24157 24159 24162 24170 24165 24166 24176 24178 24180 24184 24186 24190 24194 24197 24201 24204 24205 24206 24212 24095 24120 24270 24269 24268 24276 24277 24282 24284 24289 24297 24298 24302 24303"
+      ]
+     },
+     {
+      "name": "**Rye Spice Collection Korma Curry Blend",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Cherry Bomb Rub",
+      "barcode": null,
+      "batches": [
+       "24031 24023 24029 24053 24051 24038 24058 24114 24108 24101 24100 24099 24096 24131 24128 24124 24123 24142 24141 24134 24152 24149 24145 24158 24159 24162 24166 24170 24173 24155 24156 24157 24158 24159 24160 24161 24162 24163 24164 24165 24166 24167 24168 24169 24170 24171 24172 24173 24174 24175 24176 24177 24178 24179 24180 24183 24187 24194 24199 24206 24212"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Hog Roast Rub",
+      "barcode": null,
+      "batches": [
+       "24072"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Texas Drip Sauce",
+      "barcode": null,
+      "batches": [
+       "24079 24158 24032 23347"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Burnt Peach Bourbon Sauce",
+      "barcode": null,
+      "batches": [
+       "24191 24158 24149 24017 24108 24269"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Golden Buffalo Sauce",
+      "barcode": null,
+      "batches": [
+       "24108"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Tubz Deli Seasoning",
+      "barcode": null,
+      "batches": [
+       "24054"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Mutang Mustard Sauce",
+      "barcode": null,
+      "batches": [
+       "24078 24106 24113 24141 24164"
+      ]
+     },
+     {
+      "name": "Tubby Tom’s Rattlesnake Rub",
+      "barcode": null,
+      "batches": [
+       "24149 24134 24158 24180 24114 24207 24212 24190 24191 24192 24193 24194 24195 24196 24197 24198 24199 24200 24201 24202 24203 24204 24205 24206 24207"
+      ]
+     },
+     {
+      "name": "Faves Craft Pepper Soup Spice",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Hides Fine Foods Cajun Premium Seasoning",
+      "barcode": null,
+      "batches": [
+       "23538000 150606A02"
+      ]
+     },
+     {
+      "name": "**Rye Spice Collection Mustard Seed Black",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Madras Hot Curry Powder",
+      "barcode": null,
+      "batches": [
+       "23066000 15455A04"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Fajita Seasoning",
+      "barcode": null,
+      "batches": [
+       "23623000 156060A04"
+      ]
+     },
+     {
+      "name": "Hides Fine Foods Yellow Mustard Powder",
+      "barcode": null,
+      "batches": [
+       "1560608 1374810"
+      ]
+     },
+     {
+      "name": "The National Gallery Brunch Basket",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "Shoreditch Kitchen Slate Cheese Board with Soapstone Crayon & Chutney Selection",
+      "barcode": null,
+      "batches": [
+       "All batches"
+      ]
+     },
+     {
+      "name": "TGI Cajun Chicken Pasta with Chorizo",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Pasta Bolognese",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Naked Katsu Chicken",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Lasagne",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World King Prawn Bhuna",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**Rye Spice Collection Bombay Potato Mix",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Slimming World Chicken Balti Biryani",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Cajun King Prawn Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Cajun Chicken Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Slimming World Burger Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Tandoori Mixed Grill",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Singapore Noodles",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Katsu Chicken with Rice",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Chicken & Beef Naked Burrito",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "My Protein Cajun Chicken Pasta",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Blue Dragon Katsu Chicken",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**Carla’s Fajita Blend",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Iceland Takeaway Chicken Fajita",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chinese Curry Sauce",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chinese Chicken Curry",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Vindaloo",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Madras",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Jalfrezi",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Chicken Curry Noodles",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Takeaway Beef Madras",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Luxury House Special Curry",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Iceland Luxury Fish Pie",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "**Carla’s Cajun Blend",
+      "barcode": null,
+      "batches": [
+       "All batch numbers"
+      ]
+     },
+     {
+      "name": "Nottingham Bazaar Madras Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Nottingham Bazaar Nazar Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Sterling Curry Mild Madras",
+      "barcode": null,
+      "batches": [
+       "15795A01"
+      ]
+     },
+     {
+      "name": "The Spice Factory Biryani Masala",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Bart Yellow Mustard Seeds",
+      "barcode": null,
+      "batches": [
+       "4227"
+      ]
+     },
+     {
+      "name": "Wilton Wholefoods Black Mustard Seeds",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods White Mustard Seeds",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Fajita Seasoning",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Mild Curry Powder",
+      "barcode": null,
+      "batches": []
+     },
+     {
+      "name": "Wilton Wholefoods Madras Curry Powder",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-51-2024-update-14",
+    "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-51-2024-update-14/Customer-notice-products-containing-mustard-that-may-be-contaminated-with-peanut.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "backfill-opss-batch": {
+  "scanned": 40,
+  "done": false
+ },
+ "backfill-opss": {
+  "count": 40,
+  "seconds": 1.649,
+  "categories": {
+   "trades-tools": 6,
+   "electrical": 15,
+   "home-furniture": 1,
+   "cosmetics": 8,
+   "toys": 3,
+   "other": 5,
+   "baby-children": 2
+  },
+  "sample": [
+   {
+    "id": "opss:2410-0125",
+    "title": "Gazelle Bloom C7 Pedal Bike and Gazelle Bloom E-Bike Type C7 HMS or C380 HMS",
+    "publishedAt": "2024-11-11T00:00:00.000Z",
+    "categories": [
+     "trades-tools"
+    ],
+    "risk": "high",
+    "summary": "The product presents a high risk of injuries as it has been identified that the top bolt of the front carrier can come loose which can cause the carrier to sudd",
+    "advice": "Gazelle have initiated a modification programme for the affected bicycles and e-bikes. Affected consumers are advised to make an appointment at their Gazelle bi",
+    "products": [
+     {
+      "name": "Gazelle Bloom C7 Pedal Bike and Gazelle Bloom E-Bike Type C7 HMS or C380 HMS",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-gazelle-bloom-c7-pedal-bike-and-gazelle-bloom-e-bike-type-c7-hms-or-c380-hms-2410-0125",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6731d0e75364e7efcec418e5/2410-0125-product-safety-report-gazelle-bloom.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "opss:2410-0181",
+    "title": "Docsmart Mini Electric Chainsaw sold via Amazon",
+    "publishedAt": "2024-11-12T00:00:00.000Z",
+    "categories": [
+     "trades-tools"
+    ],
+    "risk": "high",
+    "summary": "The product presents a high risk of electric shock because the pins are too close to the periphery of the plug. The user may touch live pins when plugging in, o",
+    "advice": "The import has been rejected at the border.\nAdditional information\nPSD number: 2410-0181\nNotified by: Local Authority Trading Standards",
+    "products": [
+     {
+      "name": "Docsmart Mini Electric Chainsaw sold via Amazon",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-docsmart-mini-electric-chainsaw-sold-via-amazon-2410-0181",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/673329acc4d1497096122013/2410-0181-product-safety-report-docsmart-mini-electric-chainsaw.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "opss:2411-0004",
+    "title": "CGC Lighting Chrome LED Over Mirror Bathroom Light with Pull Cord",
+    "publishedAt": "2024-11-12T00:00:00.000Z",
+    "categories": [
+     "electrical"
+    ],
+    "risk": "serious",
+    "summary": "The product presents a serious risk of fire as there was inadequate space provided to safely connect the luminaire to the mains wiring. This could result in the",
+    "advice": "The import has been rejected at the border.\nAdditional information\nPSD number: 2411-0004\nNotified by: Local Authority Trading Standards",
+    "products": [
+     {
+      "name": "CGC Lighting Chrome LED Over Mirror Bathroom Light with Pull Cord",
+      "barcode": "5061012427495",
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-cgc-lighting-chrome-led-over-mirror-bathroom-light-with-pull-cord-2411-0004",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/67334a66bfc4a11a06122048/2411-0004-product-safety-report-LED-bathroom-light.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "backfill-mhra-recalls-batch": {
+  "scanned": 40,
+  "done": false
+ },
+ "backfill-mhra-recalls": {
+  "count": 40,
+  "seconds": 1.658,
+  "categories": {
+   "medicines": 40
+  },
+  "sample": [
+   {
+    "id": "mhra:zole-40-mg-powder-for-solution-for-infusion-el-24-a-slash-54",
+    "title": "Class 4 Medicines Defect Information",
+    "publishedAt": "2024-11-12T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": "low",
+    "summary": "Generics (U.K.) Limited has informed the MHRA that the Patient Information Leaflet (PIL) packaged in specific batches of Omeprazole 40 mg Powder for solution fo",
+    "advice": "The medicine itself is not affected and patients do not need to take any action. Patients should continue to receive this medicine from these batches as given t",
+    "products": [
+     {
+      "name": "Class 4 Medicines Defect Information",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-4-medicines-defect-information-viatris-uk-healthcare-ltd-omeprazole-40-mg-powder-for-solution-for-infusion-el-24-a-slash-54",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/6731ca47f8ac0a8bd93d135d/EL_24_A54.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra:ash-a-ltc-healthcare-exs-delay-spray-plus-clmr-24-a-slash-01",
+    "title": "EXS Delay Spray Plus, CLMR(24)A/01",
+    "publishedAt": "2024-11-13T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "LTC Healthcare has informed the MHRA that they have been selling a medicinal product containing lidocaine without authorisation from the MHRA.",
+    "advice": "Stop using the product immediately. Contact the company where you purchased the product from for details of their returns process.\nEXS Delay Spray Plus has not ",
+    "products": [
+     {
+      "name": "EXS Delay Spray Plus, CLMR(24)A/01",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/company-led-medicines-recall-leeds-trading-company-ltc-ltd-t-slash-a-ltc-healthcare-exs-delay-spray-plus-clmr-24-a-slash-01",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "mhra:olution-for-injection-in-pre-filled-syringe-el-24-a-slash-55",
+    "title": "Class 4 Medicines Defect Information",
+    "publishedAt": "2024-11-18T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": "low",
+    "summary": "Takeda UK Limited has informed the MHRA that there is an error in the Patient Information Leaflet for specified batches of Entyvio 108mg pre-filled syringes.",
+    "advice": "Patients should continue to take medicines from these batches as prescribed by your healthcare professional.\nThe online version of the Patient Information Leafl",
+    "products": [
+     {
+      "name": "Class 4 Medicines Defect Information",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/class-4-medicines-defect-information-takeda-uk-limited-entyvio-108mg-solution-for-injection-in-pre-filled-syringe-el-24-a-slash-55",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/673af858fc572967fe66a914/EL_24_A_55.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "backfill-mhra-devices-batch": {
+  "scanned": 21,
+  "done": true
+ },
+ "backfill-mhra-devices": {
+  "count": 21,
+  "seconds": 1.133,
+  "categories": {
+   "medicines": 21
+  },
+  "sample": [
+   {
+    "id": "mhra:DSI2025001",
+    "title": "Suzhou Surgicare disposable Hysteroscopy Sheath– Recall due to withdrawn CE certificate, (DSI/2025/001)",
+    "publishedAt": "2025-03-19T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "The MHRA has become aware of Hysteroscopy Sheaths supplied in the UK market with a withdrawn CE certificate. Healthcare professionals and providers should immed",
+    "advice": "There is no advice for healthcare professionals to provide to patients regarding this DSI",
+    "products": [
+     {
+      "name": "Suzhou Surgicare disposable Hysteroscopy Sheath– Recall due to withdrawn CE certificate, (DSI/2025/001)",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/suzhou-surgicare-disposable-hysteroscopy-sheath-recall-due-to-withdrawn-ce-certificate-dsi-slash-2025-slash-001",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/67dab8b5594182179fe08839/DSI_2025_001.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra:DSI2024006",
+    "title": "Philips Respironics BiPAP A series ventilators: alarm malfunction and risk of therapy interruptions in ventilators not intended for life-support, DSI/2024/006",
+    "publishedAt": "2024-08-28T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "Philips Respironics has issued a Field Safety Notice (FSN) relating to the Bilevel Positive Airway Pressure (BiPAP) A series ventilators. This relates to a Vent",
+    "products": [
+     {
+      "name": "Philips Respironics BiPAP A series ventilators",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/philips-respironics-bipap-a-series-ventilators-alarm-malfunction-and-risk-of-therapy-interruptions-in-ventilators-not-intended-for-life-support-dsi-slash-2024-slash-006",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/66cdf1bc4e046525fa39cf71/DSI_Philips_BiPAP_A_series_ventilators.pdf",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra:DSI202502",
+    "title": "Aurum pre-filled syringes phased introduction of new 10ml CONNECT syringe barrel: Importance of selecting compatible needle-free connectors to minimise the risk of syringe blockage (DSI/2025/02)",
+    "publishedAt": "2025-07-01T00:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "Due to a phased introduction of the new 10ml CONNECT barrel design for the Aurum pre-filled syringes, the range of compatible needle free connectors (NFCs) diff",
+    "advice": "there is no related advice for healthcare professionals to provide to patients",
+    "products": [
+     {
+      "name": "Aurum pre-filled syringes phased introduction of new 10ml CONNECT syringe barrel",
+      "barcode": null,
+      "batches": []
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/aurum-pre-filled-syringes-phased-introduction-of-new-10ml-connect-syringe-barrel-importance-of-selecting-compatible-needle-free-connectors-to-minimise-the-risk-of-syringe-blockage-dsi-slash-2025-slash-02",
+    "documentUrl": "https://assets.publishing.service.gov.uk/media/68a83ae9969253904d1557a0/Aurum_pre-filled_syringes_-_DSI_-_FINAL.pdf",
+    "imageUrl": null
+   }
+  ]
+ },
+ "backfill-mhra-fsn-batch": {
+  "scanned": 6,
+  "done": false
+ },
+ "backfill-mhra-fsn": {
+  "count": 2,
+  "seconds": 0.595,
+  "categories": {
+   "medicines": 2
+  },
+  "sample": [
+   {
+    "id": "mhra-fsn:30963270",
+    "title": "Innuovo（Power Wheelchair） (Zhejiang Innuovo Rehabilitation Devices)",
+    "publishedAt": "2024-04-30T12:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "The manufacturer has issued a field safety notice for this device. The notice explains the problem and what to do.",
+    "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+    "products": [
+     {
+      "name": "Innuovo（Power Wheelchair）",
+      "barcode": null,
+      "batches": [],
+      "notes": "Model: N5909"
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-1-to-5-july-2024#zhejiang-innuovo-rehabilitation-devices-innuovopower-wheelchair",
+    "documentUrl": "https://mhra-gov.filecamp.com/s/d/503wWwnQV76Jx7IO",
+    "imageUrl": null
+   },
+   {
+    "id": "mhra-fsn:34007941",
+    "title": "ECG Recording Paper (NIHON KOHDEN)",
+    "publishedAt": "2024-11-21T12:00:00.000Z",
+    "categories": [
+     "medicines"
+    ],
+    "risk": null,
+    "summary": "The manufacturer has issued a field safety notice for this device (Interpretive multichannel electrocardiograph). The notice explains the problem and what to do",
+    "advice": "Read the manufacturer's notice. If you use this device, contact the supplier, your pharmacist or the clinic that gave it to you. Don't stop using a device you r",
+    "products": [
+     {
+      "name": "ECG Recording Paper",
+      "barcode": null,
+      "batches": [],
+      "notes": "Model: NKUK-A054 and NKUK-MLSC-125"
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/drug-device-alerts/field-safety-notices-18-to-22-november-2024#nihon-kohden-ecg-recording-paper",
+    "documentUrl": "https://mhra-gov.filecamp.com/s/d/N7C4Q6oX48pvjQEn",
+    "imageUrl": null
+   }
+  ]
+ },
+ "backfill-vmd-batch": {
+  "scanned": 40,
+  "done": false
+ },
+ "backfill-vmd": {
+  "count": 10,
+  "seconds": 0.509,
+  "categories": {
+   "pets": 10
+  },
+  "sample": [
+   {
+    "id": "vmd:tu-400-mgml-suspension-for-injection-for-cattle-recall-alert",
+    "title": "Revozyn RTU 400 mg/ml Suspension for Injection for Cattle",
+    "publishedAt": "2025-03-25T16:23:24.000Z",
+    "categories": [
+     "pets"
+    ],
+    "risk": null,
+    "summary": "Dechra, on behalf of Marketing Authorisation Holder Eurovet Animal Health B.V., has initiated a Class II recall to the wholesaler level for the below mentioned ",
+    "advice": "Dechra is contacting wholesale dealers to examine inventory immediately and quarantine products subject to this recall. For further information regarding the re",
+    "products": [
+     {
+      "name": "Revozyn RTU 400 mg/ml Suspension for Injection for Cattle",
+      "barcode": null,
+      "batches": [
+       "24F042"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/government/news/revozyn-rtu-400-mgml-suspension-for-injection-for-cattle-recall-alert",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "vmd:nt-labs-methylene-blue-product-defect-recall-alert",
+    "title": "NT Labs Methylene Blue",
+    "publishedAt": "2025-04-08T08:34:44.000Z",
+    "categories": [
+     "pets"
+    ],
+    "risk": null,
+    "summary": "The composition stated on the bottle label & carton is incorrect.",
+    "advice": "This recall affects the below mentioned batches only: NT Labs is contacting wholesale dealers to examine inventory immediately and quarantine products subject t",
+    "products": [
+     {
+      "name": "Methylene Blue",
+      "barcode": null,
+      "batches": [
+       "21474",
+       "22055"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/government/news/nt-labs-methylene-blue-product-defect-recall-alert",
+    "documentUrl": null,
+    "imageUrl": null
+   },
+   {
+    "id": "vmd:efect-recall-alert-alamycin-la-injection-pen-strep-injection",
+    "title": "Alamycin LA Injection, Pen + Strep Injection",
+    "publishedAt": "2025-06-05T11:52:44.000Z",
+    "categories": [
+     "pets"
+    ],
+    "risk": null,
+    "summary": "Norbrook Laboratories Limited are initiating a Class III recall to wholesaler level as a precautionary measure.",
+    "advice": "This recall is for the below mentioned products and batches only: Norbrook Laboratories Limited is contacting wholesale dealers to examine inventory immediately",
+    "products": [
+     {
+      "name": "Alamycin LA Solution for Injection for Cattle, Sheep and Pigs 100ml (Vm 02000/ 4117)",
+      "barcode": null,
+      "batches": [
+       "4491-600C"
+      ]
+     },
+     {
+      "name": "Pen & Strep Suspension for Injection 100ml (Vm 02000/ 4100)",
+      "barcode": null,
+      "batches": [
+       "5033-51A"
+      ]
+     }
+    ],
+    "sourceUrl": "https://www.gov.uk/government/news/product-defect-recall-alert-alamycin-la-injection-pen-strep-injection",
+    "documentUrl": null,
+    "imageUrl": null
+   }
+  ]
+ },
+ "backfill-eu-batch": {
+  "scanned": 2,
+  "done": false
+ },
+ "backfill-eu": {
+  "count": 99,
+  "seconds": 1.185,
+  "categories": {
+   "electrical": 23,
+   "home-furniture": 13,
+   "baby-children": 14,
+   "other": 7,
+   "toys": 20,
+   "trades-tools": 5,
+   "cosmetics": 13,
+   "clothing": 6,
+   "pets": 1
+  },
+  "sample": [
+   {
+    "id": "eu:A12-03092-24",
+    "title": "Wall lamp",
+    "publishedAt": "2024-11-08T12:00:00.000Z",
+    "categories": [
+     "electrical"
+    ],
+    "risk": "serious",
+    "summary": "Reported as dangerous in the EU by France (electric shock). The product (wall lamp) should be assembled by the user, hence there are accessible live parts. Ther",
+    "advice": "Action taken in the EU: Recall of the product from end users; Removal of this product listing by the online marketplace. If you have this product, stop using it",
+    "products": [
+     {
+      "name": "Wall lamp",
+      "barcode": null,
+      "batches": [],
+      "notes": "Model: S929070300009"
+     }
+    ],
+    "sourceUrl": "https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/10014306",
+    "documentUrl": null,
+    "imageUrl": "https://ec.europa.eu/safety-gate-alerts/public/api/notification/image/10933252"
+   },
+   {
+    "id": "eu:A11-00140-24",
+    "title": "Wozinsky Universal Wall Charger, Fast Wall Charger Adapter Power Delivery + 1M Lightning Cable (usb charger)",
+    "publishedAt": "2024-11-08T12:00:00.000Z",
+    "categories": [
+     "electrical"
+    ],
+    "risk": null,
+    "summary": "Reported as dangerous in the EU by Latvia (fire). The insulation material of the product is not fire-resistant. As a result, it may cause a fire.  The product d",
+    "advice": "Action taken in the EU: Withdrawal of the product from the market. If you have this product, stop using it and contact the seller. It may also have been sold in",
+    "products": [
+     {
+      "name": "Wozinsky Universal Wall Charger, Fast Wall Charger Adapter Power Delivery + 1M Lightning Cable",
+      "barcode": "5907769300868",
+      "batches": [],
+      "notes": "Model: WWC-03-L"
+     }
+    ],
+    "sourceUrl": "https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/10014328",
+    "documentUrl": null,
+    "imageUrl": "https://ec.europa.eu/safety-gate-alerts/public/api/notification/image/10933253"
+   },
+   {
+    "id": "eu:A12-03066-24",
+    "title": "I AM INK First Generation 5 (tattoo ink)",
+    "publishedAt": "2024-11-08T12:00:00.000Z",
+    "categories": [
+     "home-furniture"
+    ],
+    "risk": "serious",
+    "summary": "Reported as dangerous in the EU by Germany (chemical). The product has an excessive concentration of formaldehyde (measured value: 0.012 %). Formaldehyde is a s",
+    "advice": "Action taken in the EU: Withdrawal of the product from the market. If you have this product, stop using it and contact the seller. It may also have been sold in",
+    "products": [
+     {
+      "name": "I AM INK First Generation 5",
+      "barcode": null,
+      "batches": [
+       "22026"
+      ]
+     }
+    ],
+    "sourceUrl": "https://ec.europa.eu/safety-gate-alerts/screen/webReport/alertDetail/10080176",
+    "documentUrl": null,
+    "imageUrl": "https://ec.europa.eu/safety-gate-alerts/public/api/notification/image/10933257"
+   }
+  ]
+ }
+}

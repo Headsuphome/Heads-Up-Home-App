@@ -1,0 +1,439 @@
+[
+ {
+  "id": "fsa:FSA-PRIN-52-2026",
+  "title": "Baxters recalls Chef Selections Cullen Skink soup because of a manufacturing fault which may cause spoilage and cans to rupture",
+  "publishedAt": "2026-11-06T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "A manufacturing fault has occurred which may result in spoilage causing unpleasant odour and flavour, swelling and possible rupture of the can.",
+  "advice": "If you have bought the above product, do not eat it. Instead, dispose of the full can and product without opening. Carefully place the full can in a bag and dis",
+  "products": [
+   {
+    "name": "Baxters Chef Selections Cullen Skink soup",
+    "barcode": null,
+    "batches": [
+     "L07XC"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-52-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-PRIN-52-2026/2f4d6a4fc2c7661f7314a909ce62de087a702b39c1ee457f68021427abb.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-51-2026",
+  "title": "AG Barr recalls Rubicon Yuzu & Pink Grapefruit Cartons because they may contain undeclared sulphites",
+  "publishedAt": "2026-11-05T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "This product may contain sulphites making it a possible health risk for anyone with a sensitivity to sulphur dioxide and/or sulphites.",
+  "advice": "If you have bought the above product and have a sensitivity to sulphur dioxide or sulphites, do not consume it. Instead, return it to where you bought it from f",
+  "products": [
+   {
+    "name": "Rubicon Yuzu & Pink Grapefruit",
+    "barcode": null,
+    "batches": [
+     "6160"
+    ]
+   },
+   {
+    "name": "Rubicon Yuzu & Pink Grapefruit",
+    "barcode": null,
+    "batches": [
+     "6198"
+    ]
+   },
+   {
+    "name": "Rubicon Yuzu & Pink Grapefruit",
+    "barcode": null,
+    "batches": [
+     "6219"
+    ]
+   },
+   {
+    "name": "Rubicon Yuzu & Pink Grapefruit",
+    "barcode": null,
+    "batches": [
+     "6257"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-51-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-51-2026/FSA-AA-51-2026-point-of-sale-notice-for-AG-Barr-recall-Rubicon-Yuzu-Pink-Grapefruit-Cartons-due-to-undeclared-sulphites.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-50-2026-update-1",
+  "title": "Update 1 – PepsiCo updates its recall of Walkers Variety Snacks Sharing Box because of undeclared wheat (gluten)",
+  "publishedAt": "2026-10-30T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Wheat (gluten)\nThis product contains gluten making it a possible health risk for anyone with an allergy or intolerance to wheat or gluten, or with coeliac disea",
+  "advice": "If you have bought the above product and have an allergy or intolerance to wheat or gluten or have coeliac disease, do not eat it. Instead, please call the Peps",
+  "products": [
+   {
+    "name": "Walkers Variety Snacks Sharing Box",
+    "barcode": null,
+    "batches": [
+     "107543"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-50-2026-update-1",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-50-2026-update-1/FSA-AA-50-2026-Update-1-Pepsico-recalls-Walkers-Variety-Snacks-Sharing-Box.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-50-2026",
+  "title": "PepsiCo recalls Walkers Variety Snacks Sharing Box because of undeclared wheat (gluten) on the outer box",
+  "publishedAt": "2026-10-30T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Wheat (gluten)\nThis product contains gluten making it a possible health risk for anyone with an allergy or intolerance to wheat or gluten, or with coeliac disea",
+  "advice": "If you have bought the above product and have an allergy or intolerance to wheat or gluten or have coeliac disease, do not eat it. Instead, please call the Peps",
+  "products": [
+   {
+    "name": "Walkers Variety Snacks Sharing Box",
+    "barcode": null,
+    "batches": [
+     "107543"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-50-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-50-2026/PepsiCo-recalls-Walkers-Variety-Snacks-Sharing-Box-because-of-undeclared-wheat-gluten-on-the-outer-box.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-49-2026",
+  "title": "The Basic Ingredients Ltd recalls Emma Basic Curry Cubes Japanese Style because of undeclared milk",
+  "publishedAt": "2026-10-24T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Allergens: Milk\nThis product may contain milk making it a possible health risk for anyone with an allergy or intolerance to milk or milk constituents.",
+  "advice": "If you have bought the above product and have an allergy or intolerance to milk or milk constituents, do not eat it. Instead, return it to where you bought it, ",
+  "products": [
+   {
+    "name": "Emma Basic Curry Cubes Japanese Style",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-49-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-49-2026/Basic-Ingredients-recalls-Emma-Basic-Curry-Cubes.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-PRIN-51-2026",
+  "title": "Arla Foods Ltd recalls various Arla Protein Pudding products because they may contain glass",
+  "publishedAt": "2026-10-23T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "These products may contain glass which makes them unsafe to eat.",
+  "advice": "If you have bought the above products, do not eat them. Instead, return them to where you bought them from for a full refund. For further information, please co",
+  "products": [
+   {
+    "name": "Arla Protein Pudding, Chocolate",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Arla Protein Pudding, Salted Caramel",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Arla Protein Pudding, Vanilla Cookie",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-51-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-PRIN-51-2026/CLEARED-FSA-PRIN-51-2026-Arla-Foods-Ltd-recalls-various-Arla-Protein-Pudding-products.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-PRIN-50-2026",
+  "title": "SuperValu and Centra recall salmon and prawn cocktail products because of contamination with Listeria monocytogenes",
+  "publishedAt": "2026-10-21T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "The presence of Listeria monocytogenes in the products listed above. Symptoms caused by Listeria monocytogenes can be similar to flu and include high temperatur",
+  "advice": "If you have bought any of the above products, do not eat them. Instead, return them to where you bought them from for a full refund.",
+  "products": [
+   {
+    "name": "SUPERVALU SIGNATURE TASTE APPLEWOOD SMOKED SALMON",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "SUPERVALU SIGNATURE TASTE PRAWN COCKTAIL",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "SUPERVALU BBQ SMOKED SALMON",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "SUPERVALU PRAWN COCKTAIL 180g",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "SUPERVALU SMOKED SALMON 100g",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "CENTRA BBQ SALMON",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "CENTRA SMOKED SALMON",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "INSPIRED BY CENTRA APPLEWOOD SMOKED SALMON",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "INSPIRED BY CENTRA ATLANTIC PRAWN COCKTAIL",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-50-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-PRIN-50-2026/listeria-recall.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-48-2026",
+  "title": "Full On Flapjacks recalls various Flapjack products because of undeclared allergens",
+  "publishedAt": "2026-10-21T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Almonds (nuts), Soya, Wheat (gluten)\nThese products contain almonds, soya and wheat, making them a possible health risk for anyone with an allergy to almonds (n",
+  "advice": "If you have bought any of the above products and have an allergy to almonds (nuts) or soya, and/or an allergy or intolerance to wheat containing gluten, or with",
+  "products": [
+   {
+    "name": "Bakewell Flapjack (Undeclared allergens: Almonds (nuts), Soya, Wheat (gluten))",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Raspberry Yoghurt Flapjack (Undeclared allergens: Soya and Wheat (gluten))",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "White Chocolate Flapjack (Undeclared allergens: Soya and Wheat (gluten))",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Blueberry Swirl Flapjack (Undeclared allergens: Soya and Wheat (gluten))",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Caramel Flapjack (Undeclared allergens: Soya and Wheat (gluten))",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-48-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-48-2026/CLEARED-FSA-AA-48-2026-Full-On-Flapjack-Company-recalls-various-Flapjacks-because-of-undeclared-almonds-soya-and-wheat.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-47-2026",
+  "title": "Carroll’s of Tullamore recalls Traditional Lasagne because of undeclared allergens",
+  "publishedAt": "2026-10-18T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Allergens: Egg, Milk\nThis product contains Egg and Milk making it a possible health risk for anyone with an allergy or intolerance to egg or with an allergy or ",
+  "advice": "If you have bought the above product and have an allergy or intolerance to egg or an allergy or intolerance to milk or milk constituents, do not eat it. Instead",
+  "products": [
+   {
+    "name": "Carroll’s of Tullamore Traditional Lasagne",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-47-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-47-2026/FSA-AA-47-2026-Carroll-s-of-Tullamore-recalls-Traditional-Lasagne-Undeclared-Egg-and-Milk-Copy.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-46-2026",
+  "title": "Gilbert’s Kosher Foods Limited recalls Gilbert’s Chopped Liver because gluten has been incorrectly declared on the label",
+  "publishedAt": "2026-10-15T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "This product contains wheat (gluten), making it a possible health risk for anyone with an allergy or intolerance to wheat or gluten, or with coeliac disease.",
+  "advice": "If you have bought the above product and have an allergy or intolerance to wheat or gluten or coeliac disease, do not eat it. Instead, please return it to the s",
+  "products": [
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Gilbert’s Chopped Liver",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-46-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-46-2026/FSA-AA-46-2026-Gilberts-Kosher-Ltd-recalls-Chopped-Liver-because-it-contains-gluten-G7-CLEARANCE-VERSION-Copy.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-45-2026-update-1",
+  "title": "Update 1: Halo Foods Limited recalls Skinny Crunch Light Peanut Butter Bars because of undeclared peanuts",
+  "publishedAt": "2026-10-14T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Allergen: Peanuts\nThis product contains Peanuts making it a possible health risk for anyone with an allergy to Peanuts.\nThe affected products have been supplied",
+  "advice": "If you have bought the above product, do not eat it. Instead, return it to where you bought it from for a full refund.",
+  "products": [
+   {
+    "name": "Skinny Crunch Light Peanut Butter Bars",
+    "barcode": null,
+    "batches": [
+     "6238 (08:30 – 10:30)"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-45-2026-update-1",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-45-2026-update-1/FSA-AA-45-2026-Halo-Foods-Skinny-Crunch-Light-Peanut-Butter-Bars-Update-1-Copy.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-PRIN-49-2026",
+  "title": "Waitrose recalls Waitrose Tuna Pate because of an incorrect use-by date",
+  "publishedAt": "2026-10-13T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "The product is labelled with an incorrect use-by date of 17 December 2026, which makes it unsafe to eat after the correct use-by date of 17 October 2026.",
+  "advice": "If you have bought the above product, please do not consume it. Instead, return it to your local Waitrose store for a full refund. For further information, plea",
+  "products": [
+   {
+    "name": "Waitrose Tuna Pate",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-49-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-PRIN-49-2026/CLEARED-FSA-PRIN-49-2026-Waitrose-recalls-Waitrose-Tuna-Pate-because-of-an-incorrect-use-by-date-PDF.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-AA-45-2026",
+  "title": "Halo Foods Limited recalls Skinny Crunch Light Peanut Butter Bars because of undeclared peanuts",
+  "publishedAt": "2026-10-13T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "Peanuts.\nThis product contains Peanuts making it a possible health risk for anyone with an allergy to Peanuts.\nThe affected products have been supplied to selec",
+  "advice": "If you have bought the above product, do not eat it. Instead, return it to where you bought it from for a full refund.",
+  "products": [
+   {
+    "name": "Skinny Crunch Light Peanut Butter Bars",
+    "barcode": null,
+    "batches": [
+     "6238 (08:30 – 10:30)"
+    ]
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-45-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-AA-45-2026/FSA-AA-45-2026-Halo-Foods-Skinny-Crunch-Light-Peanut-Butter-Bars-PDF.pdf",
+  "imageUrl": null
+ },
+ {
+  "id": "fsa:FSA-FAFA-03-2026",
+  "title": "Food Alert For Action: To food businesses and consumers who have purchased shell eggs originating from Yasensvit Ltd, Ukraine, stamped with the code 3UA1012066",
+  "publishedAt": "2026-10-10T00:00:00.000Z",
+  "categories": [
+   "food-drink"
+  ],
+  "risk": null,
+  "summary": "The possible presence of Salmonella in the product listed above. Symptoms caused by Salmonella usually include fever, diarrhoea and abdominal cramps.",
+  "advice": "Consumers should check the code stamped on the egg; do not eat eggs stamped with 3UA1012066. Instead, dispose of them at home. These eggs are not sold in large ",
+  "products": [
+   {
+    "name": "The establishment: Yasensvit Ltd, Kyiv, Ukraine",
+    "barcode": null,
+    "batches": []
+   },
+   {
+    "name": "Raw shell-on eggs - Product Code 3UA1012066",
+    "barcode": null,
+    "batches": []
+   }
+  ],
+  "sourceUrl": "https://www.food.gov.uk/news-alerts/alert/fsa-fafa-03-2026",
+  "documentUrl": "https://s3-eu-west-1.amazonaws.com/fsa-alerts-files/production/FSA-FAFA-03-2026/Product-Images-Shell-eggs-originating-from-Yasensvit-Ltd-Ukraine-stamped-with-the-code-3UA1012066.pdf",
+  "imageUrl": null
+ }
+]
