@@ -68,7 +68,7 @@ const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
 // backfill may keep starting new batches, so the whole run stays well inside its time limit.
 const BACKFILL_SECONDS = 55;
 /** Shown in each run's report, so we can tell which version of the engine ran. */
-const ENGINE_VERSION = '2026-11-04.3';
+const ENGINE_VERSION = '2026-11-08.1';
 
 type Db = SupabaseClient;
 

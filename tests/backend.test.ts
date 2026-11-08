@@ -825,3 +825,18 @@ test('a download that keeps dropping says how far it got', async () => {
   await assert.rejects(getText(fetchFn as typeof fetch, 'https://example.org/page', { attempts: 1 }),
     /error reading a body from connection \(after 10 characters; encoding none, transfer none\)/);
 });
+
+// ───────── Allergens people type themselves ─────────
+
+import { mentionsOtherAllergen } from '../supabase/functions/_shared/matching.ts';
+
+test('an allergen someone typed in matches food recalls that mention it as a whole word', () => {
+  const r = { ...normaliseFsaAlert(fsaAllergy), title: 'Little Bakes recalls Fruit Pots because they contain undeclared kiwis', allergens: [] };
+  assert.equal(mentionsOtherAllergen(r, 'other:kiwi'), true);
+  assert.equal(mentionsOtherAllergen(r, 'other:pea protein'), false);
+  assert.equal(mentionsOtherAllergen(r, 'kiwi'), false, 'only typed-in allergens');
+  assert.equal(mentionsOtherAllergen({ ...r, title: 'Kiwifruit-flavour sweets recalled' }, 'other:kiwi'), false);
+  assert.equal(mentionsOtherAllergen({ ...r, alertType: 'recall', categories: ['electrical'], title: 'Kiwi brand charger recalled' }, 'other:kiwi'), false, 'not for non-food recalls');
+  const matches = matchRecall(r, [profile({ userId: 'kiwi', allergens: ['other:kiwi'] }), profile({ userId: 'none', allergens: ['other:coconut'] })], []);
+  assert.deepEqual(matches.map((m) => [m.userId, m.reason]), [['kiwi', 'allergen']]);
+});

@@ -36,6 +36,13 @@ jobs:
             echo "== $u"; curl -sS -m 30 -o /dev/null -w "%{http_code} %{content_type} %{size_download}\n" -A "HeadsUpHome/1.0 (+https://headsuphome.co.uk)" "$u" || true
             curl -sS -m 30 -v "$u" -o /dev/null 2>&1 | grep -E "^\* (Trying|Connected|SSL|ALPN)|^< HTTP|curl:" | head -12 || true
           done > out-network.log 2>&1
+      - name: SQL check (new migration in a scratch Postgres)
+        run: |
+          sudo systemctl start postgresql.service
+          sudo -u postgres psql -q -c "create role anon nologin; create role authenticated nologin; grant usage on schema public to anon, authenticated; grant select, insert on all tables in schema public to anon;" > out-sql.log 2>&1 || true
+          sudo -u postgres psql -v ON_ERROR_STOP=1 -f supabase/migrations/0009_shared_products.sql >> out-sql.log 2>&1 || echo "MIGRATION FAILED" >> out-sql.log
+          sudo -u postgres psql -q -c "grant insert on public.shared_products to anon;" >> out-sql.log 2>&1 || true
+          sudo -u postgres psql -v ON_ERROR_STOP=1 -f scripts/sql-tests/0009_shared_products_test.sql >> out-sql.log 2>&1 || echo "SQL TEST FAILED" >> out-sql.log
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v1.46.3

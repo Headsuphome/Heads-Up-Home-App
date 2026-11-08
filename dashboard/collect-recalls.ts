@@ -1871,8 +1871,9 @@ function matchRecall(recall: Recall, profiles: UserProfile[], cupboard: Cupboard
   for (const profile of recall.source === 'eu' ? [] : profiles) {
     if (byUser.has(profile.userId)) continue;
 
-    // 2. Allergens in their household.
-    if (recall.allergens.some((a) => profile.allergens.includes(a))) {
+    // 2. Allergens in their household: the 14 UK allergens, or ones they typed themselves.
+    if (recall.allergens.some((a) => profile.allergens.includes(a))
+      || profile.allergens.some((a) => mentionsOtherAllergen(recall, a))) {
       byUser.set(profile.userId, { userId: profile.userId, recallId: recall.id, reason: 'allergen', confidence: null, cupboardItemId: null });
       continue;
     }
@@ -1884,6 +1885,22 @@ function matchRecall(recall: Recall, profiles: UserProfile[], cupboard: Cupboard
   }
 
   return [...byUser.values()];
+}
+
+// Allergens people type themselves ("kiwi", "pea protein") arrive as "other:kiwi" beside the
+// 14 keys. Keep in step with mentionsOtherAllergen in the app's src/logic.js.
+const OTHER_ALLERGEN = 'other:';
+
+/** Whether a food recall mentions an allergen someone typed themselves, as a whole word. */
+function mentionsOtherAllergen(recall: Recall, key: string): boolean {
+  if (!key.startsWith(OTHER_ALLERGEN)) return false;
+  const word = key.slice(OTHER_ALLERGEN.length).trim();
+  if (word.length < 2) return false;
+  const food = recall.alertType === 'allergy' || recall.categories.includes('food-drink');
+  if (!food) return false;
+  const text = [recall.title, recall.summary, ...recall.products.map((p) => p.name)].join(' ').toLowerCase();
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(^|[^a-z])${escaped}(s|es)?([^a-z]|$)`).test(text);
 }
 
 /** The words on someone's lock screen. Short, calm and specific. */
@@ -2147,7 +2164,7 @@ const FIRST_RUN_DAYS_BY_SOURCE: Record<string, number> = { vmd: 365, hse: 730 };
 // backfill may keep starting new batches, so the whole run stays well inside its time limit.
 const BACKFILL_SECONDS = 55;
 /** Shown in each run's report, so we can tell which version of the engine ran. */
-const ENGINE_VERSION = '2026-11-04.3';
+const ENGINE_VERSION = '2026-11-08.1';
 
 type Db = SupabaseClient;
 
