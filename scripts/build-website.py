@@ -17,6 +17,7 @@ SITE = "https://headsuphome.co.uk"
 CONTROLLER = "Connor J Cronin"
 # Registration with the Information Commissioner's Office (data protection fee paid November 2026).
 ICO_NUMBER = "ZC292698"
+TERMS_UPDATED = "8 November 2026"
 
 LOGO = """<svg class="logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
   <rect width="100" height="100" rx="22" fill="#0E1A2B"/>
@@ -202,7 +203,7 @@ def page(*, path, title, description, current, body):
 </main>
 <footer class="foot">
   <div class="bar">
-    <div class="links"><a href="/">Home</a><a href="/support.html">Help and support</a><a href="/privacy.html">Privacy policy</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
+    <div class="links"><a href="/">Home</a><a href="/support.html">Help and support</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms of service</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
     <p>Heads Up Home is an independent app. It isn't run by, or connected to, the government, the Food Standards Agency, Food Standards Scotland, the Office for Product Safety and Standards, the MHRA, the Veterinary Medicines Directorate, the Health and Safety Executive or the European Commission. UK recall information comes from their public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>. EU warnings come from the European Commission's Safety Gate open data.</p>
     <p>&copy; 2026 Heads Up Home</p>
   </div>
@@ -575,6 +576,99 @@ SUPPORT = f"""
 """
 
 
+TERMS = f"""
+<article class="doc">
+  <h1>Terms of service</h1>
+  <p class="updated">Last updated {TERMS_UPDATED}</p>
+  <p class="lead">These terms cover the Heads Up Home app and this website. Please read section 3: Heads Up Home helps you hear about recalls, but it can't promise to catch every one.</p>
+
+  <nav class="contents" aria-label="On this page">
+    <p>On this page</p>
+    <ol>
+      <li><a href="#who">Who we are</a></li>
+      <li><a href="#what">What Heads Up Home does</a></li>
+      <li><a href="#limits">What it can't do</a></li>
+      <li><a href="#using">Using the app</a></li>
+      <li><a href="#premium">Premium and the free trial</a></li>
+      <li><a href="#content">Recall information and other content</a></li>
+      <li><a href="#privacy">Your information</a></li>
+      <li><a href="#changes">Changes, and if the service stops</a></li>
+      <li><a href="#responsibility">Our responsibility to you</a></li>
+      <li><a href="#law">Complaints and the law</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="who">1. Who we are</h2>
+  <p>Heads Up Home is run by Mr {CONTROLLER}, a sole trader based in the United Kingdom, trading as Heads Up Home. In these terms, "we", "us" and "our" mean Mr {CONTROLLER}. You can contact us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+  <p>By using the app you agree to these terms. Our <a href="/privacy.html">privacy policy</a> explains how we look after your information.</p>
+
+  <h2 id="what">2. What Heads Up Home does</h2>
+  <p>Heads Up Home collects the public recall and safety notices published by the UK's food, product, medicine, veterinary medicine and workplace safety organisations, and product safety warnings published by the European Commission. It tells you about the ones that match the categories, allergens and cupboard items you choose.</p>
+  <p>Heads Up Home is independent. It isn't run by, or connected to, any of those organisations.</p>
+
+  <section class="callout" aria-labelledby="limits">
+    <h2 id="limits">3. What it can't do</h2>
+    <ul>
+      <li><strong>It can't promise to catch every recall, or to tell you straight away.</strong> We check for new notices every hour and match them as carefully as we can. But notices can be published late, changed, or worded in ways we can't match. Alerts also depend on your phone, its settings, your internet connection and the companies that deliver notifications.</li>
+      <li><strong>Don't rely on it as your only way of hearing about recalls.</strong> Always check the official notice, which we link to, and the product's own label and packaging.</li>
+      <li><strong>If you have an allergy, keep checking every label.</strong> No alert doesn't mean a product is safe for you.</li>
+      <li><strong>It doesn't give medical, veterinary or legal advice.</strong> Before stopping or changing a medicine, talk to your pharmacist, doctor or nurse. For pet medicines, talk to your vet. In an emergency, call 999, or 111 for urgent medical advice.</li>
+      <li><strong>Product details can be wrong.</strong> When you scan a barcode, product names and photos come from shared databases such as Open Food Facts, which anyone can edit.</li>
+    </ul>
+  </section>
+
+  <h2 id="using">4. Using the app</h2>
+  <ul>
+    <li>Heads Up Home is free to download. The free plan includes every recall and safety alert, barcode scanning and a cupboard of up to 10 items.</li>
+    <li>It's designed for adults looking after a household.</li>
+    <li>Please don't misuse the app or our servers. That includes trying to get into anyone else's account, copying our recall database in bulk, overloading our systems, or taking the app apart, except where the law allows it.</li>
+  </ul>
+
+  <h2 id="premium">5. Premium and the free trial</h2>
+  <ul>
+    <li><strong>What Premium includes</strong> is described in the app before you buy. At the moment it's an unlimited cupboard.</li>
+    <li><strong>The free trial</strong> lasts 14 days and doesn't need any payment details. When it ends, you go back to the free plan.</li>
+    <li><strong>Paid plans aren't on sale yet.</strong> When they are, you'll buy them through Google Play (or the App Store on an iPhone). The price, how often you pay and the renewal terms are shown before you buy.</li>
+    <li><strong>Subscriptions renew automatically</strong> until you cancel. You can cancel at any time in Google Play: Play Store, then your profile picture, then <strong>Payments and subscriptions</strong>, then <strong>Subscriptions</strong>. You keep Premium until the end of the period you've paid for.</li>
+    <li><strong>Payments and refunds</strong> are handled by Google (or Apple) under their own terms. We never see your card details. If something goes wrong with a payment, email us as well and we'll help.</li>
+  </ul>
+  <p>None of this affects your legal rights as a consumer.</p>
+
+  <h2 id="content">6. Recall information and other content</h2>
+  <ul>
+    <li>UK recall information comes from public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</li>
+    <li>EU warnings come from the European Commission's Safety Gate open data.</li>
+    <li>Product names and photos come from <a href="https://world.openfoodfacts.org/">Open Food Facts</a>, available under the Open Database Licence, with photos under Creative Commons licences.</li>
+    <li>We sometimes shorten or reformat notices so they're easier to read. The official notice is always the one to follow.</li>
+    <li>The Heads Up Home name, logo and app, and the text we write ourselves, belong to us.</li>
+  </ul>
+
+  <h2 id="privacy">7. Your information</h2>
+  <p>Our <a href="/privacy.html">privacy policy</a> explains what we collect, why, and your rights. You can delete all your data at any time in the app: <strong>My alerts</strong>, then <strong>Delete my data</strong>.</p>
+
+  <h2 id="changes">8. Changes, and if the service stops</h2>
+  <ul>
+    <li>We may update the app, change its features or update these terms, for example to add new features or because the law changes. If a change is important, we'll tell you in the app, and the date at the top of this page will change.</li>
+    <li>If a change makes Premium significantly worse for you, tell us and we'll put it right, which may include a refund for time you haven't used.</li>
+    <li>We may pause the service for maintenance or because a source changes how it publishes notices. If we ever close Heads Up Home, we'll tell you in the app where we can, and refund any Premium time you've paid for but not used.</li>
+    <li>We may suspend an account that breaks these terms.</li>
+  </ul>
+
+  <h2 id="responsibility">9. Our responsibility to you</h2>
+  <ul>
+    <li>If we break these terms or don't use reasonable care and skill, we're responsible for loss or damage you suffer that was a foreseeable result. We're not responsible for loss that wasn't foreseeable.</li>
+    <li>Heads Up Home is for personal and household use. We're not responsible for any business losses.</li>
+    <li>We're not responsible for delays or problems caused by things outside our reasonable control, such as a source publishing a notice late or with mistakes, errors in shared product databases, or problems with your phone, your network or notification services.</li>
+    <li>Nothing in these terms limits our responsibility for death or personal injury caused by our negligence, for fraud, or for anything else the law doesn't allow us to limit. Your legal rights, including under the Consumer Rights Act 2015, aren't affected.</li>
+  </ul>
+
+  <h2 id="law">10. Complaints and the law</h2>
+  <p>If you're unhappy with anything, please email <a href="mailto:{EMAIL}">{EMAIL}</a> and we'll try to put it right. We aim to reply within a week.</p>
+  <p>These terms are governed by the law of England and Wales. If you live in Scotland or Northern Ireland, you can also bring legal proceedings in your local courts.</p>
+</article>
+"""
+
+
 def main():
     written = [
         page(path="/", title="Heads Up Home: UK recall alerts for your home",
@@ -586,6 +680,9 @@ def main():
         page(path="/support.html", title="Help and support | Heads Up Home",
              description="Answers to common questions about Heads Up Home, and how to contact us or delete your data.",
              current="support", body=SUPPORT),
+        page(path="/terms.html", title="Terms of service | Heads Up Home",
+             description="The terms for using the Heads Up Home app and website.",
+             current="terms", body=TERMS),
     ]
     # On IONOS the site sits beside a sample WordPress install, whose index.php would answer
     # first. A copy of the home page named index.php takes its place.
