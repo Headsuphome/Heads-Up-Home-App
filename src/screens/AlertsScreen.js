@@ -4,7 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { colors, radius, space, type } from '../theme';
 import { Button, Chip, SectionLabel } from '../components';
-import { ALLERGENS, CATEGORIES } from '../logic';
+import { CATEGORIES } from '../logic';
+import AllergenPicker from '../AllergenPicker';
 import { toggle } from '../storage';
 import { isPremium, planLabel } from '../plans';
 import { DATA_SOURCES, PRIVACY_URL, SUPPORT_EMAIL, SUPPORT_URL } from '../config';
@@ -71,11 +72,7 @@ export default function AlertsScreen({ prefs, update, account = {}, onEnableAler
 
       <View>
         <SectionLabel>Allergens in your household</SectionLabel>
-        <View style={styles.wrap}>
-          {ALLERGENS.map((a) => (
-            <Chip key={a.key} label={a.label} selected={prefs.allergens.includes(a.key)} onPress={() => update((p) => ({ allergens: toggle(p.allergens, a.key) }))} />
-          ))}
-        </View>
+        <AllergenPicker allergens={prefs.allergens} update={update} />
       </View>
 
       <View>

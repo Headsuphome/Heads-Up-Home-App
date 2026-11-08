@@ -34,7 +34,7 @@ test('database rows become screen-ready recalls', () => {
 
 test('badges say what kind of risk it is', () => {
   assert.deepEqual(badgeFor(oat), { text: 'Food recall', tone: 'info' });
-  assert.deepEqual(badgeFor(cookies), { text: 'Allergy · Milk, Eggs', tone: 'warning' });
+  assert.deepEqual(badgeFor(cookies), { text: 'Allergy · Dairy, Eggs', tone: 'warning' });
   assert.deepEqual(badgeFor(charger), { text: 'Serious risk', tone: 'danger' });
 });
 
@@ -166,4 +166,61 @@ test('EU warnings stay out of UK lists and counts, but show when they match the 
   assert.deepEqual(badgeFor(eu), { text: 'EU warning', tone: 'warning' });
   assert.equal(badgeFor(fromRow({ ...oatRow, source: 'mhra', alert_type: 'field-safety-notice' })).text, 'Medical device notice');
   assert.equal(badgeFor(fromRow({ ...oatRow, source: 'hse', alert_type: 'safety-alert', risk_level: 'serious' })).text, 'Work safety alert');
+});
+
+// ───────── Allergens: all 14, clearer names, and ones people type themselves ─────────
+
+import {
+  ALLERGENS, allergenLabel, hasAllAllergens, toggleAllAllergens, otherAllergenKey, mentionsOtherAllergen,
+  gtinValid, expandUpcE, productCodeFrom, scanConfirmer,
+} from '../src/logic.js';
+
+test('milk reads as dairy, and badges keep short names', () => {
+  assert.equal(ALLERGENS.length, 14);
+  assert.equal(ALLERGENS.find((a) => a.key === 'milk').label, 'Dairy (milk)');
+  assert.equal(allergenLabel('milk'), 'Dairy');
+  assert.equal(allergenLabel('crustaceans'), 'Crustaceans');
+  assert.equal(allergenLabel('other:pea protein'), 'Pea protein');
+});
+
+test('"All 14 allergens" picks every one, keeps typed ones, and clears again', () => {
+  const all = toggleAllAllergens(['eggs', 'other:kiwi']);
+  assert.equal(hasAllAllergens(all), true);
+  assert.ok(all.includes('other:kiwi'));
+  assert.deepEqual(toggleAllAllergens(all), ['other:kiwi']);
+});
+
+test('typed allergens are tidied and matched as whole words in food recalls only', () => {
+  assert.equal(otherAllergenKey('  Kiwi! '), 'other:kiwi');
+  assert.equal(otherAllergenKey('a'), null);
+  const kiwiRecall = { ...cookies, alertType: 'allergy', title: 'Little Bakes recalls Fruit Pots because they contain undeclared kiwis', allergens: [] };
+  assert.equal(mentionsOtherAllergen(kiwiRecall, 'other:kiwi'), true);
+  assert.equal(mentionsOtherAllergen({ ...kiwiRecall, title: 'Kiwifruit-flavour sweets recalled' }, 'other:kiwi'), false);
+  assert.equal(mentionsOtherAllergen({ ...charger, title: 'Kiwi charger recalled' }, 'other:kiwi'), false);
+  assert.equal(relevance(kiwiRecall, prefs({ allergens: ['other:kiwi'] })), 'allergen');
+  assert.equal(relevance(kiwiRecall, prefs({ allergens: ['other:coconut'] })), null);
+});
+
+// ───────── Scanner: only real product codes, read steadily ─────────
+
+test('barcodes must pass the check digit', () => {
+  assert.equal(gtinValid('5000112637922'), true); // EAN-13
+  assert.equal(gtinValid('5000112637923'), false);
+  assert.equal(gtinValid('96385074'), true); // EAN-8
+  assert.equal(gtinValid('036000291452'), true); // UPC-A
+  assert.equal(gtinValid('12345'), false);
+  assert.equal(expandUpcE('04252614'), '042100005264');
+  assert.equal(productCodeFrom('04252614', 'upc_e'), '04252614');
+  assert.equal(productCodeFrom('5000112637923', 'ean13'), null, 'a misread fails the check digit');
+});
+
+test('a code is accepted only after it reads the same for most of a second', () => {
+  const confirm = scanConfirmer();
+  assert.equal(confirm('5000112637922', 'ean13', 0).state, 'reading');
+  assert.equal(confirm('5000112637923', 'ean13', 100).state, 'ignored');
+  assert.equal(confirm('5000112637922', 'ean13', 300).state, 'reading');
+  assert.equal(confirm('5000112637922', 'ean13', 600).state, 'reading', 'three reads, but too quick');
+  const done = confirm('5000112637922', 'ean13', 950);
+  assert.equal(done.state, 'confirmed');
+  assert.equal(done.code, '5000112637922');
 });

@@ -98,28 +98,74 @@ export async function recallsForBarcode(code) {
   }
 }
 
-/**
- * A product's name and brand from Open Food Facts, looked up by its barcode, to fill in the
- * cupboard form after a scan. Covers food and drink; for anything else the person types the name.
- */
-export async function productForBarcode(barcode) {
-  const code = String(barcode || '').replace(/\D/g, '');
-  if (code.length < 8) return null;
+// Free, shared product databases from the Open Food Facts project, each with the same API.
+// Food first, then cosmetics and toiletries, pet food, and everything else.
+const PRODUCT_DATABASES = [
+  { host: 'world.openfoodfacts.org', source: 'Open Food Facts' },
+  { host: 'world.openbeautyfacts.org', source: 'Open Beauty Facts' },
+  { host: 'world.openpetfoodfacts.org', source: 'Open Pet Food Facts' },
+  { host: 'world.openproductsfacts.org', source: 'Open Products Facts' },
+];
+const PRODUCT_FIELDS = 'product_name,product_name_en,generic_name,brands,quantity,image_front_small_url,image_front_url';
+
+async function productFrom(db, code) {
   try {
-    const res = await fetch(
-      `https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=product_name,product_name_en,brands,quantity`,
-      { headers: { 'User-Agent': 'HeadsUpHome/0.1 (support@headsuphome.co.uk)' } },
-    );
+    const res = await fetch(`https://${db.host}/api/v2/product/${code}.json?fields=${PRODUCT_FIELDS}`, {
+      headers: { 'User-Agent': 'HeadsUpHome/1.0 (support@headsuphome.co.uk)' },
+    });
     if (!res.ok) return null;
     const json = await res.json();
     if (json.status !== 1 || !json.product) return null;
     const p = json.product;
-    const name = (p.product_name_en || p.product_name || '').trim();
+    const name = String(p.product_name_en || p.product_name || p.generic_name || '').trim();
     if (!name) return null;
-    const brand = String(p.brands || '').split(',')[0].trim();
-    const quantity = String(p.quantity || '').trim();
-    return { name: quantity && !name.includes(quantity) ? `${name} ${quantity}` : name, brand: brand || null };
+    return {
+      name,
+      brand: String(p.brands || '').split(',')[0].trim() || null,
+      size: String(p.quantity || '').trim() || null,
+      photo: p.image_front_small_url || p.image_front_url || null,
+      source: db.source,
+    };
   } catch (e) {
     return null;
+  }
+}
+
+/** A name Heads Up Home users have given this barcode, from our own shared product list. */
+async function sharedProduct(code) {
+  try {
+    const rows = await get(`shared_products?select=name,brand&barcode=eq.${encodeURIComponent(code.replace(/^0+/, ''))}&limit=1`);
+    if (!rows.length) return null;
+    return { name: rows[0].name, brand: rows[0].brand || null, size: null, photo: null, source: 'Heads Up Home users' };
+  } catch (e) {
+    return null; // the list isn't set up yet, or we're offline
+  }
+}
+
+/**
+ * What a barcode is: name, brand, size, photo and where we found it. Asks every database at
+ * once and keeps the best answer: the official product databases first, then our own list.
+ * Null when nobody knows the product yet.
+ */
+export async function productForBarcode(barcode) {
+  const code = String(barcode || '').replace(/\D/g, '');
+  if (code.length < 8) return null;
+  const answers = await Promise.all([...PRODUCT_DATABASES.map((db) => productFrom(db, code)), sharedProduct(code)]);
+  return answers.find(Boolean) || null;
+}
+
+/**
+ * Adds a name someone typed for an unknown barcode to Heads Up Home's shared product list,
+ * so the next person who scans it sees what it is. Nothing about the person is sent.
+ */
+export async function suggestProductName(barcode, name, brand) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/rpc/suggest_product`, {
+      method: 'POST',
+      headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_barcode: String(barcode || ''), p_name: name, p_brand: brand || null }),
+    });
+  } catch (e) {
+    // Best effort: the item is still saved in their cupboard.
   }
 }

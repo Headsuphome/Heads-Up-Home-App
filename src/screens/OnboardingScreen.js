@@ -3,7 +3,8 @@ import { ActivityIndicator, Linking, ScrollView, StyleSheet, Text, View } from '
 import { Ionicons } from '@expo/vector-icons';
 import { colorFor, colors, radius, space, type } from '../theme';
 import { Button, CategoryIcon, Chip, SectionLabel } from '../components';
-import { ALLERGENS, CATEGORIES } from '../logic';
+import { CATEGORIES } from '../logic';
+import AllergenPicker from '../AllergenPicker';
 import { toggle } from '../storage';
 import { PRICES, TRIAL_DAYS, startTrial } from '../plans';
 import { PRIVACY_URL } from '../config';
@@ -86,11 +87,7 @@ export default function OnboardingScreen({ prefs, update, onEnableAlerts, onFini
         </View>
         <View>
           <SectionLabel>Allergens in your household</SectionLabel>
-          <View style={styles.wrap}>
-            {ALLERGENS.map((a) => (
-              <Chip key={a.key} label={a.label} selected={prefs.allergens.includes(a.key)} onPress={() => update((p) => ({ allergens: toggle(p.allergens, a.key) }))} />
-            ))}
-          </View>
+          <AllergenPicker allergens={prefs.allergens} update={update} />
           <Text style={[type.small, { lineHeight: 19, marginTop: space.md }]}>
             Allergies count as health information. We only use your choices to find recalls for you, and you can change or clear them at any time.
           </Text>

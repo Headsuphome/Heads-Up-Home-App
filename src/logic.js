@@ -14,26 +14,79 @@ export const CATEGORIES = [
   { key: 'other', label: 'Other', icon: 'ellipsis-horizontal-circle-outline' },
 ];
 
-/** The 14 allergens UK food law requires to be declared. Keys match the backend. */
+/**
+ * The 14 allergens UK food law requires to be declared. Keys match the backend.
+ * `label` is what people pick from; `short` is used on badges. Most common first.
+ */
 export const ALLERGENS = [
-  { key: 'celery', label: 'Celery' },
-  { key: 'gluten', label: 'Gluten' },
-  { key: 'crustaceans', label: 'Crustaceans' },
-  { key: 'eggs', label: 'Eggs' },
-  { key: 'fish', label: 'Fish' },
-  { key: 'lupin', label: 'Lupin' },
-  { key: 'milk', label: 'Milk' },
-  { key: 'molluscs', label: 'Molluscs' },
-  { key: 'mustard', label: 'Mustard' },
-  { key: 'tree-nuts', label: 'Tree nuts' },
-  { key: 'peanuts', label: 'Peanuts' },
-  { key: 'sesame', label: 'Sesame' },
-  { key: 'soya', label: 'Soya' },
-  { key: 'sulphites', label: 'Sulphites' },
+  { key: 'milk', label: 'Dairy (milk)', short: 'Dairy' },
+  { key: 'eggs', label: 'Eggs', short: 'Eggs' },
+  { key: 'peanuts', label: 'Peanuts', short: 'Peanuts' },
+  { key: 'tree-nuts', label: 'Tree nuts (almonds, cashews, walnuts…)', short: 'Tree nuts' },
+  { key: 'gluten', label: 'Gluten (wheat, barley, rye, oats)', short: 'Gluten' },
+  { key: 'soya', label: 'Soya', short: 'Soya' },
+  { key: 'sesame', label: 'Sesame', short: 'Sesame' },
+  { key: 'fish', label: 'Fish', short: 'Fish' },
+  { key: 'crustaceans', label: 'Crustaceans (prawns, crab, lobster)', short: 'Crustaceans' },
+  { key: 'molluscs', label: 'Molluscs (mussels, oysters, squid)', short: 'Molluscs' },
+  { key: 'celery', label: 'Celery', short: 'Celery' },
+  { key: 'mustard', label: 'Mustard', short: 'Mustard' },
+  { key: 'lupin', label: 'Lupin (a flour made from beans)', short: 'Lupin' },
+  { key: 'sulphites', label: 'Sulphites (in wine, dried fruit)', short: 'Sulphites' },
 ];
 
+export const ALLERGEN_KEYS = ALLERGENS.map((a) => a.key);
+
+/** True when every one of the 14 is chosen. */
+export function hasAllAllergens(chosen) {
+  return ALLERGEN_KEYS.every((k) => (chosen || []).includes(k));
+}
+
+/** Picks all 14 (keeping any "other" allergens), or clears them if all 14 are already picked. */
+export function toggleAllAllergens(chosen) {
+  const others = (chosen || []).filter((a) => isOtherAllergen(a));
+  return hasAllAllergens(chosen) ? others : [...ALLERGEN_KEYS, ...others];
+}
+
+// Allergens people type themselves ("kiwi", "pea protein") are stored as "other:kiwi",
+// beside the 14 keys, so they sync to the account with no extra setup.
+const OTHER = 'other:';
+export const MAX_OTHER_ALLERGENS = 10;
+
+export function isOtherAllergen(key) {
+  return typeof key === 'string' && key.startsWith(OTHER);
+}
+
+/** "  Pea   Protein " -> "other:pea protein", or null if it isn't a usable word. */
+export function otherAllergenKey(text) {
+  const word = String(text || '').toLowerCase().replace(/[^a-z\s-]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (word.length < 2 || word.length > 30) return null;
+  return OTHER + word;
+}
+
+export function otherAllergenWord(key) {
+  return isOtherAllergen(key) ? key.slice(OTHER.length) : null;
+}
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Whether a food recall mentions an allergen someone typed themselves.
+ * Only food and allergy recalls count, and only whole words ("kiwi" or "kiwis", not "kiwifruit-flavour").
+ */
+export function mentionsOtherAllergen(recall, key) {
+  const word = otherAllergenWord(key);
+  if (!word) return false;
+  const food = recall.alertType === 'allergy' || (recall.categories || []).includes('food-drink');
+  if (!food) return false;
+  const text = [recall.title, recall.summary, ...(recall.products || []).map((p) => p.name)].join(' ').toLowerCase();
+  return new RegExp(`(^|[^a-z])${escapeRegExp(word)}(s|es)?([^a-z]|$)`).test(text);
+}
+
 const categoryLabels = Object.fromEntries(CATEGORIES.map((c) => [c.key, c.label]));
-const allergenLabels = Object.fromEntries(ALLERGENS.map((a) => [a.key, a.label]));
+const allergenLabels = Object.fromEntries(ALLERGENS.map((a) => [a.key, a.short]));
 
 export const categoryLabel = (key) => categoryLabels[key] || 'Other';
 
@@ -71,7 +124,11 @@ export function firstBarcode(recall) {
   const p = (recall.products || []).find((x) => x.barcode);
   return p ? p.barcode : null;
 }
-export const allergenLabel = (key) => allergenLabels[key] || key;
+export const allergenLabel = (key) => {
+  if (allergenLabels[key]) return allergenLabels[key];
+  const word = otherAllergenWord(key);
+  return word ? word.charAt(0).toUpperCase() + word.slice(1) : key;
+};
 
 /** Turns a database row into the shape the screens use. */
 export function fromRow(row) {
@@ -193,6 +250,63 @@ function barcodesMatch(a, b) {
   return cleanBarcode(a).length >= 8 && cleanBarcode(a) === cleanBarcode(b);
 }
 
+/** Whether a product barcode's last digit checks out (EAN-8, UPC-A, EAN-13, GTIN-14). */
+export function gtinValid(code) {
+  const digits = String(code || '');
+  if (!/^\d+$/.test(digits) || ![8, 12, 13, 14].includes(digits.length)) return false;
+  let sum = 0;
+  for (let i = 1; i < digits.length; i++) {
+    sum += Number(digits[digits.length - 1 - i]) * (i % 2 === 1 ? 3 : 1);
+  }
+  return (10 - (sum % 10)) % 10 === Number(digits[digits.length - 1]);
+}
+
+/** A short 8-digit UPC-E code written out as the 12-digit UPC-A it stands for, or null. */
+export function expandUpcE(code) {
+  const d = String(code || '');
+  if (!/^[01]\d{7}$/.test(d)) return null;
+  const [ns, a, b, c, e, f, g, check] = d;
+  let body;
+  if ('012'.includes(g)) body = `${a}${b}${g}0000${c}${e}${f}`;
+  else if (g === '3') body = `${a}${b}${c}00000${e}${f}`;
+  else if (g === '4') body = `${a}${b}${c}${e}00000${f}`;
+  else body = `${a}${b}${c}${e}${f}0000${g}`;
+  return `${ns}${body}${check}`;
+}
+
+/**
+ * The digits of a scanned product barcode, or null if it doesn't check out as one.
+ * A misread label or half a barcode almost never passes the check digit, so it's ignored.
+ */
+export function productCodeFrom(data, kind) {
+  const digits = String(data || '').replace(/\D/g, '');
+  if (gtinValid(digits)) return digits;
+  if (digits.length === 8 && (String(kind || '').toLowerCase().includes('upc') || !gtinValid(digits))) {
+    const upcA = expandUpcE(digits);
+    if (upcA && gtinValid(upcA)) return digits;
+  }
+  return null;
+}
+
+/**
+ * Waits until the camera has read the same code several times over most of a second before
+ * accepting it, so a glimpse of a different barcode or a misread doesn't count. Returns a function
+ * that takes each reading and says 'confirmed', 'reading' (keep holding) or 'ignored'.
+ */
+export function scanConfirmer({ reads = 3, ms = 900, forgetAfter = 2500 } = {}) {
+  const seen = new Map();
+  return (data, kind, now = Date.now()) => {
+    const code = productCodeFrom(data, kind);
+    if (!code) return { state: 'ignored', code: null };
+    for (const [c, s] of seen) if (now - s.last > forgetAfter) seen.delete(c);
+    const s = seen.get(code) || { first: now, last: now, reads: 0 };
+    s.reads += 1;
+    s.last = now;
+    seen.set(code, s);
+    return { state: s.reads >= reads && now - s.first >= ms ? 'confirmed' : 'reading', code };
+  };
+}
+
 /** The ways the same barcode might be written in a recall notice (with or without leading zeros). */
 export function barcodeVariants(code) {
   const core = cleanBarcode(code);
@@ -248,6 +362,7 @@ export function cupboardMatches(cupboard, recalls) {
 export function relevance(recall, prefs, matchedIds) {
   if (matchedIds && matchedIds.has(recall.id)) return 'cupboard';
   if (recall.allergens.some((a) => prefs.allergens.includes(a))) return 'allergen';
+  if (isUkRecall(recall) && prefs.allergens.some((a) => isOtherAllergen(a) && mentionsOtherAllergen(recall, a))) return 'allergen';
   if (recall.categories.some((c) => prefs.categories.includes(c))) return 'category';
   return null;
 }

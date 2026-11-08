@@ -9,7 +9,7 @@ is loaded from any other company (no fonts, scripts, cookies or trackers).
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "website"
-UPDATED = "17 October 2026"
+UPDATED = "8 November 2026"
 EMAIL = "support@headsuphome.co.uk"
 SITE = "https://headsuphome.co.uk"
 
@@ -382,6 +382,9 @@ PRIVACY = f"""
   <p>When the app or this website connects to our servers, our providers automatically record technical details such as your IP address, the type of device and the time. They keep these logs for a short time, to keep the service secure and fix problems.</p>
   <p>When you search for a recall or scan a barcode, the words or barcode are sent to our servers so we can check every recall, including older ones. They aren't saved to your account, but they may appear in those short-lived logs.</p>
 
+  <h3>Our shared product list</h3>
+  <p>If you scan a barcode that none of the product databases know and type the product's name to add it to your cupboard, that barcode, name and brand are added to Heads Up Home's shared product list. Then the next person who scans it can see what it is. Nothing about you is added with it, and it isn't linked to your account. Please don't type personal information into product names.</p>
+
   <h3>Your camera</h3>
   <p>If you choose to scan a barcode, the app uses your camera only to read it. Nothing is recorded or saved, and the camera is never used at any other time.</p>
 
@@ -418,7 +421,7 @@ PRIVACY = f"""
       <tr><td>Supabase</td><td>Hosts our database and private accounts. Your account and choices are stored in London, UK.</td></tr>
       <tr><td>Expo (650 Industries, Inc., USA)</td><td>Passes alerts from our servers to your phone. It receives your phone's alert address and the text of each alert, which may include the name of a cupboard item.</td></tr>
       <tr><td>Google (Firebase Cloud Messaging) and, on iPhones, Apple</td><td>Deliver notifications to Android phones and iPhones.</td></tr>
-      <tr><td>Open Food Facts (France)</td><td>A free, shared database of food products. When you scan a barcode, the app asks Open Food Facts for the product's name, and when you open a food recall that has a barcode but no official photo, it asks for a photo. Only the barcode is sent, nothing about you, though like any website they'll see your IP address.</td></tr>
+      <tr><td>Open Food Facts (France)</td><td>Free, shared product databases: Open Food Facts, Open Beauty Facts, Open Pet Food Facts and Open Products Facts. When you scan a barcode, the app asks them what the product is, and when you open a food recall that has a barcode but no official photo, it asks for a photo. Only the barcode is sent, nothing about you, though like any website they'll see your IP address.</td></tr>
       <tr><td>IONOS</td><td>Hosts this website.</td></tr>
     </tbody>
   </table>
@@ -498,7 +501,7 @@ SUPPORT = f"""
   <h3>How do alerts work?</h3>
   <p>Every hour, Heads Up Home checks for new recalls from the UK's food, product and medicine safety organisations. When a new recall matches something you've told us about, we send an alert to your phone:</p>
   <ul>
-    <li><strong>Allergy alerts</strong> when a food is recalled because of an allergen in your household.</li>
+    <li><strong>Allergy alerts</strong> when a food is recalled because of an allergen in your household. Choose from the 14 allergens food labels must show, tap <strong>All 14 allergens</strong> to follow them all, or add anything else your household avoids, like kiwi.</li>
     <li><strong>Cupboard alerts</strong> when a recall may match something in your cupboard.</li>
     <li><strong>Category alerts</strong> for the kinds of recall you watch, like baby products or electricals.</li>
   </ul>
@@ -519,7 +522,9 @@ SUPPORT = f"""
   <h3>What is the cupboard?</h3>
   <p>It's a list of things you have at home, like baby food, chargers or toys. Scan each item's barcode or type its name and brand, and we'll check every new recall against your list. The free cupboard holds 10 items; Premium has no limit.</p>
   <h3>How do I scan a barcode?</h3>
-  <p>To add something to your cupboard, tap <strong>Scan a barcode</strong> in your cupboard. To check a product, for example while you're shopping, tap <strong>Check a product</strong> on the home screen. Allow the camera when your phone asks, then point it at the barcode. If the camera won't read it, you can type the numbers under the barcode instead.</p>
+  <p>To add something to your cupboard, tap <strong>Scan a barcode</strong> in your cupboard. To check a product, for example while you're shopping, tap <strong>Check a product</strong> on the home screen. Allow the camera when your phone asks, then point it at the barcode and hold it steady for a moment. The frame turns green while it reads, which takes about a second. If the camera won't read it, you can type the numbers under the barcode instead.</p>
+  <h3>The scanner didn't know my product</h3>
+  <p>We look products up in several free product databases, covering food, toiletries, cosmetics, pet food and household goods, but none of them knows everything. If yours isn't found, type its name and brand and it's added to your cupboard as normal. Your name for it then helps the next person who scans it.</p>
   <h3>What does "possible match" mean?</h3>
   <p>Most recalls only affect certain batches, so a name match doesn't always mean your pack is affected. When you see a possible match, open the recall and compare the batch code, best before date and pack size with your product. If yours doesn't match, tap <strong>Not mine</strong> and we won't alert you about it again.</p>
 
@@ -613,7 +618,7 @@ TERMS = f"""
       <li><strong>Don't rely on it as your only way of hearing about recalls.</strong> Always check the official notice, which we link to, and the product's own label and packaging.</li>
       <li><strong>If you have an allergy, keep checking every label.</strong> No alert doesn't mean a product is safe for you.</li>
       <li><strong>It doesn't give medical, veterinary or legal advice.</strong> Before stopping or changing a medicine, talk to your pharmacist, doctor or nurse. For pet medicines, talk to your vet. In an emergency, call 999, or 111 for urgent medical advice.</li>
-      <li><strong>Product details can be wrong.</strong> When you scan a barcode, product names and photos come from shared databases such as Open Food Facts, which anyone can edit.</li>
+      <li><strong>Product details can be wrong.</strong> When you scan a barcode, product names and photos come from shared databases such as Open Food Facts, and from names other Heads Up Home users have typed in. Anyone can add to them.</li>
     </ul>
   </section>
 
@@ -638,7 +643,8 @@ TERMS = f"""
   <ul>
     <li>UK recall information comes from public notices and contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</li>
     <li>EU warnings come from the European Commission's Safety Gate open data.</li>
-    <li>Product names and photos come from <a href="https://world.openfoodfacts.org/">Open Food Facts</a>, available under the Open Database Licence, with photos under Creative Commons licences.</li>
+    <li>Product names and photos come from <a href="https://world.openfoodfacts.org/">Open Food Facts</a> and its sister databases (Open Beauty Facts, Open Pet Food Facts and Open Products Facts), available under the Open Database Licence, with photos under Creative Commons licences.</li>
+    <li>If you type a name for a barcode no database knows, you let us add that name and barcode to our shared product list, so others can see what the product is. Please only type the product's name and brand.</li>
     <li>We sometimes shorten or reformat notices so they're easier to read. The official notice is always the one to follow.</li>
     <li>The Heads Up Home name, logo and app, and the text we write ourselves, belong to us.</li>
   </ul>
